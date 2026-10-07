@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Roo's Purrfect Paws</title>
+<meta name="description" content="Dog and cat grooming and in-home pet sitting at 5380 E Lake Road, Sheffield Lake, Ohio. Call (440) 228-3999 to book.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Nunito:ital,wght@0,400;0,600;0,800;0,900;1,600&display=swap">
+<style>
+/* Layout: sticky bar → blush hero (name + appointment card, soap bubbles) → scalloped edge → grooming price table → lavender pet-sitting rates → photo wall → policies + payment → about → plum visit block */
+:root{
+  color-scheme:light;
+  --white:#ffffff;
+  --blush:#fdeaf3;
+  --pink:#c93a84;
+  --pink-soft:#f6a9cc;
+  --lav:#e6dbfa;
+  --lav-soft:#f4effd;
+  --lav-deep:#7a59bd;
+  --plum:#3b2448;
+  --plum-mut:#6f5a7c;
+  --line:#efd9e8;
+  --fawn:#d9a265;
+  --fawn-dk:#b27a42;
+  --mask:#2b1d26;
+  --display:"Shrikhand","Cooper Black",Georgia,serif;
+  --body:"Nunito","Avenir Next","Segoe UI",system-ui,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*:before,*:after{box-sizing:inherit}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:70px}
+body{margin:0;background:var(--white);color:var(--plum);font:17px/1.6 var(--body);font-weight:600}
+img{max-width:100%;display:block}
+[hidden]{display:none!important}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--lav-deep);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:20px}
+
+/* bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;min-width:0}
+.logo svg{flex:none;width:34px;height:34px}
+.logo span{font-family:var(--display);font-size:21px;color:var(--pink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav{display:flex;align-items:center;gap:20px}
+.nav a{text-decoration:none;font-weight:800;font-size:15px;color:var(--plum-mut)}
+.nav a:hover{color:var(--pink)}
+.nav a.btn,.nav a.btn:hover{color:var(--white)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:10px 22px;border-radius:999px;border:2px solid var(--pink);background:var(--pink);color:var(--white);font:900 16px/1 var(--body);text-decoration:none;cursor:pointer;transition:transform .15s,box-shadow .15s,background .15s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px -8px var(--pink)}
+.btn.ghost{background:var(--white);color:var(--pink)}
+.btn.sm{min-height:40px;padding:8px 16px;font-size:14px}
+.btn svg{width:18px;height:18px;flex:none}
+
+/* hero */
+.hero{position:relative;background:var(--blush);overflow:hidden}
+.hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;padding-block:64px 92px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--white);color:var(--lav-deep);font-weight:900;font-size:13px;letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border-radius:999px;border:1.5px solid var(--lav)}
+.hero h1{font-family:var(--display);font-weight:400;font-size:clamp(46px,8vw,92px);line-height:.98;margin:20px 0 18px;color:var(--pink);text-shadow:4px 4px 0 var(--lav);text-wrap:balance;letter-spacing:-.01em}
+.hero p.intro{font-size:20px;max-width:30em;margin:0 0 28px;color:var(--plum)}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}
+.hero-side{display:grid;justify-items:center;min-width:0}
+.photo{width:min(100%,380px);aspect-ratio:1;border-radius:50% 50% 46% 54%/55% 48% 52% 45%;overflow:hidden;border:8px solid var(--white);box-shadow:0 20px 40px -20px rgba(201,58,132,.45);background:var(--lav);margin-bottom:-36px}
+.photo img{width:100%;height:100%;object-fit:cover}
+
+/* appointment card */
+.card{position:relative;width:min(100%,380px);background:var(--white);border-radius:22px;padding:22px 24px 20px;box-shadow:0 18px 40px -22px rgba(59,36,72,.45);border:1.5px solid var(--line)}
+.card:before,.card:after{content:"";position:absolute;top:64px;width:22px;height:22px;border-radius:50%;background:var(--blush)}
+.card:before{left:-12px;border-right:1.5px solid var(--line)}
+.card:after{right:-12px;border-left:1.5px solid var(--line)}
+.card h3{margin:0 0 14px;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--lav-deep);font-weight:900;padding-bottom:14px;border-bottom:2px dashed var(--line);display:flex;justify-content:space-between}
+.card dl{margin:0;display:grid;gap:12px}
+.card dl div{display:grid;grid-template-columns:86px 1fr;gap:10px;align-items:baseline}
+.card dt{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:var(--plum-mut)}
+.card dd{margin:0;font-weight:800;min-width:0;overflow-wrap:anywhere}
+.card dd a{text-decoration-color:var(--pink-soft);text-underline-offset:3px}
+
+/* bubbles */
+/* soap bubbles: drift up through the hero; hover or tap pops them, tapping open space blows new ones */
+.bubbles{position:absolute;inset:0;pointer-events:none;z-index:0}
+.bubbles i{position:absolute;bottom:-80px;animation:rise linear infinite}
+.bubbles i b,.puff b{display:block;width:100%;height:100%;border-radius:50%;background:radial-gradient(circle at 32% 30%,rgba(255,255,255,.95) 0 12%,rgba(255,255,255,.25) 13% 55%,rgba(230,219,250,.55) 70%,rgba(246,169,204,.5) 100%);border:1.5px solid rgba(255,255,255,.85);opacity:.9}
+.bubbles i.pop b{animation:pop .32s ease-out forwards}
+@keyframes rise{0%{transform:translate(0,0) scale(.9)}50%{transform:translate(18px,-48vh) scale(1)}100%{transform:translate(-10px,-105vh) scale(1.05);opacity:0}}
+@keyframes pop{0%{transform:scale(1);opacity:.9}60%{transform:scale(1.35);opacity:.6}100%{transform:scale(1.5);opacity:0}}
+.drop{position:absolute;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:var(--white);box-shadow:0 0 0 1.5px var(--pink-soft);pointer-events:none;z-index:4;animation:drop .5s ease-out forwards}
+@keyframes drop{to{transform:translate(var(--dx),var(--dy)) scale(.3);opacity:0}}
+.puff{position:absolute;pointer-events:none;z-index:0;animation:puff var(--d,3s) ease-out forwards}
+@keyframes puff{0%{transform:translate(-50%,-50%) scale(.3)}15%{transform:translate(-50%,-50%) scale(1)}100%{transform:translate(calc(-50% + var(--dx)),calc(-50% - 260px)) scale(1.05);opacity:0}}
+@media (prefers-reduced-motion:reduce){.bubbles i{animation:none;bottom:auto}}
+
+/* title: letters land with a squishy bounce, then a groomer's-shine sweeps across now and then */
+.hero h1{position:relative}
+.hero h1 .w{display:inline-block;white-space:nowrap}
+.hero h1 .ch{display:inline-block;animation:jelly .9s cubic-bezier(.3,.7,.4,1.2) both;animation-delay:calc(var(--i)*45ms);transform-origin:50% 90%}
+@keyframes jelly{0%{transform:translateY(-.35em) scale(1,1)}35%{transform:translateY(0) scale(1.18,.8)}55%{transform:scale(.9,1.12)}75%{transform:scale(1.05,.95)}100%{transform:none}}
+@keyframes jelly2{0%,100%{transform:none}30%{transform:scale(1.2,.82)}55%{transform:scale(.9,1.12) translateY(-.06em)}78%{transform:scale(1.04,.97)}}
+.hero h1 .shine{position:absolute;left:0;top:0;right:0;color:transparent;-webkit-text-fill-color:transparent;text-shadow:none;pointer-events:none;background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.85) 50%,transparent 58%) 160% 0/260% 100% no-repeat;-webkit-background-clip:text;background-clip:text;animation:shine 7s ease-in-out 2.2s infinite}
+.hero h1 .shine .ch{animation:none}
+@keyframes shine{0%{background-position:160% 0}28%,100%{background-position:-60% 0}}
+/* paw-print bubbles floating beside the first word of the title */
+.hero h1 .w.first{position:relative}
+.pawbubs{position:absolute;left:calc(100% + .22em);top:-.02em;width:1.5em;height:1.05em;pointer-events:none;text-shadow:none}
+.pawbubs i{position:absolute;display:block;border-radius:50%;animation:pawfloat 4.2s ease-in-out infinite alternate;animation-delay:var(--dl)}
+.pawbubs i b{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;
+  background:radial-gradient(circle at 30% 26%,rgba(255,255,255,.98) 0 9%,rgba(255,255,255,.55) 10% 34%,rgba(255,255,255,.18) 52%,rgba(230,219,250,.6) 78%,rgba(246,169,204,.7) 100%);
+  border:2px solid rgba(255,255,255,.95);box-shadow:inset -3px -4px 8px rgba(201,58,132,.18),0 6px 14px -8px rgba(122,89,189,.55)}
+.pawbubs i svg{width:50%;height:50%;color:var(--pink);opacity:.9;transform:rotate(var(--r))}
+.pawbubs .b1{left:0;top:.24em;width:.6em;height:.6em}
+.pawbubs .b2{left:.66em;top:0;width:.42em;height:.42em;animation-duration:3.6s}
+.pawbubs .b3{left:.58em;top:.6em;width:.3em;height:.3em;animation-duration:3.1s}
+@keyframes pawfloat{0%{transform:translate(0,0) rotate(-4deg)}50%{transform:translate(.03em,-.07em) rotate(3deg)}100%{transform:translate(-.02em,-.02em) rotate(-2deg)}}
+@media (prefers-reduced-motion:reduce){.pawbubs i{animation:none}}
+.spark{position:absolute;width:18px;height:18px;color:var(--white);pointer-events:none;animation:twinkle 2.6s ease-in-out infinite;filter:drop-shadow(0 0 3px rgba(201,58,132,.5))}
+.spark svg{width:100%;height:100%;display:block}
+@keyframes twinkle{0%,100%{transform:scale(0) rotate(0);opacity:0}45%,55%{transform:scale(1) rotate(45deg);opacity:1}}
+@media (prefers-reduced-motion:reduce){.hero h1 .ch,.hero h1 .shine,.spark{animation:none!important}.spark{opacity:0}}
+
+/* walking pup: a Belgian Malinois trots along the scalloped edge, stops to sniff, leaves fading prints */
+.walker{position:absolute;left:0;right:0;bottom:8px;height:96px;z-index:3;pointer-events:none;overflow:hidden}
+.dog{position:absolute;bottom:0;left:0;width:117px;height:89px;visibility:hidden;will-change:transform}
+.dog svg,.pupsvg{display:block;overflow:visible}
+.dog svg{width:100%;height:100%}
+/* dog rig artwork (shared by both dogs) */
+.ro2{fill:var(--plum);stroke:var(--plum);stroke-width:4.4;stroke-linejoin:round}
+.rlf2{fill:var(--fawn)}
+.far .ro2{stroke-width:4}
+.far .rlf2{fill:var(--fawn-dk)}
+.rlm2,.rmk{fill:var(--mask)}
+.rf{fill:var(--fawn);stroke:var(--plum);stroke-width:2.2;stroke-linejoin:round}
+.rs{fill:var(--fawn-dk)}
+.rm{fill:var(--mask);stroke:var(--plum);stroke-width:2;stroke-linejoin:round}
+.rp{fill:var(--pink)}
+.rw,.ew{fill:var(--white)}
+.ra{fill:#f0b04a;stroke:rgba(255,222,170,.55);stroke-width:.6}
+.rn{fill:#120a10}
+.rl{fill:none;stroke:rgba(255,255,255,.3);stroke-width:1.2;stroke-linecap:round}
+.rt{fill:var(--pink-soft);stroke:var(--plum);stroke-width:1.4;opacity:0}
+.rb{opacity:0}
+.rb circle,.fball circle{fill:var(--pink);stroke:var(--plum);stroke-width:1.8}
+.rb path,.fball path{fill:none;stroke:var(--white);stroke-width:1.5;stroke-linecap:round}
+.rsh{fill:var(--plum);fill-opacity:.14}
+.reye{transform-box:fill-box;transform-origin:50% 50%;animation:blink 4.8s infinite}
+.rear{transform-box:fill-box;transform-origin:30% 100%;animation:twitch 6.5s infinite}
+.licking .rt{opacity:1;transform-box:fill-box;transform-origin:20% 0;animation:lick .24s ease-in-out infinite alternate}
+.hasball .rb{opacity:1}
+@keyframes lick{from{transform:scaleY(.45)}to{transform:scaleY(1.15)}}
+.swoosh{fill:none;stroke:var(--pink-soft);stroke-linecap:round;opacity:0}
+.print{position:absolute;width:12px;height:12px;color:var(--pink);animation:printfade 3.2s ease-out forwards}
+.print svg{width:100%;height:100%;display:block}
+@keyframes printfade{0%{opacity:0}8%{opacity:.55}100%{opacity:0}}
+
+/* pet-sitting yard: a pup runs laps around a little house, in front, then behind */
+.sit-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:20px 32px}
+.sit-head p{margin-top:12px}
+.yard{position:relative;width:320px;height:180px;flex:none;max-width:100%}
+.yard .ground{position:absolute;left:50%;bottom:0;width:300px;height:62px;transform:translateX(-50%);border-radius:50%;background:var(--lav)}
+.yard .house{position:absolute;left:62%;bottom:24px;width:150px;height:120px;transform:translateX(-50%);z-index:2}
+.yard .house svg{width:100%;height:100%;display:block;overflow:visible}
+.hw{fill:var(--white);stroke:var(--plum);stroke-width:3;stroke-linejoin:round}
+.hr{fill:var(--pink);stroke:var(--plum);stroke-width:3;stroke-linejoin:round}
+.hd{fill:var(--lav-deep);stroke:var(--plum);stroke-width:3}
+.hl{fill:var(--blush);stroke:var(--plum);stroke-width:2.5}
+.hg{fill:var(--lav-deep);opacity:.55}
+/* yard pup: sits and licks a paw; now and then leaps, catches a ball and backflips */
+.pupsvg{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none}
+@media (prefers-reduced-motion:reduce){.reye,.rear,.licking .rt{animation:none!important}}
+
+/* lounging cat on the pet-sitting call bar */
+.kitty{position:absolute;right:34px;bottom:100%;width:62px;height:62px;margin-bottom:-5px;pointer-events:none}
+.kitty svg{width:100%;height:100%;overflow:visible;display:block}
+.cb{fill:var(--lav-deep)}
+.ci{fill:var(--pink-soft)}
+.cw{fill:var(--white)}
+.kitty .ctail{fill:none;stroke:var(--lav-deep);stroke-width:7;stroke-linecap:round;transform-box:fill-box;transform-origin:0% 100%;animation:swish 2.6s ease-in-out infinite alternate}
+.kitty .eyes{transform-box:fill-box;transform-origin:50% 50%;animation:blink 5.5s infinite}
+.kitty .ears{transform-box:fill-box;transform-origin:50% 100%;animation:twitch 9s infinite}
+@keyframes swish{from{transform:rotate(-10deg)}to{transform:rotate(12deg)}}
+@keyframes blink{0%,91%,97%,100%{transform:scaleY(1)}94%{transform:scaleY(.1)}}
+@keyframes twitch{0%,60%,66%,100%{transform:none}63%{transform:rotate(-4deg)}}
+
+/* small hover touches */
+.logo:hover svg{animation:paw .5s ease}
+@keyframes paw{30%{transform:rotate(-14deg) scale(1.08)}60%{transform:rotate(10deg)}}
+.btn:hover svg{animation:ring .5s ease}
+@keyframes ring{20%{transform:rotate(-14deg)}45%{transform:rotate(12deg)}70%{transform:rotate(-6deg)}}
+.prow:not(.th){transition:background .2s}
+.prow:not(.th):not(.cat):hover{background:var(--blush)}
+.visit-card,.policy,.methods li{transition:transform .2s,border-color .2s}
+.visit-card:hover,.policy:hover,.methods li:hover{transform:translateY(-3px);border-color:var(--pink-soft)}
+
+@media (prefers-reduced-motion:reduce){
+  .dog{visibility:visible;left:24px}
+  .dog *,.kitty *,.logo:hover svg,.btn:hover svg{animation:none!important}
+  .visit-card:hover,.policy:hover,.methods li:hover{transform:none}
+}
+
+.scallop{height:28px;margin-top:-28px;position:relative;z-index:2;background:radial-gradient(circle at 18px 0,transparent 17px,var(--white) 18px) 0 0/36px 28px repeat-x}
+
+section.block{padding-block:72px}
+.head{display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:30px}
+.head h2{font-family:var(--display);font-weight:400;font-size:clamp(34px,5vw,48px);line-height:1.05;margin:0;color:var(--plum);text-wrap:balance}
+.head h2 em{font-style:normal;color:var(--pink)}
+.head p{margin:0;color:var(--plum-mut);max-width:34em}
+.kicker{display:block;font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:900;color:var(--lav-deep);margin-bottom:8px;font-family:var(--body)}
+
+/* grooming price table */
+.ptable{border:2px solid var(--line);border-radius:24px;overflow:hidden;background:var(--white)}
+.prow{display:grid;grid-template-columns:minmax(0,1fr) 150px 150px;align-items:center;border-top:2px dotted var(--pink-soft)}
+.prow:first-child{border-top:0}
+.prow.th{background:var(--blush);font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:900;color:var(--plum-mut)}
+.prow.th span{padding:12px 22px}
+.prow.th span+span{text-align:center;padding-inline:8px}
+.tier{padding:20px 22px;min-width:0}
+.tier h3{margin:0;font-size:22px;font-weight:900;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.tier h3 small{font-size:13px;font-weight:900;color:var(--lav-deep);background:var(--lav-soft);border-radius:999px;padding:2px 10px}
+.breeds{margin:6px 0 0;font-size:15px;color:var(--plum-mut);line-height:1.5}
+.amt{text-align:center;font-weight:900;font-size:22px;color:var(--pink);font-variant-numeric:tabular-nums;padding:12px 8px;white-space:nowrap}
+.amt.span{grid-column:2/4}
+.prow.cat{background:var(--lav-soft)}
+.includes{margin-top:28px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+.box{border-radius:20px;padding:20px 22px;min-width:0}
+.box h3{margin:0 0 12px;font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:900;color:var(--lav-deep)}
+.box.pinkbox{background:var(--blush)}
+.box.lavbox{background:var(--lav)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.chips li{background:var(--white);border-radius:999px;padding:6px 14px;font-weight:800;font-size:15px;display:inline-flex;gap:6px;align-items:center}
+.chips li:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--pink)}
+.notes{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:15px;font-weight:800}
+.notes li{display:grid;grid-template-columns:20px 1fr;gap:8px}
+.notes li:before{content:"!";width:20px;height:20px;border-radius:50%;background:var(--lav-deep);color:var(--white);font-size:13px;font-weight:900;display:grid;place-items:center;margin-top:2px}
+
+/* pet sitting */
+.sitting{background:var(--lav-soft);position:relative}
+.sitting .head h2 em{color:var(--lav-deep)}
+.visits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:24px}
+.visit-card{background:var(--white);border-radius:20px;padding:18px 20px;border:1.5px solid var(--lav);min-width:0}
+.visit-card b{display:block;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:900;color:var(--lav-deep);margin-bottom:4px}
+.visit-card p{margin:0;font-weight:800}
+.sitgrid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:20px;align-items:start}
+.tablewrap{overflow-x:auto;background:var(--white);border-radius:22px;border:1.5px solid var(--lav)}
+table.rates{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table.rates th,table.rates td{padding:11px 18px;text-align:left}
+table.rates thead th{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:900;color:var(--plum-mut);background:var(--lav)}
+table.rates thead th+th,table.rates td+td{text-align:right;white-space:nowrap}
+table.rates tbody th{font-family:var(--display);font-weight:400;font-size:20px;color:var(--lav-deep);padding-top:16px;padding-bottom:4px}
+table.rates td{border-top:1px dashed var(--lav);font-weight:800}
+table.rates td+td{font-weight:900;color:var(--pink);font-size:18px}
+.addons{background:var(--white);border-radius:22px;border:1.5px solid var(--lav);padding:18px 20px}
+.addons h3{margin:0 0 6px;font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:900;color:var(--lav-deep)}
+.addons ul{list-style:none;margin:0;padding:0}
+.addons li{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-top:1px dashed var(--lav);font-weight:800}
+.addons li:first-child{border-top:0}
+.addons li span:last-child{color:var(--pink);font-weight:900;text-align:right;font-variant-numeric:tabular-nums}
+.sit-incl{margin:14px 0 0;font-size:15px;color:var(--plum-mut)}
+.sit-cta{position:relative;margin-top:84px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;background:var(--plum);color:var(--white);border-radius:22px;padding:18px 22px}
+.sit-cta p{margin:0;max-width:44em;font-size:15px;color:var(--lav)}
+.sit-cta .btn{background:var(--white);color:var(--plum);border-color:var(--white)}
+
+/* gallery */
+.gallery{background:linear-gradient(var(--white),var(--blush))}
+.wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.shot{margin:0;position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;background:var(--lav);cursor:zoom-in;border:0;padding:0;max-width:100%}
+.shot img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
+.shot:hover img{transform:scale(1.04)}
+.shot figcaption{position:absolute;left:10px;right:10px;bottom:10px;background:rgba(255,255,255,.92);color:var(--plum);font-weight:800;font-size:14px;padding:7px 12px;border-radius:12px;text-align:left}
+.empty{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.empty div{aspect-ratio:4/5;border-radius:20px;border:2px dashed var(--pink-soft);background:var(--white);display:grid;place-items:center;color:var(--pink-soft)}
+.empty div svg{width:46px;height:46px}
+.empty-note{margin-top:18px;text-align:center;color:var(--plum-mut)}
+.empty-note a{color:var(--pink);font-weight:900}
+
+/* policies + payment */
+.gtk{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:24px;align-items:start}
+.policies{display:grid;gap:14px}
+.policy{border:2px solid var(--line);border-radius:22px;padding:20px 22px;display:grid;grid-template-columns:44px 1fr;gap:16px}
+.policy .ic{width:44px;height:44px;border-radius:14px;background:var(--blush);color:var(--pink);display:grid;place-items:center}
+.policy .ic svg{width:24px;height:24px}
+.policy h3{margin:2px 0 6px;font-size:20px;font-weight:900}
+.policy p{margin:0 0 8px;color:var(--plum)}
+.policy p:last-child{margin-bottom:0}
+.policy p+p{color:var(--plum-mut);font-size:15px}
+.pol-note{margin:14px 0 0;font-size:15px;color:var(--plum-mut);font-weight:800}
+.pay{background:var(--blush);border-radius:26px;padding:24px;position:sticky;top:calc(80px + env(safe-area-inset-top,0px))}
+.pay h3{font-family:var(--display);font-weight:400;font-size:30px;color:var(--pink);margin:0 0 4px}
+.pay p{margin:0 0 16px;color:var(--plum-mut);font-size:15px}
+.methods{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.methods li{background:var(--white);border-radius:16px;padding:14px;text-align:center;font-weight:900;font-size:18px;color:var(--lav-deep);border:1.5px solid var(--line)}
+.tip{margin-top:16px;background:var(--white);border:2px dashed var(--pink-soft);border-radius:999px;padding:10px 16px;text-align:center;font-weight:900;color:var(--pink)}
+
+/* about */
+.about{background:var(--blush)}
+.about .wrap{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:56px;align-items:center}
+.about-art{position:relative;aspect-ratio:1;max-width:400px;width:100%;justify-self:center}
+.about-art .blob{position:absolute;inset:0;background:var(--lav);border-radius:58% 42% 50% 50%/45% 55% 45% 55%}
+.about-art .blob.b2{inset:12% 8% 10% 14%;background:var(--white);border-radius:45% 55% 60% 40%/55% 40% 60% 45%}
+.about-art img,.about-art svg.paw{position:absolute;inset:16%;width:68%;height:68%;object-fit:cover;border-radius:50%}
+.about-art svg.paw{color:var(--pink);border-radius:0}
+.about-text p{white-space:pre-line;font-size:19px;margin:0 0 16px;max-width:36em}
+
+/* visit */
+.visit{background:var(--plum);color:var(--white)}
+.visit .head h2{color:var(--white)}
+.visit .head h2 em{color:var(--pink-soft)}
+.visit .head p{color:var(--lav)}
+.vgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.vbox{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);border-radius:20px;padding:22px;min-width:0}
+.vbox small{display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:900;color:var(--pink-soft);margin-bottom:8px}
+.vbox .big{font-size:21px;font-weight:900;overflow-wrap:anywhere}
+.vbox .sub{color:var(--lav);font-size:15px;margin-top:6px}
+.vbox a.link{display:inline-block;margin-top:12px;color:var(--white);font-weight:900;text-decoration-color:var(--pink-soft);text-underline-offset:4px}
+.hours{list-style:none;margin:0;padding:0;display:grid;gap:4px;font-variant-numeric:tabular-nums}
+.hours li{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dashed rgba(255,255,255,.18);padding-bottom:4px}
+.hours li span:first-child{font-weight:900}
+.socials{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+.socials a{display:inline-flex;align-items:center;gap:8px;color:var(--white);text-decoration:none;font-weight:900;border:1.5px solid rgba(255,255,255,.3);border-radius:999px;padding:9px 16px}
+.socials a:hover{border-color:var(--pink-soft)}
+.socials svg{width:18px;height:18px}
+.copy{border:1.5px solid rgba(255,255,255,.3);background:transparent;color:var(--white);border-radius:999px;font:800 13px var(--body);padding:5px 12px;margin-left:8px;cursor:pointer;vertical-align:middle}
+footer{background:var(--plum);color:var(--lav);border-top:1px solid rgba(255,255,255,.12)}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:22px;font-size:14px}
+footer button{background:none;border:0;color:var(--lav);font:700 14px var(--body);cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:0}
+
+/* lightbox */
+#lb{position:fixed;inset:0;z-index:50;background:rgba(59,36,72,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:calc(56px + env(safe-area-inset-top,0px)) 16px 24px}
+#lb img{max-height:78vh;border-radius:16px;border:6px solid var(--white)}
+#lb p{color:var(--white);font-weight:800;margin:14px 0 0;text-align:center}
+#lb button{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:16px;background:var(--white);color:var(--plum);border:0;border-radius:999px;font:900 14px var(--body);padding:9px 16px;cursor:pointer}
+
+/* owner panel */
+#panel{position:fixed;top:0;right:0;bottom:0;z-index:60;width:min(460px,100%);background:var(--white);border-left:3px solid var(--pink-soft);box-shadow:-20px 0 50px -20px rgba(59,36,72,.4);overflow:auto;padding:calc(18px + env(safe-area-inset-top,0px)) 20px calc(28px + env(safe-area-inset-bottom,0px))}
+#panel .ph{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+#panel h2{font-family:var(--display);font-weight:400;color:var(--pink);font-size:28px;margin:0}
+#panel .x{background:var(--blush);border:0;border-radius:999px;width:38px;height:38px;font:900 18px var(--body);color:var(--plum);cursor:pointer;flex:none}
+#panel details{border-top:2px dashed var(--line);padding:4px 0}
+#panel summary{cursor:pointer;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:900;color:var(--lav-deep);padding:12px 0;list-style-position:inside}
+#panel details[open] summary{color:var(--pink)}
+#panel .sec{padding-bottom:14px}
+#panel label{display:block;font-size:13px;font-weight:900;margin:12px 0 4px;color:var(--plum)}
+#panel label .hint{font-weight:600;color:var(--plum-mut)}
+#panel input[type=text],#panel input[type=password],#panel textarea{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;font:600 16px var(--body);color:var(--plum);background:var(--white)}
+#panel input:focus,#panel textarea:focus{outline:none;border-color:var(--pink)}
+#panel textarea{min-height:80px;resize:vertical}
+#panel .help{margin:6px 0 0;font-size:14px;color:var(--plum-mut)}
+.lrow{border:1.5px solid var(--line);border-radius:14px;padding:2px 12px 12px;margin-top:10px}
+.lrow .tools{display:flex;justify-content:flex-end;gap:6px;margin-top:8px}
+.lrow .tools button,.thumb .rm{background:var(--blush);border:0;color:var(--pink);font:900 13px var(--body);border-radius:999px;padding:4px 10px;cursor:pointer}
+.lrow .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.thumbs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+.thumb{position:relative;border-radius:14px;overflow:hidden;border:1.5px solid var(--line)}
+.thumb img{width:100%;aspect-ratio:1;object-fit:cover}
+.thumb .rm{position:absolute;top:8px;right:8px}
+.thumb input{border:0!important;border-top:1.5px solid var(--line)!important;border-radius:0!important;font-size:14px!important;padding:8px 10px!important}
+.filebtn{position:relative;overflow:hidden}
+.filebtn input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.prow2{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.status{margin-top:12px;font-weight:800;font-size:14px;color:var(--plum-mut);min-height:22px}
+.status.err{color:#b4233c}
+.status.ok{color:#2f7a4f}
+.savebar{position:sticky;bottom:calc(-28px - env(safe-area-inset-bottom,0px));background:var(--white);padding:14px 0 6px;margin-top:16px;border-top:2px dashed var(--line);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.pv{background:var(--lav);border-radius:12px;padding:10px 12px;font-size:14px;font-weight:800;margin-top:10px}
+
+@media (max-width:900px){
+  .sit-head{grid-template-columns:1fr}
+  .yard{justify-self:center;margin-top:70px}
+  .hero .wrap{grid-template-columns:1fr;gap:36px;padding-block:44px 80px}
+  .about .wrap{grid-template-columns:1fr;gap:32px}
+  .vgrid,.visits{grid-template-columns:1fr}
+  .sitgrid,.gtk,.includes{grid-template-columns:1fr}
+  .pay{position:static}
+  .nav a:not(.btn){display:none}
+}
+@media (max-width:620px){
+  .wrap{padding-inline:16px}
+  .logo span{font-size:18px}
+  .hero p.intro{font-size:18px}
+  .ctas .btn{flex:1 1 100%}
+  section.block{padding-block:56px}
+  .prow{grid-template-columns:1fr 1fr}
+  .prow.th{display:none}
+  .tier{grid-column:1/-1;padding:18px 18px 4px}
+  .amt{text-align:left;padding:8px 18px 16px;font-size:20px}
+  .amt:before{content:attr(data-l);display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--plum-mut);font-weight:900}
+  .amt.span{grid-column:1/-1}
+  .wall{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .empty{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .empty div:nth-child(3){display:none}
+  .card dl div{grid-template-columns:72px 1fr}
+  .shot figcaption{font-size:12px;left:6px;right:6px;bottom:6px}
+  table.rates th,table.rates td{padding:10px 12px}
+  .policy{grid-template-columns:1fr;gap:10px}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<div id="lb" hidden role="dialog" aria-modal="true" aria-label="Photo">
+  <button type="button" id="lbClose">Close</button>
+  <img id="lbImg" alt="">
+  <p id="lbCap"></p>
+</div>
+
+<aside id="panel" hidden aria-label="Owner edit panel"></aside>
+
+<script>
+(function(){
+var DEFAULTS={
+  name:"Roo's Purrfect Paws",
+  eyebrow:"Grooming & pet sitting · Sheffield Lake, OH",
+  intro:"Full grooms for dogs and cats, plus pet sitting in the comfort of your own home. All appointments are booked by phone.",
+  phone:"(440) 228-3999",
+  address:"5380 E Lake Road, Sheffield Lake, Ohio 44054",
+  instagram:"roospurrfectpaws",
+  facebook:"https://www.facebook.com/roos.purrfect.paws.2025/",
+  email:"",
+  hours:"",
+  hoursNote:"Appointments are booked by phone only. Give us a call to set up a time.",
+
+  groomIntro:"Prices are for a full groom and depend on your pet's size and coat.",
+  groomTiers:[
+    {name:"Small dogs",size:"",short:"$50–55",long:"$55–65",breeds:"Most small terriers, Toy Poodle, Shih Tzu, Chihuahua, Pug, Pomeranian, Miniature Pinscher, Cavalier King Charles Spaniel, Papillon, Maltese, Bichon, Miniature Schnauzer, French Bulldog, Corgi, Dachshund, Chinese Crested"},
+    {name:"Medium dogs",size:"",short:"$55–65",long:"$60–70",breeds:"Labrador Retriever, English Bulldog, Boxer, Border Collie, Basset Hound, Cocker Spaniel, Collie, Beagle, Bull Terrier, Pit Bull, Greyhound"},
+    {name:"Large dogs",size:"",short:"$65–75",long:"$70–95",breeds:"Golden Retriever, Doberman, Standard Poodle, Doodles, Pointer, Dalmatian, Husky, German, Australian and other Shepherds, Irish and English Setter"},
+    {name:"XL dogs",size:"100+ lbs",short:"$70–95",long:"$90–160",breeds:"Saint Bernard, Mastiff, Rottweiler, Great Dane, Bernese Mountain Dog, Akita, Bloodhound, Newfoundland, Cane Corso, larger Huskies"}
+  ],
+  catPrice:"$40–100",
+  catNote:"All breeds and coat types",
+  groomIncludes:"Bath\nBlow-out\nBrush-out\nHaircut, if needed\nEar cleaning\nTeeth cleaning\nNail trim",
+  groomNotes:"Matting and other coat conditions that take extra time and supplies can add $10–50.\nThese ranges are estimates and the breed lists are examples. We'll give you an exact price once we see your pet in person.",
+
+  sitIntro:"Let your pets stay in the comfort of home while you're away. We offer daytime check-ins and overnight stays.",
+  sitVisits:[
+    {title:"Each check-in",body:"30 minutes to 1 hour, unless we arrange something different."},
+    {title:"Day sitting",body:"Up to 3 check-ins a day."},
+    {title:"Overnight",body:"2 check-ins during the day, then we stay at your home from evening to morning."}
+  ],
+  sitRows:[
+    {group:"Dogs",label:"1 dog",day:"$60",night:"$110"},
+    {group:"Dogs",label:"2 dogs",day:"$75",night:"$120"},
+    {group:"Dogs",label:"3 or more dogs",day:"$85+",night:"$150"},
+    {group:"Cats",label:"1 cat",day:"$40",night:"$80"},
+    {group:"Cats",label:"2 cats",day:"$55",night:"$100"},
+    {group:"Cats",label:"3 or more cats",day:"$65+",night:"$110"},
+    {group:"Dogs & cats",label:"1 dog and 1 cat",day:"$70",night:"$120"},
+    {group:"Dogs & cats",label:"Up to 3 pets total",day:"$85",night:"$150"},
+    {group:"Dogs & cats",label:"4 or more pets",day:"$95+",night:"$160"}
+  ],
+  sitIncluded:"Every check-in and overnight covers potty breaks, meals and playtime. For anything extra, see the add-ons.",
+  sitAddons:[
+    {label:"Other small animals (birds, reptiles, etc.)",price:"+$5 each"},
+    {label:"Walks, up to 1 hour",price:"+$10 per pet, per walk"},
+    {label:"Transportation",price:"+$15 per pet, per trip"},
+    {label:"Medication",price:"+$5 per pet, per dose"},
+    {label:"Pet waste cleanup",price:"$20 per cleanup, all pets"}
+  ],
+  sitNote:"Rates may be adjusted for extra tasks or cleaning, homes farther away, or stays longer than a week. Call for details and to book.",
+
+  payments:"Cash\nCheck\nCash App\nVenmo",
+  tipNote:"Tips are greatly appreciated!",
+  policies:[
+    {title:"Running late",body:"Once you're 10 minutes late there's a $20 late fee, plus $10 for every 10 minutes after that.\nCall at least 15 minutes before your appointment to let us know you'll be late and we'll skip the $20 fee. Only the $10 charges apply."},
+    {title:"No call, no show",body:"If we don't hear from you within 30 minutes of your appointment time, you'll be charged a no-show fee equal to 100% of the service. The appointment is cancelled, and you can't rebook until the fee is paid."},
+    {title:"Cancelling or rescheduling",body:"Please cancel or reschedule at least 2 hours before your appointment, or you'll be charged 100% of the groom.\nIf something comes up, call us at (440) 228-3999. We're very accommodating."}
+  ],
+  policyNote:"We may not be able to groom your pet if you arrive very late. Our schedule is planned around the time each pet needs for a proper spa day.",
+
+  about:"Roo's Purrfect Paws is a neighborhood grooming shop on Lake Road in Sheffield Lake. We groom dogs of every size and cats too, and every pet gets patient, hands-on care from the first bath to the final brush.\n\nHeading out of town? Our pet sitting keeps your animals fed, walked and happy in their own home while you're away.",
+  heroImg:"",
+  aboutImg:"",
+  gallery:[]
+};
+
+/* Fields for each editable list: [key, label, type, placeholder] */
+var LISTS={
+  groomTiers:{add:'size',fields:[['name','Size name'],['size','Size note','text','e.g. 100+ lbs'],['short','Short-haired price','text','$50–55'],['long','Long-haired price','text','$55–65'],['breeds','Example breeds','area']]},
+  sitVisits:{add:'visit detail',fields:[['title','Title'],['body','Details','area']]},
+  sitRows:{add:'rate',fields:[['group','Group','text','Dogs, Cats, Dogs & cats'],['label','Pets'],['day','Per day','text','$60'],['night','Overnight','text','$110']]},
+  sitAddons:{add:'add-on',fields:[['label','Add-on'],['price','Price','text','+$10 per pet']]},
+  policies:{add:'policy',fields:[['title','Title'],['body','Policy','area']]}
+};
+
+var S=JSON.parse(JSON.stringify(DEFAULTS));
+var LIVE=false, TOKEN="", pendingDeletes=[];
+var app=document.getElementById('app');
+
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function lines(s){return String(s||'').split('\n').map(function(l){return l.trim()}).filter(Boolean)}
+function paras(s){return lines(s).map(function(l){return '<p>'+esc(l)+'</p>'}).join('')}
+function telHref(p){var d=String(p||'').replace(/\D/g,'');if(d.length===10)d='1'+d;return 'tel:+'+d}
+function igHandle(v){v=String(v||'').trim();var m=v.match(/instagram\.com\/([^/?#]+)/i);if(m)v=m[1];return v.replace(/^@/,'')}
+function url(v){v=String(v||'').trim();if(!v)return '';return /^https?:\/\//i.test(v)?v:'https://'+v}
+function safeImg(v){v=String(v||'');return (/^(\/api\/img\/|https:\/\/|data:image\/)/.test(v))?v:''}
+function mapHref(a){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(a)}
+function arr(a){return Array.isArray(a)?a:[]}
+
+var PAWG='<g fill="currentColor"><ellipse cx="32" cy="42" rx="14" ry="12"/><ellipse cx="14" cy="27" rx="6.5" ry="8.5" transform="rotate(-18 14 27)"/><ellipse cx="25" cy="15" rx="6.5" ry="9"/><ellipse cx="39" cy="15" rx="6.5" ry="9"/><ellipse cx="50" cy="27" rx="6.5" ry="8.5" transform="rotate(18 50 27)"/></g>';
+var PAW='<svg viewBox="0 0 64 64" aria-hidden="true">'+PAWG+'</svg>';
+var LOGO='<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="31" fill="#fdeaf3" stroke="#f6a9cc" stroke-width="2"/><g transform="translate(12 12) scale(.625)" style="color:#c93a84">'+PAWG+'</g></svg>';
+function ico(d,w){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="'+(w||2.4)+'" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+d+'</svg>'}
+var I_PHONE=ico('<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>');
+var I_IG=ico('<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/>',2.2);
+var I_FB=ico('<path d="M15 3h-2.5A4.5 4.5 0 0 0 8 7.5V10H5.5v4H8v7h4v-7h3l.5-4H12V7.8c0-.6.4-.8.9-.8H15z"/>',2.2);
+var POL_ICONS=[ico('<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/>'),ico('<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4M10 14l4 4M14 14l-4 4"/>'),ico('<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>')];
+
+/* fluffy just-groomed pup, facing right. Each fluffy part is circles drawn twice (dark, then white on top) so they merge into one soft outline. */
+/* Jointed Malinois rig. Dog faces +x, y is down, ground is y=0. Limb angle 0 points straight down;
+   positive angles swing a limb backward (clockwise). Neck angle 0 points straight up, positive tilts forward.
+   Head angle is relative to the torso (0 = level with the back). */
+var RIG=(function(){
+var NS='http://www.w3.org/2000/svg',D2R=Math.PI/180;
+function rot(a,x,y){var r=a*D2R,c=Math.cos(r),s=Math.sin(r);return [x*c-y*s,x*s+y*c]}
+function at(f,lx,ly){var v=rot(f.a,lx,ly);return {x:f.x+v[0],y:f.y+v[1],a:f.a}}
+var K={center:[22,2],shN:[44,3],shF:[41,2],hipN:[1,1],hipF:[4,0],neck:[47,-6],tail:[-12,-2],
+  up:17,lo:24,paw:6.5,th:19,sh:18,ho:14,neckL:20,t1:15,t2:14,t3:7};
+/* tapered segment widths: [start, end] */
+var W={up:[12,7.5],lo:[7,5.6],paw:[7.6,6.6],th:[22,9],sh:[8.5,6],ho:[6.4,5.4],neck:[19,14],t1:[8.5,6.5],t2:[6.5,4.4],t3:[4.4,2],o:2.2};
+var KEYS=['rootA','neck','head','fNu','fNl','fNp','fFu','fFl','fFp','hNt','hNs','hNh','hNp','hFt','hFs','hFh','hFp','t1','t2'];
+
+function solve(P,C){
+  var A=P.rootA,c0=rot(A,K.center[0],K.center[1]);
+  var T={x:C.x-c0[0],y:C.y-c0[1],a:A};
+  function leg2(j,u,l,p){var s=at(T,j[0],j[1]);s.a=A+u;var e=at(s,0,K.up);e.a=s.a+l;var w=at(e,0,K.lo);w.a=e.a+p;var q=at(w,0,K.paw);return [s,e,w,q]}
+  function leg3(j,t,s,h,p){var a=at(T,j[0],j[1]);a.a=A+t;var k=at(a,0,K.th);k.a=a.a+s;var c=at(k,0,K.sh);c.a=k.a+h;var w=at(c,0,K.ho);w.a=c.a+p;var q=at(w,0,K.paw);return [a,k,c,w,q]}
+  var R={T:T};
+  R.fN=leg2(K.shN,P.fNu,P.fNl,P.fNp);R.fF=leg2(K.shF,P.fFu,P.fFl,P.fFp);
+  R.hN=leg3(K.hipN,P.hNt,P.hNs,P.hNh,P.hNp);R.hF=leg3(K.hipF,P.hFt,P.hFs,P.hFh,P.hFp);
+  var nb=at(T,K.neck[0],K.neck[1]);nb.a=A+P.neck;var ne=at(nb,0,-K.neckL);R.neck=[nb,ne];
+  R.head={x:ne.x,y:ne.y,a:A+P.head};
+  var tb=at(T,K.tail[0],K.tail[1]);tb.a=A+P.t1;var tm=at(tb,0,K.t1);tm.a=tb.a+P.t2;var te=at(tm,0,K.t2);te.a=tm.a+P.t2*.5;var tt=at(te,0,K.t3);
+  R.tail=[tb,tm,te,tt];
+  return R;
+}
+function lowest(R){
+  var m=-1e9,o=W.o;function c(p,r){if(p.y+r>m)m=p.y+r}
+  [R.fN,R.fF].forEach(function(l){c(l[3],W.paw[1]/2+o);c(l[2],W.lo[1]/2+o)});
+  [R.hN,R.hF].forEach(function(l){c(l[4],W.paw[1]/2+o);c(l[3],W.ho[1]/2+o);c(l[2],W.sh[1]/2+o);c(l[0],W.th[0]/2+o);c(l[1],W.th[1]/2+o)});
+  return m;
+}
+function grounded(P,x){var R=solve(P,{x:x,y:0});return {x:x,y:-lowest(R)}}
+function headPoint(R,lx,ly){return at(R.head,lx,ly)}
+function mix(A,B,u){var o={};KEYS.forEach(function(k){o[k]=A[k]+(B[k]-A[k])*u});return o}
+function clone(P,over){var o={};KEYS.forEach(function(k){o[k]=P[k]});for(var k in over)o[k]=over[k];return o}
+
+var TORSO_D='M-12 -5 C-4 -12.5 27 -12.5 44 -10.5 C55 -9.5 61 -2 59.5 7 C58 15 51 18.5 42.5 17.5 C33 15.5 23 9 13 8.5 C5 8.5 -5 10 -10.5 5.5 C-14 2.5 -15 -2 -12 -5 Z';
+var SADDLE='<path class="rs" d="M-6 -9.8 C8 -12.8 27 -12.8 41 -11 C31 -6 12 -5.4 -6 -6.8 Z"/>';
+var BANDANA='';
+var HEAD='<path class="rm" d="M-1.5 -12.5 C-2.3 -18 -1.6 -23 .5 -26.5 C3.4 -23 5.4 -19 6.2 -15 Z"/>'+
+  '<path class="rf" d="M-6 -3 C-7 -13 1 -19 10 -18.5 C16 -18 19.5 -15.5 21.5 -12 L32 -7 C35.5 -5.3 35.2 -1 31.5 0 L19 2.8 C12 4 5 3.8 -1 2 C-4 1 -6 -.5 -6 -3 Z"/>'+
+  '<path class="rmk" d="M13 -17.6 C17 -16.8 20 -14.8 21.5 -12 L32 -7 C35.5 -5.3 35.2 -1 31.5 0 L19 2.8 C15 3.4 11 2.6 9.5 0 C7.5 -3.5 7.5 -9.5 9.5 -13 C10.5 -15.5 11.6 -17 13 -17.6 Z"/>'+
+  '<g class="rear"><path class="rm" d="M2 -14.5 C1.5 -22 3.5 -28.5 6.5 -32.5 C10 -27.5 12.6 -22 13.6 -17 Z"/><path class="rs" d="M5.2 -19 C5.5 -23.5 6.3 -27 7.3 -29 C9.2 -25.8 10.7 -22.4 11.2 -19 Z"/></g>'+
+  '<g class="reye"><path class="ra" d="M10.4 -10 Q14.6 -13.8 18.8 -10.4 Q14.6 -7 10.4 -10 Z"/><circle class="rn" cx="14.9" cy="-10.2" r="1.75"/><circle class="rw" cx="15.7" cy="-11.1" r=".7"/></g>'+
+  '<path class="rn" d="M31.5 -7.6 C34.5 -8 36.6 -6.2 36.2 -4.2 C35.6 -2.5 32.5 -2.7 31 -4.2 C30.2 -5.4 30.4 -7.2 31.5 -7.6 Z"/>'+
+  '<path class="rl" d="M19 1.6 Q25 2.6 31.5 .3"/>'+
+  '<path class="rt" d="M21 1.6 C20.5 9.5 27.5 11 28.5 2 Z"/>'+
+  '<g class="rb"><circle cx="32" cy="3.5" r="6.2"/><path d="M27.2 1.5 Q32 6.5 36.8 1.5"/></g>';
+
+function el(tag,attrs,parent){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);parent.appendChild(e);return e}
+/* tapered capsule from a (width wa) to b (width wb) */
+function taper(a,b,wa,wb){
+  var dx=b.x-a.x,dy=b.y-a.y,L=Math.sqrt(dx*dx+dy*dy)||1e-6,ux=dx/L,uy=dy/L,nx=-uy,ny=ux,ra=wa/2,rb=wb/2;
+  function f(v){return v.toFixed(2)}
+  return 'M'+f(a.x+nx*ra)+' '+f(a.y+ny*ra)+'L'+f(b.x+nx*rb)+' '+f(b.y+ny*rb)+
+    'A'+f(rb)+' '+f(rb)+' 0 0 0 '+f(b.x-nx*rb)+' '+f(b.y-ny*rb)+
+    'L'+f(a.x-nx*ra)+' '+f(a.y-ny*ra)+'A'+f(ra)+' '+f(ra)+' 0 0 0 '+f(a.x+nx*ra)+' '+f(a.y+ny*ra)+'Z';
+}
+function make(svgRoot){
+  var root=svgRoot.querySelector('.rig');root.innerHTML='';
+  var r={},G=function(cls){return el('g',cls?{'class':cls}:{},root)};
+  r.shadow=el('ellipse',{'class':'rsh',rx:40,ry:3.4,cx:0,cy:0},root);
+  function pair(go,gf,fillCls){return {o:el('path',{'class':'ro2'},go),f:el('path',{'class':fillCls||'rlf2'},gf)}}
+  // far legs: own outline, sit behind everything
+  var far=G('far'),fo=el('g',{},far),ff=el('g',{},far);
+  r.hF=[pair(fo,ff),pair(fo,ff),pair(fo,ff),pair(fo,ff)];
+  r.fF=[pair(fo,ff),pair(fo,ff),pair(fo,ff)];
+  // union outline layer, then union fill, then near lower legs, then the upper-leg fills again so knee/elbow joints stay seamless
+  var uo=G(),uf=G(),low=G(),lo_o=el('g',{},low),lo_f=el('g',{},low),up2=G();
+  r.tail=[pair(uo,uf),pair(uo,uf),pair(uo,uf,'rlm2')];
+  r.neck=[pair(uo,uf)];
+  r.torsoO=el('path',{'class':'ro2',d:TORSO_D},uo);
+  r.torsoF=el('path',{'class':'rlf2',d:TORSO_D},uf);
+  r.hN=[pair(uo,uf),pair(lo_o,lo_f),pair(lo_o,lo_f),pair(lo_o,lo_f)];
+  r.fN=[pair(uo,uf),pair(lo_o,lo_f),pair(lo_o,lo_f)];
+  r.thighTop=el('path',{'class':'rlf2'},up2);r.armTop=el('path',{'class':'rlf2'},up2);
+  r.saddle=G();r.saddle.innerHTML=SADDLE;
+  r.band=G();r.band.innerHTML=BANDANA;
+  r.head=G();r.head.innerHTML=HEAD;
+  return r;
+}
+function setChain(parts,pts,widths){for(var i=0;i<parts.length;i++){var w=widths[i],v=taper(pts[i],pts[i+1],w[0],w[1]);parts[i].o.setAttribute('d',v);parts[i].f.setAttribute('d',v)}}
+var WF=[W.up,W.lo,W.paw],WH=[W.th,W.sh,W.ho,W.paw],WT=[W.t1,W.t2,W.t3];
+function draw(r,P,C){
+  var R=solve(P,C),tf='translate('+R.T.x.toFixed(2)+' '+R.T.y.toFixed(2)+') rotate('+R.T.a.toFixed(2)+')';
+  setChain(r.hF,R.hF,WH);setChain(r.fF,R.fF,WF);
+  setChain(r.tail,R.tail,WT);setChain(r.neck,R.neck,[W.neck]);
+  r.torsoO.setAttribute('transform',tf);r.torsoF.setAttribute('transform',tf);r.saddle.setAttribute('transform',tf);r.band.setAttribute('transform',tf);
+  setChain(r.hN,R.hN,WH);setChain(r.fN,R.fN,WF);r.thighTop.setAttribute('d',r.hN[0].f.getAttribute('d'));r.armTop.setAttribute('d',r.fN[0].f.getAttribute('d'));
+  r.head.setAttribute('transform','translate('+R.head.x.toFixed(2)+' '+R.head.y.toFixed(2)+') rotate('+R.head.a.toFixed(2)+')');
+  var h=Math.max(0,-C.y-40);r.shadow.setAttribute('cx',C.x.toFixed(1));r.shadow.setAttribute('rx',(44*Math.max(.35,1-h/160)).toFixed(1));
+  r.shadow.style.fillOpacity=(.14*Math.max(.3,1-h/140)).toFixed(3);
+  return R;
+}
+return {make:make,draw:draw,solve:solve,grounded:grounded,headPoint:headPoint,mix:mix,clone:clone,KEYS:KEYS};
+})();
+
+/* ---- poses ---- */
+var POSE={};
+POSE.stand={rootA:0,neck:42,head:-6,fNu:-3,fNl:4,fNp:-92,fFu:4,fFl:2,fFp:-92,hNt:-28,hNs:58,hNh:-30,hNp:-88,hFt:-20,hFs:55,hFh:-35,hFp:-88,t1:26,t2:-12};
+POSE.sit={rootA:-42,neck:58,head:36,fNu:40,fNl:0,fNp:-90,fFu:35,fFl:4,fFp:-90,hNt:-36,hNs:170,hNh:-184,hNp:0,hFt:-30,hFs:168,hFh:-186,hFp:0,t1:132,t2:26};
+POSE.lick={rootA:-42,neck:88,head:96,fNu:-28,fNl:58,fNp:-30,fFu:35,fFl:4,fFp:-90,hNt:-36,hNs:170,hNh:-184,hNp:0,hFt:-30,hFs:168,hFh:-186,hFp:0,t1:132,t2:26};
+POSE.crouch={rootA:-16,neck:28,head:-34,fNu:-22,fNl:42,fNp:-112,fFu:-16,fFl:38,fFp:-112,hNt:-52,hNs:118,hNh:-72,hNp:-84,hFt:-46,hFs:112,hFh:-72,hFp:-84,t1:52,t2:-10};
+POSE.launch={rootA:-44,neck:26,head:-22,fNu:-62,fNl:104,fNp:-70,fFu:-56,fFl:100,fFp:-70,hNt:30,hNs:14,hNh:12,hNp:-40,hFt:36,hFs:12,hFh:12,hFp:-40,t1:52,t2:8};
+POSE.catchp={rootA:-54,neck:24,head:-8,fNu:-74,fNl:118,fNp:-60,fFu:-68,fFl:114,fFp:-60,hNt:30,hNs:22,hNh:8,hNp:-44,hFt:36,hFs:20,hFh:8,hFp:-44,t1:60,t2:12};
+POSE.tuck={rootA:-200,neck:84,head:70,fNu:-40,fNl:150,fNp:-110,fFu:-34,fFl:146,fFp:-110,hNt:-112,hNs:160,hNh:-150,hNp:-40,hFt:-106,hFs:156,hFh:-146,hFp:-40,t1:96,t2:40};
+POSE.land={rootA:-372,neck:44,head:-4,fNu:-32,fNl:12,fNp:-92,fFu:-26,fFl:10,fFp:-92,hNt:-8,hNs:40,hNh:-34,hNp:-90,hFt:-2,hFs:36,hFh:-34,hFp:-90,t1:56,t2:0};
+
+/* Pose tracks with smooth (Catmull-Rom) blending, plus the yard and walker behaviours. */
+var ANIM=(function(){
+var K=RIG.KEYS;
+function track(keys,t){
+  var n=keys.length;if(t<=keys[0].t)return keys[0].p;if(t>=keys[n-1].t)return keys[n-1].p;
+  var i=1;while(keys[i].t<t)i++;
+  var a=keys[i-1],b=keys[i],dt=b.t-a.t,u=(t-a.t)/dt,u2=u*u,u3=u2*u;
+  var h00=2*u3-3*u2+1,h10=u3-2*u2+u,h01=-2*u3+3*u2,h11=u3-u2;
+  var pa=keys[i-2],pb=keys[i+1],o={};
+  K.forEach(function(k){
+    var ma=(pa&&!a.hold)?(b.p[k]-pa.p[k])/(b.t-pa.t):0, mb=(pb&&!b.hold)?(pb.p[k]-a.p[k])/(pb.t-a.t):0;
+    o[k]=h00*a.p[k]+h10*dt*ma+h01*b.p[k]+h11*dt*mb;
+  });
+  return o;
+}
+var P=POSE,C=RIG.clone;
+var LOOK=C(P.sit,{neck:50,head:4});
+var SQUASH=C(P.stand,{rootA:-362,neck:36,head:-2,fNu:-14,fNl:30,fNp:-100,fFu:-10,fFl:26,fFp:-100,hNt:-50,hNs:110,hNh:-66,hNp:-86,hFt:-44,hFs:104,hFh:-66,hFp:-86,t1:40});
+var STAND2=C(P.stand,{rootA:-360});
+var SIT2=C(P.sit,{rootA:-402});
+var TUCK1=C(P.tuck,{rootA:-168});
+var TUCK2=C(P.tuck,{rootA:-298});
+/* fetch timeline (ms). air between T0 and T1 */
+var FETCH=[
+  {t:0,p:P.sit,hold:1},{t:320,p:LOOK},{t:560,p:LOOK,hold:1},{t:800,p:P.crouch,hold:1},{t:930,p:P.launch},
+  {t:1130,p:P.catchp},{t:1290,p:TUCK1},{t:1470,p:TUCK2},{t:1650,p:P.land},{t:1760,p:SQUASH},{t:1980,p:STAND2},{t:2420,p:SIT2,hold:1}
+];
+var T0=905,T1=1690,TC=1130,JUMP=78;
+function fetchState(t,x){
+  var pose=track(FETCH,t),c;
+  if(t<T0||t>T1)c=RIG.grounded(pose,x);
+  else{
+    var c0=RIG.grounded(track(FETCH,T0),x),c1=RIG.grounded(track(FETCH,T1),x-4),u=(t-T0)/(T1-T0);
+    c={x:c0.x+(c1.x-c0.x)*u,y:c0.y+(c1.y-c0.y)*u-JUMP*4*u*(1-u)};
+  }
+  return {pose:pose,c:c};
+}
+function walkPose(p){
+  var s=Math.sin(p),c=Math.cos(p),s2=Math.sin(p+Math.PI),c2=Math.cos(p+Math.PI);
+  var fA=Math.max(0,-c),fB=Math.max(0,-c2);
+  return {rootA:0,neck:42+2*Math.sin(2*p),head:-6-2*Math.sin(2*p),
+    fNu:-4+26*s,fNl:6+52*fA,fNp:-92+50*fA,
+    fFu:-4+26*s2,fFl:6+52*fB,fFp:-92+50*fB,
+    hNt:-24+22*s2,hNs:56+34*fB,hNh:-32-28*fB,hNp:-88+30*fB,
+    hFt:-24+22*s,hFs:56+34*fA,hFh:-32-28*fA,hFp:-88+30*fA,
+    t1:30+6*Math.sin(2*p),t2:-14+12*Math.sin(2*p+.8)};
+}
+var SNIFF=C(P.stand,{neck:100,head:70,t1:34});
+return {track:track,fetchState:fetchState,walkPose:walkPose,FETCH:FETCH,T0:T0,T1:T1,TC:TC,SNIFF:SNIFF,LOOK:LOOK};
+})();
+
+/* little house for the pet-sitting yard */
+var HOUSE='<svg viewBox="0 0 150 120" aria-hidden="true">'+
+  '<rect x="98" y="16" width="14" height="26" class="hr"/>'+
+  '<rect x="28" y="52" width="94" height="64" rx="4" class="hw"/>'+
+  '<path d="M16 58 L75 12 L134 58 Z" class="hr"/>'+
+  '<path d="M64 116 V90 a11 11 0 0 1 22 0 V116 Z" class="hd"/><circle cx="81" cy="103" r="1.8" class="ew"/>'+
+  '<rect x="38" y="68" width="18" height="18" rx="3" class="hl"/><rect x="94" y="68" width="18" height="18" rx="3" class="hl"/>'+
+  '<path d="M75 40 c-3-4-9-1-6 4l6 5 6-5c3-5-3-8-6-4z" class="ew"/>'+
+  '<path d="M6 116 q4-12 8 0 q4-10 8 0 Z M128 116 q4-12 8 0 q4-10 8 0 Z" class="hg"/>'+
+'</svg>';
+var SPARK='<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0 Z"/></svg>';
+var PAWBUBS='<span class="pawbubs" aria-hidden="true">'+
+  [['b1',-12,0],['b2',18,1.1],['b3',-28,2.2]].map(function(b){return '<i class="'+b[0]+'" style="--r:'+b[1]+'deg;--dl:-'+b[2]+'s"><b>'+PAW+'</b></i>'}).join('')+'</span>';
+function titleHTML(name,plain){
+  var i=0;
+  return String(name||'').split(/\s+/).filter(Boolean).map(function(w,n){
+    return '<span class="w'+(n?'':' first')+'">'+Array.from(w).map(function(c){return '<span class="ch" style="--i:'+(i++)+'">'+esc(c)+'</span>'}).join('')+(n||plain?'':PAWBUBS)+'</span>';
+  }).join(' ');
+}
+function sparks(){
+  return [[-2,12,0],[62,44,1.7],[96,8,.4],[88,72,2.2]].map(function(s){return '<span class="spark" aria-hidden="true" style="left:'+s[0]+'%;top:'+s[1]+'%;animation-delay:'+s[2]+'s">'+SPARK+'</span>'}).join('');
+}
+/* sitting cat with a swishing tail */
+var CAT='<svg viewBox="0 0 80 80" aria-hidden="true">'+
+  '<path class="ctail" d="M56 74 C76 74 79 54 69 44"/>'+
+  '<path d="M18 78 C14 52 26 38 40 38 C54 38 66 52 62 78 Z" class="cb"/>'+
+  '<g class="ears"><path d="M25 22 L23 5 L38 15 Z M55 22 L57 5 L42 15 Z" class="cb"/><path d="M27 17 L26 9 L33 14 Z M53 17 L54 9 L47 14 Z" class="ci"/></g>'+
+  '<circle cx="40" cy="28" r="16" class="cb"/>'+
+  '<g class="eyes"><ellipse cx="33.5" cy="27" rx="2.6" ry="3.4" class="cw"/><ellipse cx="46.5" cy="27" rx="2.6" ry="3.4" class="cw"/></g>'+
+  '<path d="M38 33 L42 33 L40 35.5 Z" class="ci"/>'+
+  '<ellipse cx="32" cy="77" rx="6" ry="3.5" class="ci"/><ellipse cx="48" cy="77" rx="6" ry="3.5" class="ci"/>'+
+'</svg>';
+
+function bubbles(){
+  var h='';[[6,46,13,0],[18,22,10,3],[31,60,16,6],[47,30,12,1.5],[62,52,15,8],[74,26,11,4.5],[86,40,14,2],[94,20,9,6.5],[40,18,9,9.5],[12,34,12,11]].forEach(function(b){h+='<i style="left:'+b[0]+'%;width:'+b[1]+'px;height:'+b[1]+'px;animation-duration:'+b[2]+'s;animation-delay:-'+b[3]+'s"><b></b></i>'});
+  return '<div class="bubbles" aria-hidden="true">'+h+'</div>';
+}
+
+function hoursList(){
+  var ls=lines(S.hours);if(!ls.length)return '';
+  return '<ul class="hours">'+ls.map(function(l){var p=l.split(/\s*[|–-]\s*(?=\d|closed|open|by)/i);var d=p.shift();return '<li><span>'+esc(d)+'</span><span>'+esc(p.join(' – '))+'</span></li>'}).join('')+'</ul>';
+}
+
+function groomingHTML(){
+  var rows=arr(S.groomTiers).filter(function(t){return t&&t.name}).map(function(t){
+    return '<div class="prow"><div class="tier"><h3>'+esc(t.name)+(t.size?'<small>'+esc(t.size)+'</small>':'')+'</h3>'+(t.breeds?'<p class="breeds">'+esc(t.breeds)+'</p>':'')+'</div>'+
+      '<div class="amt" data-l="Short-haired">'+esc(t.short)+'</div><div class="amt" data-l="Long-haired">'+esc(t.long)+'</div></div>';
+  }).join('');
+  if(S.catPrice)rows+='<div class="prow cat"><div class="tier"><h3>Cats</h3>'+(S.catNote?'<p class="breeds">'+esc(S.catNote)+'</p>':'')+'</div><div class="amt span" data-l="All cats">'+esc(S.catPrice)+'</div></div>';
+  var inc=lines(S.groomIncludes), notes=lines(S.groomNotes);
+  return '<section class="block" id="grooming"><div class="wrap"><div class="head"><h2><span class="kicker">Dogs &amp; cats</span>Grooming <em>prices</em></h2><p>'+esc(S.groomIntro)+'</p></div>'+
+   '<div class="ptable"><div class="prow th"><span>Size</span><span>Short-haired</span><span>Long-haired</span></div>'+rows+'</div>'+
+   ((inc.length||notes.length)?'<div class="includes">'+
+     (inc.length?'<div class="box pinkbox"><h3>Every full groom includes</h3><ul class="chips">'+inc.map(function(i){return '<li>'+esc(i)+'</li>'}).join('')+'</ul></div>':'')+
+     (notes.length?'<div class="box lavbox"><h3>Good to know</h3><ul class="notes">'+notes.map(function(i){return '<li>'+esc(i)+'</li>'}).join('')+'</ul></div>':'')+
+   '</div>':'')+'</div></section>';
+}
+
+function sittingHTML(){
+  var visits=arr(S.sitVisits).filter(function(v){return v&&(v.title||v.body)});
+  var groups=[],cur=null;
+  arr(S.sitRows).filter(function(r){return r&&r.label}).forEach(function(r){var g=(r.group||'').trim();if(!cur||cur.name!==g){cur={name:g,rows:[]};groups.push(cur)}cur.rows.push(r)});
+  var table='<div class="tablewrap"><table class="rates"><thead><tr><th scope="col">Pets</th><th scope="col">Per day</th><th scope="col">Overnight</th></tr></thead>'+
+    groups.map(function(g){return '<tbody>'+(g.name?'<tr><th colspan="3" scope="rowgroup">'+esc(g.name)+'</th></tr>':'')+g.rows.map(function(r){return '<tr><td>'+esc(r.label)+'</td><td>'+esc(r.day)+'</td><td>'+esc(r.night)+'</td></tr>'}).join('')+'</tbody>'}).join('')+'</table></div>';
+  var adds=arr(S.sitAddons).filter(function(a){return a&&a.label});
+  return '<section class="block sitting" id="sitting"><div class="wrap"><div class="head sit-head"><div><h2><span class="kicker">While you\'re away</span>Pet <em>sitting</em></h2><p>'+esc(S.sitIntro)+'</p></div><div class="yard" aria-hidden="true"><div class="ground"></div><div class="house">'+HOUSE+'</div><svg class="pupsvg" viewBox="0 0 320 180" aria-hidden="true"><g transform="translate(72 170) scale(.92)"><g class="rig"></g><path class="swoosh"/><path class="swoosh s2"/><g class="fball" visibility="hidden"><circle r="6.2"/><path d="M-4.8 -2 Q0 3 4.8 -2"/></g></g></svg></div></div>'+
+    (visits.length?'<div class="visits">'+visits.map(function(v){return '<div class="visit-card"><b>'+esc(v.title)+'</b><p>'+esc(v.body)+'</p></div>'}).join('')+'</div>':'')+
+    '<div class="sitgrid"><div>'+table+'</div><div>'+(adds.length?'<div class="addons"><h3>Add-ons</h3><ul>'+adds.map(function(a){return '<li><span>'+esc(a.label)+'</span><span>'+esc(a.price)+'</span></li>'}).join('')+'</ul></div>':'')+
+    (S.sitIncluded?'<p class="sit-incl">'+esc(S.sitIncluded)+'</p>':'')+'</div></div>'+
+    '<div class="sit-cta"><div class="kitty" aria-hidden="true">'+CAT+'</div><p>'+esc(S.sitNote)+'</p>'+(S.phone?'<a class="btn" href="'+telHref(S.phone)+'">'+I_PHONE+'Call '+esc(S.phone)+'</a>':'')+'</div></div></section>';
+}
+
+function policiesHTML(){
+  var pol=arr(S.policies).filter(function(p){return p&&p.title});
+  var pays=lines(S.payments);
+  return '<section class="block" id="policies"><div class="wrap"><div class="head"><h2><span class="kicker">Before your visit</span>Policies &amp; <em>payment</em></h2></div><div class="gtk">'+
+    '<div><div class="policies">'+pol.map(function(p,i){return '<article class="policy"><div class="ic">'+POL_ICONS[i%POL_ICONS.length]+'</div><div><h3>'+esc(p.title)+'</h3>'+paras(p.body)+'</div></article>'}).join('')+'</div>'+
+    (S.policyNote?'<p class="pol-note">'+esc(S.policyNote)+'</p>':'')+'</div>'+
+    (pays.length?'<aside class="pay"><h3>We accept</h3><p>Pay at pickup with any of these.</p><ul class="methods">'+pays.map(function(m){return '<li>'+esc(m)+'</li>'}).join('')+'</ul>'+(S.tipNote?'<div class="tip">'+esc(S.tipNote)+'</div>':'')+'</aside>':'')+
+  '</div></div></section>';
+}
+
+function render(){
+  var ig=igHandle(S.instagram), igUrl=ig?'https://www.instagram.com/'+encodeURIComponent(ig)+'/':'';
+  var fbUrl=url(S.facebook);
+  var hero=safeImg(S.heroImg), aboutImg=safeImg(S.aboutImg);
+  var ctas='';
+  if(S.phone)ctas+='<a class="btn" href="'+telHref(S.phone)+'">'+I_PHONE+'Call to book</a>';
+  if(fbUrl)ctas+='<a class="btn ghost" href="'+esc(fbUrl)+'" target="_blank" rel="noopener">'+I_FB+'Facebook</a>';
+  if(igUrl)ctas+='<a class="btn ghost" href="'+esc(igUrl)+'" target="_blank" rel="noopener">'+I_IG+'Instagram</a>';
+
+  var card='<div class="card"><h3><span>Appointment card</span><span aria-hidden="true">✂</span></h3><dl>';
+  if(S.phone)card+='<div><dt>Call</dt><dd><a href="'+telHref(S.phone)+'">'+esc(S.phone)+'</a></dd></div>';
+  card+='<div><dt>Booking</dt><dd>By phone only</dd></div>';
+  if(S.address)card+='<div><dt>Where</dt><dd><a href="'+esc(mapHref(S.address))+'" target="_blank" rel="noopener">'+esc(S.address)+'</a></dd></div>';
+  var hl=lines(S.hours);
+  if(hl.length)card+='<div><dt>Hours</dt><dd>'+esc(hl[0])+(hl.length>1?' <a href="#visit">+ more</a>':'')+'</dd></div>';
+  card+='<div><dt>Services</dt><dd><a href="#grooming">Grooming</a> · <a href="#sitting">Pet sitting</a></dd></div>';
+  card+='</dl></div>';
+
+  var gal=arr(S.gallery).filter(function(g){return g&&safeImg(g.src)});
+  var wall=gal.length
+    ? '<div class="wall">'+gal.map(function(g,i){return '<button type="button" class="shot" data-i="'+i+'" aria-label="View photo'+(g.cap?': '+esc(g.cap):'')+'"><img loading="lazy" src="'+esc(safeImg(g.src))+'" alt="'+esc(g.cap||'Groomed pet')+'">'+(g.cap?'<figcaption>'+esc(g.cap)+'</figcaption>':'')+'</button>'}).join('')+'</div>'
+    : '<div class="empty" aria-hidden="true"><div>'+PAW+'</div><div>'+PAW+'</div><div>'+PAW+'</div></div><p class="empty-note">Fresh cuts are on the way. See the latest on '+(fbUrl?'<a href="'+esc(fbUrl)+'" target="_blank" rel="noopener">Facebook</a>':'')+(fbUrl&&igUrl?' and ':'')+(igUrl?'<a href="'+esc(igUrl)+'" target="_blank" rel="noopener">Instagram</a>':'')+'.</p>';
+
+  var visit='<div class="vgrid">';
+  if(S.phone)visit+='<div class="vbox"><small>Call to book</small><div class="big">'+esc(S.phone)+'<button type="button" class="copy" data-copy="'+esc(S.phone)+'">Copy</button></div><div class="sub">Grooming and pet sitting are booked by phone.</div><a class="link" href="'+telHref(S.phone)+'">Tap to call</a></div>';
+  if(S.address)visit+='<div class="vbox"><small>Find us</small><div class="big">'+esc(S.address)+'</div><a class="link" href="'+esc(mapHref(S.address))+'" target="_blank" rel="noopener">Get directions</a></div>';
+  visit+='<div class="vbox"><small>Hours</small>'+(hoursList()||'<div class="big">By appointment</div>')+(S.hoursNote?'<div class="sub">'+esc(S.hoursNote)+'</div>':'')+'</div></div>';
+  var soc='';
+  if(fbUrl)soc+='<a href="'+esc(fbUrl)+'" target="_blank" rel="noopener">'+I_FB+'Facebook</a>';
+  if(igUrl)soc+='<a href="'+esc(igUrl)+'" target="_blank" rel="noopener">'+I_IG+'@'+esc(ig)+'</a>';
+  if(S.email)soc+='<a href="mailto:'+esc(S.email)+'">'+esc(S.email)+'</a>';
+
+  document.title=S.name||DEFAULTS.name;
+
+  app.innerHTML=
+  '<header class="bar"><div class="wrap"><a class="logo" href="#top" aria-label="'+esc(S.name)+' home">'+LOGO+'<span>'+esc(S.name)+'</span></a>'+
+    '<nav class="nav"><a href="#grooming">Grooming</a><a href="#sitting">Pet sitting</a><a href="#policies">Policies</a><a href="#visit">Visit</a>'+(S.phone?'<a class="btn sm" href="'+telHref(S.phone)+'">'+I_PHONE+'Call</a>':'')+'</nav></div></header>'+
+  '<main id="top">'+
+  '<section class="hero">'+bubbles()+'<div class="walker" aria-hidden="true"><div class="dog"><svg viewBox="-60 -110 150 114"><g class="rig"></g></svg></div></div><div class="wrap"><div><span class="eyebrow">'+esc(S.eyebrow)+'</span><h1 aria-label="'+esc(S.name)+'"><span aria-hidden="true">'+titleHTML(S.name)+'</span><span class="shine" aria-hidden="true">'+titleHTML(S.name,1)+'</span>'+sparks()+'</h1><p class="intro">'+esc(S.intro)+'</p><div class="ctas">'+ctas+'</div></div>'+
+    '<div class="hero-side">'+(hero?'<div class="photo"><img src="'+esc(hero)+'" alt="A freshly groomed pet at '+esc(S.name)+'"></div>':'')+card+'</div></div></section>'+
+  '<div class="scallop" aria-hidden="true"></div>'+
+  groomingHTML()+
+  sittingHTML()+
+  '<section class="block gallery" id="photos"><div class="wrap"><div class="head"><h2>Fresh <em>off the table</em></h2><p>A few of the good dogs and cats who\'ve visited us lately.</p></div>'+wall+'</div></section>'+
+  policiesHTML()+
+  '<section class="block about" id="about"><div class="wrap"><div class="about-art"><div class="blob"></div><div class="blob b2"></div>'+(aboutImg?'<img src="'+esc(aboutImg)+'" alt="Inside '+esc(S.name)+'">':'<svg class="paw" viewBox="0 0 64 64" aria-hidden="true">'+PAWG+'</svg>')+'</div>'+
+    '<div class="about-text"><div class="head"><h2>About <em>'+esc(S.name)+'</em></h2></div><p>'+esc(S.about)+'</p></div></div></section>'+
+  '<section class="block visit" id="visit"><div class="wrap"><div class="head"><h2>Come <em>see us</em></h2><p>Call ahead to book a groom or set up pet sitting.</p></div>'+visit+(soc?'<div class="socials">'+soc+'</div>':'')+'</div></section>'+
+  '</main>'+
+  '<footer><div class="wrap"><span>&copy; '+new Date().getFullYear()+' '+esc(S.name)+' · Sheffield Lake, Ohio</span><button type="button" id="ownerBtn">Owner login</button></div></footer>';
+}
+
+/* interactions */
+var lb=document.getElementById('lb');
+app.addEventListener('click',function(e){
+  var s=e.target.closest('.shot');
+  if(s){var g=arr(S.gallery).filter(function(x){return x&&safeImg(x.src)})[+s.dataset.i];if(!g)return;
+    var im=document.getElementById('lbImg');im.src=safeImg(g.src);im.alt=g.cap||'Groomed pet';
+    document.getElementById('lbCap').textContent=g.cap||'';lb.hidden=false;document.getElementById('lbClose').focus();return}
+  var c=e.target.closest('.copy');
+  if(c){var t=c.dataset.copy;var done=function(){c.textContent='Copied';setTimeout(function(){c.textContent='Copy'},1600)};
+    try{navigator.clipboard.writeText(t).then(done,function(){c.textContent=t})}catch(_){c.textContent=t}return}
+  if(e.target.id==='ownerBtn')openPanel();
+});
+function closeLb(){lb.hidden=true}
+document.getElementById('lbClose').addEventListener('click',closeLb);
+lb.addEventListener('click',function(e){if(e.target===lb)closeLb()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(!lb.hidden)closeLb();else if(!panel.hidden)panel.hidden=true}});
+
+/* ---------- owner panel ---------- */
+var panel=document.getElementById('panel');
+var draft=null;
+
+function openPanel(){panel.hidden=false;TOKEN?editView():loginView()}
+
+function loginView(){
+  panel.innerHTML='<div class="ph"><h2>Owner login</h2><button type="button" class="x" id="pX" aria-label="Close">×</button></div>'+
+  '<p class="help" style="margin:6px 0 0">Enter the owner password to edit your site.</p>'+
+  (LIVE?'':'<div class="pv">Preview mode: you can try the editor here, but changes only save once the site is live on Cloudflare.</div>')+
+  '<form id="loginForm"><label for="pw">Password</label><input type="password" id="pw" autocomplete="current-password" required>'+
+  '<div class="prow2"><button class="btn" type="submit">Unlock</button></div><div class="status" id="lst"></div></form>';
+  document.getElementById('pX').onclick=function(){panel.hidden=true};
+  setTimeout(function(){document.getElementById('pw').focus()},50);
+  document.getElementById('loginForm').onsubmit=function(e){e.preventDefault();var pw=document.getElementById('pw').value;var st=document.getElementById('lst');
+    if(!LIVE){TOKEN=pw||'preview';editView();return}
+    st.className='status';st.textContent='Checking…';
+    fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pw})})
+     .then(function(r){if(r.ok){TOKEN=pw;editView()}else if(r.status===429){st.className='status err';st.textContent='Too many tries. Wait 15 minutes and try again.'}else{st.className='status err';st.textContent='That password didn\'t match. Try again.'}})
+     .catch(function(){st.className='status err';st.textContent='Couldn\'t reach the server. Check your connection and try again.'});
+  };
+}
+
+function field(id,label,opts){opts=opts||{};var val=draft[id];
+  return '<label for="f_'+id+'">'+label+(opts.hint?' <span class="hint">'+opts.hint+'</span>':'')+'</label>'+
+    (opts.area?'<textarea id="f_'+id+'" data-k="'+id+'" rows="'+(opts.rows||3)+'">'+esc(val)+'</textarea>':'<input type="text" id="f_'+id+'" data-k="'+id+'" value="'+esc(val)+'">');
+}
+function sec(title,body,open){return '<details'+(open?' open':'')+'><summary>'+title+'</summary><div class="sec">'+body+'</div></details>'}
+function listSlot(key){return '<div id="L_'+key+'"></div><div class="prow2"><button type="button" class="btn ghost sm" data-add="'+key+'">+ Add '+LISTS[key].add+'</button></div>'}
+
+function editView(){
+  draft=JSON.parse(JSON.stringify(S));
+  for(var k in LISTS)draft[k]=arr(draft[k]);
+  draft.gallery=arr(draft.gallery);
+  panel.innerHTML='<div class="ph"><h2>Edit your site</h2><button type="button" class="x" id="pX" aria-label="Close">×</button></div>'+
+  (LIVE?'':'<div class="pv">Preview mode: changes show on this page but won\'t be saved.</div>')+
+  '<p class="help">Open a section, make your changes, then press Save.</p>'+
+  sec('Top of page',field('name','Business name')+field('eyebrow','Small label above the name')+field('intro','Intro sentence',{area:1})+'<label>Main photo <span class="hint">(shows beside the appointment card)</span></label><div id="heroSlot"></div>',true)+
+  sec('Contact & hours',field('phone','Phone')+field('address','Address')+field('facebook','Facebook link')+field('instagram','Instagram',{hint:'(handle or link)'})+field('email','Email',{hint:'(optional)'})+
+    field('hours','Hours, one day per line',{area:1,rows:5,hint:'e.g. Tue–Fri | 9am – 5pm'})+field('hoursNote','Booking note',{area:1,rows:2}))+
+  sec('Grooming prices',field('groomIntro','Intro line',{area:1,rows:2})+listSlot('groomTiers')+field('catPrice','Cat price')+field('catNote','Cat note')+
+    field('groomIncludes','Every full groom includes',{area:1,rows:6,hint:'(one per line)'})+field('groomNotes','Good-to-know notes',{area:1,rows:4,hint:'(one per line)'}))+
+  sec('Pet sitting',field('sitIntro','Intro',{area:1,rows:2})+'<label>How visits work</label>'+listSlot('sitVisits')+'<label>Rates <span class="hint">(rows with the same group show together)</span></label>'+listSlot('sitRows')+
+    field('sitIncluded','What every visit covers',{area:1,rows:2})+'<label>Add-ons</label>'+listSlot('sitAddons')+field('sitNote','Note at the bottom',{area:1,rows:3}))+
+  sec('Policies & payment',listSlot('policies')+'<p class="help">In a policy, start a new line for a second paragraph.</p>'+field('policyNote','Note under the policies',{area:1,rows:3})+
+    field('payments','Payment methods',{area:1,rows:4,hint:'(one per line)'})+field('tipNote','Tip note'))+
+  sec('Photos','<p class="help">Add before-and-after shots and happy pets. Captions are optional.</p><div class="thumbs" id="thumbs"></div><div class="prow2"><span class="btn ghost sm filebtn">+ Add photos<input type="file" id="galIn" accept="image/*" multiple></span></div>')+
+  sec('About',field('about','About text',{area:1,rows:8})+'<label>About photo <span class="hint">(optional)</span></label><div id="aboutSlot"></div>')+
+  '<div class="savebar"><button type="button" class="btn" id="saveBtn">Save changes</button><button type="button" class="btn ghost sm" id="logoutBtn">Log out</button><div class="status" id="pst" style="flex-basis:100%;margin:0"></div></div>';
+  document.getElementById('pX').onclick=function(){panel.hidden=true};
+  panel.querySelectorAll('[data-k]').forEach(function(el){el.addEventListener('input',function(){draft[el.dataset.k]=el.value})});
+  for(var key in LISTS)drawList(key);
+  panel.querySelectorAll('[data-add]').forEach(function(b){b.onclick=function(){var k=b.dataset.add,o={};LISTS[k].fields.forEach(function(f){o[f[0]]=''});draft[k].push(o);drawList(k);var rows=document.querySelectorAll('#L_'+k+' .lrow');var last=rows[rows.length-1];if(last)last.querySelector('input,textarea').focus()}});
+  drawThumbs();drawSlot('heroImg','heroSlot');drawSlot('aboutImg','aboutSlot');
+  document.getElementById('galIn').onchange=function(e){addPhotos(e.target.files);e.target.value=''};
+  document.getElementById('saveBtn').onclick=save;
+  document.getElementById('logoutBtn').onclick=function(){TOKEN='';panel.hidden=true};
+}
+
+function drawList(key){
+  var box=document.getElementById('L_'+key),spec=LISTS[key],list=draft[key];
+  box.innerHTML=list.map(function(item,i){
+    var shorts=spec.fields.filter(function(f){return f[2]!=='area'}),longs=spec.fields.filter(function(f){return f[2]==='area'});
+    var inp=function(f){var id='l_'+key+'_'+i+'_'+f[0];return '<div><label for="'+id+'">'+f[1]+'</label>'+(f[2]==='area'?'<textarea id="'+id+'" data-f="'+f[0]+'" rows="3">'+esc(item[f[0]])+'</textarea>':'<input type="text" id="'+id+'" data-f="'+f[0]+'" value="'+esc(item[f[0]])+'"'+(f[3]?' placeholder="'+esc(f[3])+'"':'')+'>')+'</div>'};
+    var first=shorts.shift();
+    var pairs='';for(var j=0;j<shorts.length;j+=2)pairs+='<div class="two">'+inp(shorts[j])+(shorts[j+1]?inp(shorts[j+1]):'<div></div>')+'</div>';
+    return '<div class="lrow" data-i="'+i+'"><div class="tools">'+(i>0?'<button type="button" data-mv="-1" aria-label="Move up">↑</button>':'')+(i<list.length-1?'<button type="button" data-mv="1" aria-label="Move down">↓</button>':'')+'<button type="button" data-rm>Remove</button></div>'+
+      inp(first)+pairs+longs.map(inp).join('')+'</div>';
+  }).join('')||'<p class="help">Nothing here yet.</p>';
+  box.querySelectorAll('.lrow').forEach(function(row){var i=+row.dataset.i;
+    row.querySelectorAll('[data-f]').forEach(function(el){el.addEventListener('input',function(){list[i][el.dataset.f]=el.value})});
+    row.querySelector('[data-rm]').onclick=function(){list.splice(i,1);drawList(key)};
+    row.querySelectorAll('[data-mv]').forEach(function(b){b.onclick=function(){var j=i+(+b.dataset.mv);var t=list[i];list[i]=list[j];list[j]=t;drawList(key)}});
+  });
+}
+
+function drawThumbs(){
+  var box=document.getElementById('thumbs');
+  box.innerHTML=draft.gallery.map(function(g,i){return '<div class="thumb"><img src="'+esc(safeImg(g.src))+'" alt=""><button type="button" class="rm" data-rm="'+i+'">Remove</button><input type="text" id="gc'+i+'" aria-label="Caption" placeholder="Caption" value="'+esc(g.cap||'')+'" data-i="'+i+'"></div>'}).join('')||'<p class="help" style="grid-column:1/-1;margin:0">No photos yet.</p>';
+  box.querySelectorAll('input[data-i]').forEach(function(el){el.addEventListener('input',function(){draft.gallery[+el.dataset.i].cap=el.value})});
+  box.querySelectorAll('[data-rm]').forEach(function(b){b.onclick=function(){var g=draft.gallery.splice(+b.dataset.rm,1)[0];markDelete(g&&g.src);drawThumbs()}});
+}
+
+function drawSlot(key,slot){
+  var el=document.getElementById(slot),v=safeImg(draft[key]);
+  el.innerHTML=(v?'<div class="thumb" style="max-width:200px;margin-top:6px"><img src="'+esc(v)+'" alt=""><button type="button" class="rm">Remove</button></div>':'')+
+    '<div class="prow2"><span class="btn ghost sm filebtn">'+(v?'Replace photo':'+ Add photo')+'<input type="file" accept="image/*"></span></div>';
+  var rm=el.querySelector('.rm');if(rm)rm.onclick=function(){markDelete(draft[key]);draft[key]='';drawSlot(key,slot)};
+  el.querySelector('input[type=file]').onchange=function(e){var f=e.target.files[0];if(!f)return;
+    status('Uploading photo…');upload(f).then(function(u){markDelete(draft[key]);draft[key]=u;drawSlot(key,slot);status('Photo added. Press Save to publish it.','ok')},function(err){status(err.message,'err')})};
+}
+
+function markDelete(src){if(src&&/^\/api\/img\//.test(src))pendingDeletes.push(src)}
+function status(t,cls){var s=document.getElementById('pst');if(!s)return;s.className='status'+(cls?' '+cls:'');s.textContent=t}
+
+// Shrink phone photos before upload so pages stay fast.
+function shrink(file){
+  return new Promise(function(res){
+    if(!/^image\/(jpeg|png|webp)$/i.test(file.type)){res(file);return}
+    var img=new Image(),u=URL.createObjectURL(file);
+    img.onload=function(){var max=1800,w=img.naturalWidth,h=img.naturalHeight,k=Math.min(1,max/Math.max(w,h));
+      var c=document.createElement('canvas');c.width=Math.round(w*k);c.height=Math.round(h*k);c.getContext('2d').drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(u);
+      c.toBlob(function(b){res(b&&b.size<file.size?new File([b],file.name.replace(/\.\w+$/,'')+'.jpg',{type:'image/jpeg'}):file)},'image/jpeg',.85)};
+    img.onerror=function(){URL.revokeObjectURL(u);res(file)};img.src=u;
+  });
+}
+
+function upload(file){
+  return shrink(file).then(function(f){
+    if(!LIVE){return new Promise(function(res){var r=new FileReader();r.onload=function(){res(r.result)};r.readAsDataURL(f)})}
+    var fd=new FormData();fd.append('file',f);
+    return fetch('/api/upload',{method:'POST',headers:{Authorization:'Bearer '+TOKEN},body:fd}).then(function(r){
+      return r.json().catch(function(){return{}}).then(function(j){if(!r.ok)throw new Error(j.error||'Upload failed. Try a smaller JPG or PNG photo.');return j.url})});
+  });
+}
+
+function addPhotos(files){
+  files=[].slice.call(files||[]);if(!files.length)return;var n=0;status('Uploading '+files.length+' photo'+(files.length>1?'s':'')+'…');
+  files.reduce(function(p,f){return p.then(function(){return upload(f).then(function(u){draft.gallery.push({src:u,cap:''});n++;drawThumbs()})})},Promise.resolve())
+   .then(function(){status(n+' photo'+(n>1?'s':'')+' added. Press Save to publish.','ok')},function(err){status(err.message,'err')});
+}
+
+function save(){
+  var data=JSON.parse(JSON.stringify(draft));
+  data.groomTiers=data.groomTiers.filter(function(t){return (t.name||'').trim()});
+  data.sitVisits=data.sitVisits.filter(function(t){return (t.title||t.body||'').trim()});
+  data.sitRows=data.sitRows.filter(function(t){return (t.label||'').trim()});
+  data.sitAddons=data.sitAddons.filter(function(t){return (t.label||'').trim()});
+  data.policies=data.policies.filter(function(t){return (t.title||'').trim()});
+  if(!LIVE){S=data;render();status('Updated on this page. Saving turns on once the site is live on Cloudflare.','ok');return}
+  status('Saving…');
+  fetch('/api/settings',{method:'PUT',headers:{'Content-Type':'application/json',Authorization:'Bearer '+TOKEN},body:JSON.stringify(data)})
+   .then(function(r){return r.json().catch(function(){return{}}).then(function(j){
+     if(r.status===401){TOKEN='';status('Your login expired. Close the panel and log in again.','err');return}
+     if(!r.ok){status(j.error||'Couldn\'t save. Try again in a moment.','err');return}
+     S=data;render();status('Saved. Your site is updated.','ok');
+     var dels=pendingDeletes.filter(function(src){return JSON.stringify(S).indexOf(src)<0});pendingDeletes=[];
+     dels.forEach(function(src){fetch('/api/upload?key='+encodeURIComponent(src.replace(/^\/api\/img\//,'')),{method:'DELETE',headers:{Authorization:'Bearer '+TOKEN}}).catch(function(){})});
+   })}).catch(function(){status('Couldn\'t reach the server. Check your connection and try again.','err')});
+}
+
+/* ---------- walking pup ---------- */
+var REDUCE=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+function rigOf(svg){if(!svg)return null;if(!svg._rig)svg._rig=RIG.make(svg);return svg._rig}
+function onScreen(el){var r=el.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight&&!document.hidden}
+function smooth(u){u=Math.max(0,Math.min(1,u));return u*u*(3-2*u)}
+var WSPEED=58,WSCALE=.78,WOMEGA=Math.PI*(WSPEED/WSCALE)/36;
+var W={x:-130,dir:1,state:'wait',until:performance.now()+1500,stopAt:0,stopped:false,lastPrint:0,step:0,last:0,ph:0,sn:0};
+function dropPrint(layer,x,step,dir){
+  var p=document.createElement('div');p.className='print';
+  p.style.left=x+'px';p.style.bottom=(step?3:10)+'px';p.style.transform='rotate('+(dir>0?90:-90)+'deg)';
+  p.innerHTML=PAW;layer.appendChild(p);p.addEventListener('animationend',function(){p.remove()});
+}
+function walk(t){
+  requestAnimationFrame(walk);
+  var dt=Math.min(.05,(t-(W.last||t))/1000);W.last=t;
+  var layer=document.querySelector('.walker'),dog=layer&&layer.querySelector('.dog');if(!dog)return;
+  var svg=dog.querySelector('svg'),rig=rigOf(svg);
+  if(REDUCE){if(!svg._drawn){RIG.draw(rig,POSE.stand,RIG.grounded(POSE.stand,0));svg._drawn=1}return}
+  if(!onScreen(layer))return;
+  var w=layer.clientWidth;
+  if(W.state==='wait'){
+    dog.style.visibility='hidden';if(t<W.until)return;
+    W.dir=Math.random()<.5?1:-1;W.x=W.dir>0?-125:w+8;W.stopAt=w*(.25+Math.random()*.5);W.stopped=false;W.state='walk';W.sn=0;
+    dog.style.visibility='visible';
+  }
+  if(W.state==='sniff'){
+    W.sn=Math.min(1,W.sn+dt*3.2);
+    if(t>W.until)W.state='walk';
+  }else{
+    W.sn=Math.max(0,W.sn-dt*3.2);
+    var go=1-W.sn;                                  // ease back up to speed after sniffing
+    W.x+=W.dir*WSPEED*dt*go;W.ph+=dt*WOMEGA*go;
+    if(!W.stopped&&(W.dir>0?W.x>W.stopAt:W.x<W.stopAt)){W.stopped=true;W.state='sniff';W.until=t+1500+Math.random()*1000}
+    else if(go>.8&&t-W.lastPrint>360){W.lastPrint=t;W.step^=1;dropPrint(layer,W.x+(W.dir>0?34:77),W.step,W.dir)}
+    if(W.dir>0?W.x>w+10:W.x<-130){W.state='wait';W.until=t+6000+Math.random()*8000}
+  }
+  var pose=ANIM.walkPose(W.ph);
+  if(W.sn>0){pose=RIG.mix(pose,ANIM.SNIFF,smooth(W.sn));pose.head+=4*W.sn*Math.sin(t*.03);pose.t2+=16*W.sn*Math.sin(t*.024)}
+  RIG.draw(rig,pose,RIG.grounded(pose,0));
+  dog.style.transform='translateX('+W.x.toFixed(1)+'px)'+(W.dir<0?' scaleX(-1)':'');
+}
+requestAnimationFrame(walk);
+
+/* ---------- yard pup: sits and licks a paw; now and then catches a ball mid-leap and backflips ---------- */
+var LOOKDOWN=RIG.clone(POSE.sit,{neck:66,head:62});
+var Y={st:'idle',t:0,dur:2600,n:0,last:0,ball:null,mouth:null};
+var BALL0={x:207,y:-84},BALLT0=ANIM.TC-1050;
+function setState(st,dur){Y.st=st;Y.t=0;Y.dur=dur||0}
+function idlePose(t){var p=RIG.clone(POSE.sit);p.neck+=1.4*Math.sin(t*.004);p.t2+=13*Math.sin(t*.0085);p.t1+=4*Math.sin(t*.0085+1);return p}
+function yardFrame(ts){
+  requestAnimationFrame(yardFrame);
+  var dt=Math.min(50,ts-(Y.last||ts));Y.last=ts;
+  var svg=document.querySelector('.pupsvg');if(!svg)return;
+  var rig=rigOf(svg),fb=svg.querySelector('.fball'),sw=svg.querySelectorAll('.swoosh');
+  if(REDUCE||!onScreen(svg)){if(!svg._drawn){RIG.draw(rig,POSE.sit,RIG.grounded(POSE.sit,0));svg._drawn=1}return}
+  svg._drawn=1;Y.t+=dt;var t=Y.t,pose,c,R;
+  svg.classList.toggle('licking',Y.st==='lick'&&t>300&&t<Y.dur-420);
+  svg.classList.toggle('hasball',Y.st==='hold'||(Y.st==='fetch'&&t>=ANIM.TC));
+  if(Y.st==='idle'){
+    pose=idlePose(ts);c=RIG.grounded(pose,0);
+    if(t>Y.dur){Y.n++;if(Y.n%3===0){setState('fetch',2420);Y.mouth=null}else setState('lick',2500)}
+  }else if(Y.st==='lick'){
+    var k=t<350?smooth(t/350):t>Y.dur-420?smooth((Y.dur-t)/420):1;
+    pose=RIG.mix(idlePose(ts),POSE.lick,k);
+    if(k>.9){pose.head+=5*Math.sin(t*.034);pose.neck+=2*Math.sin(t*.034+.6)}
+    c=RIG.grounded(pose,0);
+    if(t>Y.dur)setState('idle',2200+Math.random()*2000);
+  }else if(Y.st==='fetch'){
+    if(!Y.mouth){var s=ANIM.fetchState(ANIM.TC,0);Y.mouth=RIG.headPoint(RIG.solve(s.pose,s.c),32,3.5)}
+    var st=ANIM.fetchState(Math.min(t,2420),0);pose=st.pose;c=st.c;
+    if(t>=BALLT0&&t<ANIM.TC){
+      var u=(t-BALLT0)/(ANIM.TC-BALLT0),bx=BALL0.x+(Y.mouth.x-BALL0.x)*u,by=BALL0.y+(Y.mouth.y-BALL0.y)*u-92*4*u*(1-u);
+      fb.setAttribute('visibility','visible');fb.setAttribute('transform','translate('+bx.toFixed(1)+' '+by.toFixed(1)+') rotate('+(-u*540).toFixed(0)+')');
+      fb.style.opacity=Math.min(1,u*8).toFixed(2);
+    }else fb.setAttribute('visibility','hidden');
+    if(t>2420){pose.rootA+=360;setState('hold',1900)}
+  }else if(Y.st==='hold'){
+    pose=RIG.clone(POSE.sit);pose.head+=6*Math.sin(t*.012);pose.t2+=24*Math.sin(t*.032);pose.t1+=8*Math.sin(t*.032+1);
+    c=RIG.grounded(pose,0);
+    if(t>Y.dur){R=RIG.solve(pose,c);var m=RIG.headPoint(R,32,3.5);Y.ball={x:m.x,y:m.y,vx:-75,vy:-60,a:0};setState('drop',1700)}
+  }else if(Y.st==='drop'){
+    var kd=t<300?smooth(t/300):t>Y.dur-450?smooth((Y.dur-t)/450):1;
+    pose=RIG.mix(idlePose(ts),LOOKDOWN,kd);c=RIG.grounded(pose,0);
+    var b=Y.ball,s2=dt/1000;b.vy+=1500*s2;b.x+=b.vx*s2;b.y+=b.vy*s2;b.a+=b.vx*s2*9;
+    if(b.y>-6.2){b.y=-6.2;b.vy=-b.vy*.48;b.vx*=.82;if(Math.abs(b.vy)<40)b.vy=0}
+    fb.setAttribute('visibility','visible');fb.setAttribute('transform','translate('+b.x.toFixed(1)+' '+b.y.toFixed(1)+') rotate('+b.a.toFixed(0)+')');
+    fb.style.opacity=Math.min(1,(Y.dur-t)/450).toFixed(2);
+    if(t>Y.dur){fb.setAttribute('visibility','hidden');setState('idle',2600+Math.random()*1800)}
+  }
+  R=RIG.draw(rig,pose,c);
+  // spin trail during the flip
+  var on=Y.st==='fetch'&&t>ANIM.TC+40&&t<ANIM.T1-30;
+  for(var i=0;i<sw.length;i++){
+    if(!on){sw[i].style.opacity=0;continue}
+    var e=Math.sin(Math.PI*(t-ANIM.TC-40)/(ANIM.T1-ANIM.TC-70)),rad=i?50:64,a1=pose.rootA-40,a2=a1+(i?85:120);
+    var p1x=c.x+rad*Math.cos(a1*Math.PI/180),p1y=c.y+rad*Math.sin(a1*Math.PI/180),p2x=c.x+rad*Math.cos(a2*Math.PI/180),p2y=c.y+rad*Math.sin(a2*Math.PI/180);
+    sw[i].setAttribute('d','M'+p1x.toFixed(1)+' '+p1y.toFixed(1)+'A'+rad+' '+rad+' 0 0 1 '+p2x.toFixed(1)+' '+p2y.toFixed(1));
+    sw[i].setAttribute('stroke-width',i?3:5);sw[i].style.opacity=(e*(i?.5:.8)).toFixed(2);
+  }
+}
+requestAnimationFrame(yardFrame);
+
+/* ---------- bubbles you can pop, and bouncy title letters ---------- */
+function droplets(hero,x,y){
+  for(var k=0;k<7;k++){var d=document.createElement('span'),a=k/7*Math.PI*2+Math.random()*.5,r=16+Math.random()*16;
+    d.className='drop';d.style.left=x+'px';d.style.top=y+'px';d.style.setProperty('--dx',(Math.cos(a)*r).toFixed(1)+'px');d.style.setProperty('--dy',(Math.sin(a)*r).toFixed(1)+'px');
+    hero.appendChild(d);d.addEventListener('animationend',function(){this.remove()})}
+}
+function hitPop(hero,cx,cy){
+  var hit=false,hr=hero.getBoundingClientRect();
+  hero.querySelectorAll('.bubbles i:not(.pop), .puff').forEach(function(el){
+    var r=el.getBoundingClientRect(),mx=r.left+r.width/2,my=r.top+r.height/2;
+    if(Math.hypot(cx-mx,cy-my)>r.width/2+6)return;
+    hit=true;droplets(hero,mx-hr.left,my-hr.top);
+    if(el.classList.contains('puff')){el.remove();return}
+    el.classList.add('pop');
+    setTimeout(function(){el.classList.remove('pop');el.style.animation='none';void el.offsetWidth;el.style.animation='';el.style.animationDelay=(Math.random()*-2).toFixed(2)+'s'},330);
+  });
+  return hit;
+}
+function blow(hero,x,y){
+  if(hero.querySelectorAll('.puff').length>24)return;
+  for(var k=0;k<4;k++)(function(k){setTimeout(function(){
+    var p=document.createElement('span'),s=14+Math.random()*24;p.className='puff';p.innerHTML='<b></b>';
+    p.style.width=p.style.height=s+'px';p.style.left=(x+(Math.random()*30-15))+'px';p.style.top=y+'px';
+    p.style.setProperty('--dx',(Math.random()*90-45).toFixed(0)+'px');p.style.setProperty('--d',(2.6+Math.random()*1.4).toFixed(2)+'s');
+    hero.appendChild(p);p.addEventListener('animationend',function(){p.remove()});
+  },k*90)})(k);
+}
+app.addEventListener('pointermove',function(e){
+  if(REDUCE||e.pointerType==='touch')return;var hero=e.target.closest&&e.target.closest('.hero');if(hero)hitPop(hero,e.clientX,e.clientY);
+});
+app.addEventListener('pointerdown',function(e){
+  if(REDUCE)return;var hero=e.target.closest&&e.target.closest('.hero');if(!hero)return;
+  if(hitPop(hero,e.clientX,e.clientY))return;
+  if(e.target.closest('a,button,.card,input,textarea,.eyebrow'))return;
+  var hr=hero.getBoundingClientRect();blow(hero,e.clientX-hr.left,e.clientY-hr.top);
+});
+
+/* boot */
+render();
+fetch('/api/settings',{cache:'no-store'}).then(function(r){
+  var ct=r.headers.get('content-type')||'';if(!r.ok||ct.indexOf('json')<0)throw 0;return r.json();
+}).then(function(j){LIVE=true;if(j&&typeof j==='object'){for(var k in DEFAULTS)if(j[k]!=null)S[k]=j[k]}render()}).catch(function(){LIVE=false})
+ .then(function(){if(location.hash==='#admin')openPanel()});
+})();
+</script>
+</body>
+</html>
