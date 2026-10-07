@@ -1,0 +1,29 @@
+{
+  // Roo's Purrfect Paws — Cloudflare Worker with static assets.
+  // Workers Builds runs `npx wrangler deploy` on every push to main.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "roos-purrfect-paws",
+  "main": "src/worker.js",
+  "compatibility_date": "2025-09-01",
+  "workers_dev": true,
+  "preview_urls": true,
+
+  // The site's pages, served directly. API routes go to the Worker first.
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+
+  // Owner edits (text + uploaded photos) are saved here. Free plan, no card needed.
+  "kv_namespaces": [
+    { "binding": "SITE", "id": "b2d77974976744aea52644a72ef016b6" }
+  ],
+
+  // ADMIN_PASSWORD is a secret set in the dashboard (Settings → Variables and Secrets).
+  // Secrets are never removed by a deploy; keep_vars also protects any dashboard variables.
+  "keep_vars": true,
+
+  "observability": { "enabled": true }
+}
