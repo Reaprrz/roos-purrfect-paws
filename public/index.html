@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Nunito:ital,wght@0,400;0,600;0,800;0,900;1,600&display=swap">
 <style>
-/* Layout: sticky bar → blush hero (name + appointment card, soap bubbles) → scalloped edge → grooming price table → blush appointment request slip → lavender pet-sitting rates → photo wall → policies + payment → about → plum visit block */
+/* Layout: sticky bar → blush hero (name + appointment card, soap bubbles) → scalloped edge → grooming price table → pink-to-lavender appointment request band (scalloped edges) → lavender pet-sitting rates → photo wall → policies + payment → about → plum visit block */
 :root{
   color-scheme:light;
   --white:#ffffff;
@@ -25,6 +25,10 @@
   --fawn:#d9a265;
   --fawn-dk:#b27a42;
   --mask:#2b1d26;
+  --band-a:#f7c3dc;
+  --band-b:#ecc9ee;
+  --band-c:#d8c8f6;
+  --band-ink:#5a3a96;
   --display:"Shrikhand","Cooper Black",Georgia,serif;
   --body:"Nunito","Avenir Next","Segoe UI",system-ui,sans-serif;
   box-sizing:border-box;
@@ -365,7 +369,14 @@ footer button{background:none;border:0;color:var(--lav);font:700 14px var(--body
 .pv{background:var(--lav);border-radius:12px;padding:10px 12px;font-size:14px;font-weight:800;margin-top:10px}
 
 /* appointment request: a booking slip of numbered steps, with how-it-works and the estimate alongside */
-.request{background:var(--blush)}
+section.block.request{padding-block:96px}
+.request{position:relative;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cg transform='translate(18 20) rotate(-20 32 32) scale(.42)'%3E%3Cg fill='%23ffffff' fill-opacity='.42'%3E%3Cellipse cx='32' cy='42' rx='14' ry='12'/%3E%3Cellipse cx='14' cy='27' rx='6.5' ry='8.5' transform='rotate(-18 14 27)'/%3E%3Cellipse cx='25' cy='15' rx='6.5' ry='9'/%3E%3Cellipse cx='39' cy='15' rx='6.5' ry='9'/%3E%3Cellipse cx='50' cy='27' rx='6.5' ry='8.5' transform='rotate(18 50 27)'/%3E%3C/g%3E%3C/g%3E%3Cg transform='translate(108 104) rotate(16 32 32) scale(.32)'%3E%3Cg fill='%23ffffff' fill-opacity='.42'%3E%3Cellipse cx='32' cy='42' rx='14' ry='12'/%3E%3Cellipse cx='14' cy='27' rx='6.5' ry='8.5' transform='rotate(-18 14 27)'/%3E%3Cellipse cx='25' cy='15' rx='6.5' ry='9'/%3E%3Cellipse cx='39' cy='15' rx='6.5' ry='9'/%3E%3Cellipse cx='50' cy='27' rx='6.5' ry='8.5' transform='rotate(18 50 27)'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") 0 0/180px 180px,linear-gradient(160deg,var(--band-a) 0%,var(--band-b) 55%,var(--band-c) 100%)}
+.request:before,.request:after{content:"";position:absolute;left:0;right:0;height:22px;pointer-events:none}
+.request:before{top:0;background:radial-gradient(circle at 18px 0,var(--white) 17px,transparent 18px) 0 0/36px 22px repeat-x}
+.request:after{bottom:0;background:radial-gradient(circle at 18px 100%,var(--lav-soft) 17px,transparent 18px) 0 100%/36px 22px repeat-x}
+.request .head p{color:var(--plum)}
+.request .kicker{color:var(--band-ink)}
+.request .head h2 em{color:var(--pink)}
 .rq-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px;align-items:start}
 .rq-card{background:var(--white);border-radius:26px;border:1.5px solid var(--line);padding:6px 26px 26px;box-shadow:0 24px 50px -36px rgba(59,36,72,.45);min-width:0}
 .rq-card fieldset{border:0;margin:0;padding:22px 0 22px;border-bottom:2px dashed var(--line);min-width:0}
@@ -503,6 +514,7 @@ footer button{background:none;border:0;color:var(--lav);font:700 14px var(--body
   .policy{grid-template-columns:1fr;gap:10px}
   .rq-side{grid-template-columns:1fr}
   .rq-side .callbox{display:none}
+  section.block.request{padding-block:76px}
   .rq-card{padding:4px 16px 20px;border-radius:22px}
   .rq-card legend{font-size:21px}
   .fgrid{grid-template-columns:1fr}
