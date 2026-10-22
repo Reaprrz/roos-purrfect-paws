@@ -11,6 +11,8 @@ const TEXT_FIELDS = {
   groomIntro: 600, catPrice: 60, catNote: 200, groomIncludes: 1000, groomNotes: 2000,
   sitIntro: 800, sitIncluded: 800, sitNote: 1200,
   payments: 400, tipNote: 200, policyNote: 1200,
+  // appointment request form
+  reqIntro: 800, reqServices: 2000, reqHaircuts: 2000, reqShampoos: 2000, reqNext: 800, reqPaused: 800,
 };
 
 // List fields: name → { field: max length }, plus the field that must be filled for a row to count.

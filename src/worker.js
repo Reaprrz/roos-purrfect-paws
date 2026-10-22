@@ -5,11 +5,13 @@ import * as settings from "../functions/api/settings.js";
 import * as login from "../functions/api/login.js";
 import * as upload from "../functions/api/upload.js";
 import * as img from "../functions/api/img/[[path]].js";
+import * as requests from "../functions/api/requests.js";
 
 const ROUTES = {
   "/api/settings": settings,
   "/api/login": login,
   "/api/upload": upload,
+  "/api/requests": requests,
 };
 
 function pick(mod, method) {

@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Roo's Purrfect Paws</title>
-<meta name="description" content="Dog and cat grooming and in-home pet sitting at 5380 E Lake Road, Sheffield Lake, Ohio. Call (440) 228-3999 to book.">
+<meta name="description" content="Dog and cat grooming and in-home pet sitting at 5380 E Lake Road, Sheffield Lake, Ohio. Call (440) 228-3999 or request an appointment online.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Nunito:ital,wght@0,400;0,600;0,800;0,900;1,600&display=swap">
 <style>
-/* Layout: sticky bar → blush hero (name + appointment card, soap bubbles) → scalloped edge → grooming price table → lavender pet-sitting rates → photo wall → policies + payment → about → plum visit block */
+/* Layout: sticky bar → blush hero (name + appointment card, soap bubbles) → scalloped edge → grooming price table → blush appointment request slip → lavender pet-sitting rates → photo wall → policies + payment → about → plum visit block */
 :root{
   color-scheme:light;
   --white:#ffffff;
@@ -31,7 +31,7 @@
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
 }
-*,*:before,*:after{box-sizing:inherit}
+*,*:before,*:after{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:70px}
 body{margin:0;background:var(--white);color:var(--plum);font:17px/1.6 var(--body);font-weight:600}
 img{max-width:100%;display:block}
@@ -364,6 +364,112 @@ footer button{background:none;border:0;color:var(--lav);font:700 14px var(--body
 .savebar{position:sticky;bottom:calc(-28px - env(safe-area-inset-bottom,0px));background:var(--white);padding:14px 0 6px;margin-top:16px;border-top:2px dashed var(--line);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .pv{background:var(--lav);border-radius:12px;padding:10px 12px;font-size:14px;font-weight:800;margin-top:10px}
 
+/* appointment request: a booking slip of numbered steps, with how-it-works and the estimate alongside */
+.request{background:var(--blush)}
+.rq-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px;align-items:start}
+.rq-card{background:var(--white);border-radius:26px;border:1.5px solid var(--line);padding:6px 26px 26px;box-shadow:0 24px 50px -36px rgba(59,36,72,.45);min-width:0}
+.rq-card fieldset{border:0;margin:0;padding:22px 0 22px;border-bottom:2px dashed var(--line);min-width:0}
+.rq-card legend{float:left;width:100%;display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:400;font-size:23px;line-height:1.2;color:var(--plum);padding:0;margin:0 0 12px}
+.rq-card legend~*{clear:both}
+.rq-card legend .opt{font-family:var(--body);font-size:14px;font-weight:700;color:var(--plum-mut)}
+.num{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--pink);color:var(--white);font:900 15px/1 var(--body);flex:none}
+.hint-line{margin:-4px 0 12px;color:var(--plum-mut);font-size:15px}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px}
+.fld{display:flex;flex-direction:column;gap:6px;min-width:0}
+.fld.full{grid-column:1/-1}
+.fld>label,.fld>.lbl{font-size:14px;font-weight:900;color:var(--plum)}
+.fld .opt{font-weight:700;color:var(--plum-mut)}
+.rq-card input[type=text],.rq-card input[type=tel],.rq-card input[type=email],.rq-card input[type=date],.rq-card select,.rq-card textarea{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:10px 13px;font:600 16px var(--body);color:var(--plum);background:var(--white);min-height:46px}
+.rq-card textarea{min-height:84px;resize:vertical;line-height:1.5}
+.rq-card input:focus,.rq-card select:focus,.rq-card textarea:focus{outline:none;border-color:var(--pink);box-shadow:0 0 0 3px rgba(201,58,132,.15)}
+.rq-card .bad,.rq-card .bad label{border-color:#b4233c!important}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg input,.opts input,.agree input{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.seg label{display:inline-flex;align-items:center;min-height:42px;padding:8px 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--white);font-weight:800;font-size:15px;cursor:pointer;color:var(--plum-mut);transition:background .15s,border-color .15s,color .15s}
+.seg label:hover{border-color:var(--pink-soft)}
+.seg input:checked+label{background:var(--pink);border-color:var(--pink);color:var(--white)}
+.seg input:focus-visible+label,.opts input:focus-visible+label,.agree input:focus-visible+label{outline:3px solid var(--lav-deep);outline-offset:2px}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.opts .o{position:relative;min-width:0}
+.opts label{position:relative;display:flex;flex-direction:column;gap:2px;height:100%;padding:12px 40px 12px 14px;border-radius:16px;border:1.5px solid var(--line);background:var(--white);cursor:pointer;transition:border-color .15s,background .15s}
+.opts label:hover{border-color:var(--pink-soft)}
+.opts label b{font-weight:900;font-size:15px;line-height:1.3}
+.opts label span{font-size:13.5px;font-weight:600;color:var(--plum-mut);line-height:1.4}
+.opts label:after{content:"";position:absolute;top:12px;right:12px;width:20px;height:20px;border-radius:50%;border:2px solid var(--pink-soft);background:var(--white)}
+.opts.multi label:after{border-radius:6px}
+.opts input:checked+label{border-color:var(--pink);background:var(--blush)}
+.opts input:checked+label:after{border-color:var(--pink);background:var(--pink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.3l2.3 2.3 4.7-5.1' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat}
+.tipline{display:flex;gap:10px;align-items:flex-start;margin:12px 0 0;font-size:14px;color:var(--plum-mut);font-weight:700}
+.tipline svg{flex:none;width:18px;height:18px;color:var(--lav-deep);margin-top:2px}
+.est{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 14px;background:var(--lav);border-radius:16px;padding:14px 18px;margin-top:20px}
+.est small{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:900;color:var(--lav-deep)}
+.est span{font-size:14px;font-weight:700;color:var(--plum)}
+.est b{font-size:24px;font-weight:900;color:var(--pink);font-variant-numeric:tabular-nums;white-space:nowrap}
+.agree{margin-top:20px}
+.agree label{display:flex;gap:12px;align-items:flex-start;cursor:pointer;font-weight:700;font-size:15px;line-height:1.5}
+.agree label:before{content:"";flex:none;width:22px;height:22px;border-radius:7px;border:2px solid var(--pink-soft);background:var(--white);margin-top:1px}
+.agree input:checked+label:before{border-color:var(--pink);background:var(--pink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.3l2.3 2.3 4.7-5.1' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/13px no-repeat}
+.agree.bad label:before{border-color:#b4233c}
+.agree a{color:var(--pink)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.rq-err{background:#fde8ec;color:#8f1c31;border-radius:12px;padding:10px 14px;font-weight:800;font-size:15px;margin-top:16px}
+.rq-send{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;margin-top:20px}
+.rq-send p{margin:0;font-size:14px;color:var(--plum-mut);flex:1 1 220px}
+.rq-send .btn[disabled]{opacity:.6;cursor:wait;transform:none}
+.rq-side{position:sticky;top:calc(84px + env(safe-area-inset-top,0px));display:grid;gap:14px;min-width:0}
+.how{background:var(--white);border-radius:22px;padding:20px 22px;border:1.5px solid var(--line)}
+.how h3,.callbox h3{margin:0 0 12px;font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:900;color:var(--lav-deep)}
+.how ol{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:st}
+.how li{display:grid;grid-template-columns:28px 1fr;gap:10px;font-size:15px;font-weight:700;line-height:1.45;counter-increment:st}
+.how li:before{content:counter(st);display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--blush);color:var(--pink);font-weight:900;font-size:14px}
+.callbox{background:var(--plum);color:var(--white);border-radius:22px;padding:18px 22px}
+.callbox h3{color:var(--pink-soft)}
+.callbox p{margin:0 0 12px;font-size:15px;color:var(--lav)}
+.callbox .btn{background:var(--white);border-color:var(--white);color:var(--plum);width:100%}
+.rq-done,.rq-paused{background:var(--white);border-radius:26px;border:1.5px solid var(--line);padding:30px 28px;box-shadow:0 24px 50px -36px rgba(59,36,72,.45)}
+.rq-done .ok{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--pink);color:var(--white);margin-bottom:14px}
+.rq-done .ok svg{width:28px;height:28px}
+.rq-done h3,.rq-paused h3{font-family:var(--display);font-weight:400;font-size:32px;color:var(--plum);margin:0 0 8px;line-height:1.1}
+.rq-done p,.rq-paused p{margin:0 0 14px;max-width:36em}
+.rq-done dl{margin:16px 0 20px;display:grid;gap:8px;background:var(--lav-soft);border-radius:16px;padding:16px 18px}
+.rq-done dl div{display:grid;grid-template-columns:110px 1fr;gap:10px}
+.rq-done dt{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:900;color:var(--lav-deep);padding-top:3px}
+.rq-done dd{margin:0;font-weight:800;min-width:0;overflow-wrap:anywhere}
+.rq-done .pvnote{font-size:14px;color:var(--plum-mut);background:var(--lav);border-radius:12px;padding:10px 12px}
+
+/* owner panel: requests inbox */
+.inbox-top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:2px 0 4px}
+.fchip{border:1.5px solid var(--line);background:var(--white);border-radius:999px;padding:6px 12px;font:800 13px var(--body);color:var(--plum-mut);cursor:pointer}
+.fchip.on{background:var(--plum);border-color:var(--plum);color:var(--white)}
+.fchip.refresh{margin-left:auto}
+.badge{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 7px;border-radius:999px;background:var(--pink);color:var(--white);font-size:12px;letter-spacing:0;margin-left:6px;vertical-align:1px}
+.rq{border:1.5px solid var(--line);border-radius:16px;padding:12px 14px;margin-top:10px;background:var(--white)}
+.rq header{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
+.rq header b{font-size:17px}
+.rq time{margin-left:auto;font-size:12.5px;color:var(--plum-mut);font-weight:700}
+.stc{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;border-radius:999px;padding:3px 9px}
+.stc.new{background:var(--blush);color:var(--pink)}
+.stc.confirmed{background:#e3f4ea;color:#2f7a4f}
+.stc.declined{background:#efeaf1;color:var(--plum-mut)}
+.stc.ex{background:var(--lav);color:var(--lav-deep)}
+.rq-pet{margin:4px 0 8px;font-size:14px;color:var(--plum-mut);font-weight:800}
+.rq dl{margin:0;display:grid;gap:5px;font-size:14px}
+.rq dl div{display:grid;grid-template-columns:76px 1fr;gap:8px}
+.rq dt{font-weight:900;color:var(--plum-mut);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding-top:3px}
+.rq dd{margin:0;font-weight:700;overflow-wrap:anywhere;white-space:pre-line}
+.rq-contact{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px;font-size:14px;font-weight:800}
+.rq-contact span{margin-right:4px}
+.rq-contact a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;border-radius:999px;padding:5px 12px;background:var(--lav-soft);color:var(--lav-deep);font-weight:900;font-size:13px}
+.rq-contact a.pref{background:var(--lav-deep);color:var(--white)}
+.rq .rq-note{margin-top:10px;font-size:16px!important;padding:8px 10px!important}
+.rq-act{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center}
+.rq-act button{border:1.5px solid var(--line);background:var(--white);border-radius:999px;padding:7px 14px;font:900 13px var(--body);cursor:pointer;color:var(--plum)}
+.rq-act button.go{background:#2f7a4f;border-color:#2f7a4f;color:var(--white)}
+.rq-act button.del{color:#b4233c;margin-left:auto}
+.rq-act button.del.arm{background:#b4233c;border-color:#b4233c;color:var(--white)}
+.rq-act .saved{font-size:12.5px;color:#2f7a4f;font-weight:800}
+.inbox-empty{margin:12px 0 4px;padding:16px;border-radius:14px;background:var(--lav-soft);font-size:14px;font-weight:700;color:var(--plum-mut);text-align:center}
+
 @media (max-width:900px){
   .sit-head{grid-template-columns:1fr}
   .yard{justify-self:center;margin-top:70px}
@@ -373,6 +479,8 @@ footer button{background:none;border:0;color:var(--lav);font:700 14px var(--body
   .sitgrid,.gtk,.includes{grid-template-columns:1fr}
   .pay{position:static}
   .nav a:not(.btn){display:none}
+  .rq-grid{grid-template-columns:1fr}
+  .rq-side{position:static;order:-1;grid-template-columns:1fr 1fr}
 }
 @media (max-width:620px){
   .wrap{padding-inline:16px}
@@ -393,6 +501,17 @@ footer button{background:none;border:0;color:var(--lav);font:700 14px var(--body
   .shot figcaption{font-size:12px;left:6px;right:6px;bottom:6px}
   table.rates th,table.rates td{padding:10px 12px}
   .policy{grid-template-columns:1fr;gap:10px}
+  .rq-side{grid-template-columns:1fr}
+  .rq-side .callbox{display:none}
+  .rq-card{padding:4px 16px 20px;border-radius:22px}
+  .rq-card legend{font-size:21px}
+  .fgrid{grid-template-columns:1fr}
+  .opts{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .opts label{padding:10px 34px 10px 12px}
+  .opts label:after{top:10px;right:10px;width:18px;height:18px}
+  .rq-send .btn{flex:1 1 100%}
+  .rq-done,.rq-paused{padding:24px 18px}
+  .rq-done dl div{grid-template-columns:1fr;gap:2px}
 }
 </style>
 </head>
@@ -412,14 +531,14 @@ footer button{background:none;border:0;color:var(--lav);font:700 14px var(--body
 var DEFAULTS={
   name:"Roo's Purrfect Paws",
   eyebrow:"Grooming & pet sitting · Sheffield Lake, OH",
-  intro:"Full grooms for dogs and cats, plus pet sitting in the comfort of your own home. All appointments are booked by phone.",
+  intro:"Full grooms for dogs and cats, plus pet sitting in the comfort of your own home. Call us or send an appointment request right here.",
   phone:"(440) 228-3999",
   address:"5380 E Lake Road, Sheffield Lake, Ohio 44054",
   instagram:"roospurrfectpaws",
   facebook:"https://www.facebook.com/roos.purrfect.paws.2025/",
   email:"",
   hours:"",
-  hoursNote:"Appointments are booked by phone only. Give us a call to set up a time.",
+  hoursNote:"By appointment. Call us or send a request online and we'll set up a time.",
 
   groomIntro:"Prices are for a full groom and depend on your pet's size and coat.",
   groomTiers:[
@@ -460,6 +579,12 @@ var DEFAULTS={
   ],
   sitNote:"Rates may be adjusted for extra tasks or cleaning, homes farther away, or stays longer than a week. Call for details and to book.",
 
+  reqIntro:"Tell us about your pet and what you'd like done. We'll call or text you to confirm a time.",
+  reqServices:"Full groom | Bath, blow-out, brush, haircut if needed, ears, teeth and nails\nBath & brush | Bath, blow-out and brush-out, no haircut\nNail trim | Trimmed and smoothed\nTeeth cleaning | Fresh breath add-on\nEar cleaning | Gentle clean and check\nDe-shedding | Loosens and removes undercoat\nDe-matting | Works out tangles and mats (extra charge)\nFace, feet & tail tidy | A neat-up between full grooms",
+  reqHaircuts:"No haircut | Bath and tidy only\nBreed standard | The classic cut for your pet's breed\nTeddy bear cut | Even length all over with a round, fluffy face\nShort summer cut | Short all over and easy to keep up\nJust a trim | Keep the length, neaten the edges\nSomething else | Describe it below",
+  reqShampoos:"Our choice | Gentle everyday shampoo\nOatmeal | Soothing for dry or itchy skin\nHypoallergenic | Fragrance-free for sensitive skin\nWhitening | Brightens white and light coats\nDe-shedding | Helps release loose undercoat\nFlea & tick | For pets with fleas\nI'll bring my own | Medicated or prescription shampoo",
+  reqNext:"This sends a request, not a booking. We'll reach out to confirm a time.",
+  reqPaused:"",
   payments:"Cash\nCheck\nCash App\nVenmo",
   tipNote:"Tips are greatly appreciated!",
   policies:[
@@ -505,6 +630,9 @@ function ico(d,w){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentCo
 var I_PHONE=ico('<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>');
 var I_IG=ico('<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/>',2.2);
 var I_FB=ico('<path d="M15 3h-2.5A4.5 4.5 0 0 0 8 7.5V10H5.5v4H8v7h4v-7h3l.5-4H12V7.8c0-.6.4-.8.9-.8H15z"/>',2.2);
+var I_CAL=ico('<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4M8 14h3"/>');
+var I_CHECK=ico('<path d="M5 12.5l4.5 4.5L19 7.5"/>',3);
+var I_CAMERA=ico('<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',2.2);
 var POL_ICONS=[ico('<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/>'),ico('<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4M10 14l4 4M14 14l-4 4"/>'),ico('<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>')];
 
 /* fluffy just-groomed pup, facing right. Each fluffy part is circles drawn twice (dark, then white on top) so they merge into one soft outline. */
@@ -751,18 +879,181 @@ function policiesHTML(){
   '</div></div></section>';
 }
 
+/* ---------- appointment request form ---------- */
+function optLines(s){return lines(s).map(function(l){var i=l.indexOf('|');return i<0?{t:l.trim(),d:''}:{t:l.slice(0,i).trim(),d:l.slice(i+1).trim()}}).filter(function(o){return o.t})}
+function todayISO(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function niceDate(iso){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(iso||'');if(!m)return '';return new Date(+m[1],m[2]-1,+m[3]).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})}
+var REQ_BLANK={name:'',phone:'',email:'',contact:'text',pet:'',species:'dog',breed:'',size:'',coat:'',firstVisit:'',petNotes:'',services:[],haircut:'',haircutNotes:'',shampoo:'',date1:'',date2:'',times:[],notes:'',agree:false};
+var REQ=JSON.parse(JSON.stringify(REQ_BLANK)), REQ_T0=Date.now(), REQ_SENT=null, REQ_BUSY=false;
+var TIMES=['Morning','Midday','Afternoon','Any time'];
+var CONTACT_WORD={call:'call',text:'text',email:'email'};
+
+function segHTML(name,opts,val,label){
+  return '<div class="seg" role="radiogroup" aria-label="'+esc(label)+'">'+opts.map(function(o,i){var id='rq_'+name+'_'+i;
+    return '<input type="radio" id="'+id+'" name="'+name+'" value="'+esc(o[0])+'"'+(val===o[0]?' checked':'')+'><label for="'+id+'">'+esc(o[1])+'</label>'}).join('')+'</div>';
+}
+function optsHTML(name,opts,val,multi,label){
+  return '<div class="opts'+(multi?' multi':'')+'" role="group" aria-label="'+esc(label)+'">'+opts.map(function(o,i){var id='rq_'+name+'_'+i,on=multi?val.indexOf(o.t)>-1:val===o.t;
+    return '<div class="o"><input type="'+(multi?'checkbox':'radio')+'" id="'+id+'" name="'+name+'" value="'+esc(o.t)+'"'+(on?' checked':'')+'><label for="'+id+'"><b>'+esc(o.t)+'</b>'+(o.d?'<span>'+esc(o.d)+'</span>':'')+'</label></div>'}).join('')+'</div>';
+}
+function estimateFor(st){
+  var full=st.services.some(function(s){return /full groom/i.test(s)});
+  if(!full)return null;
+  if(st.species==='cat')return S.catPrice?{amt:S.catPrice,what:'Full groom, cat'}:null;
+  var t=arr(S.groomTiers).filter(function(t){return t&&t.name===st.size})[0];
+  if(!t||!st.coat)return null;
+  var amt=st.coat==='long'?t.long:t.short;if(!amt)return null;
+  return {amt:amt,what:'Full groom, '+t.name.replace(/\bdogs\b/i,'dog')+', '+st.coat+'-haired'};
+}
+function estHTML(){
+  var e=estimateFor(REQ);
+  if(!e)return '<div class="est" id="rqEst" hidden></div>';
+  return '<div class="est" id="rqEst"><div><small>Estimate</small><span>'+esc(e.what)+'. Final price once we see your pet.</span></div><b>'+esc(e.amt)+'</b></div>';
+}
+function requestInner(){
+  if(S.reqPaused&&S.reqPaused.trim()){
+    return '<div class="rq-paused"><h3>Requests are paused</h3><p>'+esc(S.reqPaused)+'</p>'+(S.phone?'<a class="btn" href="'+telHref(S.phone)+'">'+I_PHONE+'Call '+esc(S.phone)+'</a>':'')+'</div>';
+  }
+  if(REQ_SENT){
+    var r=REQ_SENT,how=CONTACT_WORD[r.contact]||'call',where=r.contact==='email'&&r.email?r.email:r.phone;
+    var when=[niceDate(r.date1),niceDate(r.date2)].filter(Boolean).join(' or ');
+    return '<div class="rq-done" id="rqDone" tabindex="-1"><div class="ok">'+I_CHECK+'</div><h3>Request sent!</h3>'+
+      '<p>Thanks, '+esc(r.name.split(' ')[0])+'. We\'ll '+how+' you at <b>'+esc(where)+'</b> to confirm a time for '+esc(r.pet)+'. Your appointment isn\'t booked until we confirm.</p>'+
+      '<dl><div><dt>Services</dt><dd>'+esc(r.services.join(', '))+'</dd></div>'+
+      (r.haircut?'<div><dt>Haircut</dt><dd>'+esc(r.haircut)+'</dd></div>':'')+
+      (r.shampoo?'<div><dt>Shampoo</dt><dd>'+esc(r.shampoo)+'</dd></div>':'')+
+      (when||r.times.length?'<div><dt>When</dt><dd>'+esc([when,r.times.join(', ')].filter(Boolean).join(' · '))+'</dd></div>':'')+
+      (r.estimate?'<div><dt>Estimate</dt><dd>'+esc(r.estimate)+'</dd></div>':'')+'</dl>'+
+      (!LIVE?'<p class="pvnote">Preview: on the live site this goes to the owner\'s request inbox. Here it\'s added to the inbox in the owner panel so you can try it.</p>':'')+
+      '<button type="button" class="btn ghost" id="rqAgain">Send another request</button></div>';
+  }
+  var tiers=arr(S.groomTiers).filter(function(t){return t&&t.name});
+  var services=optLines(S.reqServices),cuts=optLines(S.reqHaircuts),shampoos=optLines(S.reqShampoos);
+  var min=todayISO(),cat=REQ.species==='cat';
+  return '<form class="rq-card" id="rqForm" novalidate>'+
+   '<fieldset><legend><span class="num">1</span>About you</legend><div class="fgrid">'+
+     '<div class="fld"><label for="rq_name">Your name</label><input type="text" id="rq_name" name="name" autocomplete="name" value="'+esc(REQ.name)+'" required></div>'+
+     '<div class="fld"><label for="rq_phone">Phone</label><input type="tel" id="rq_phone" name="phone" autocomplete="tel" inputmode="tel" placeholder="(440) 555-0123" value="'+esc(REQ.phone)+'" required></div>'+
+     '<div class="fld"><label for="rq_email">Email <span class="opt">(optional)</span></label><input type="email" id="rq_email" name="email" autocomplete="email" value="'+esc(REQ.email)+'"></div>'+
+     '<div class="fld"><span class="lbl" id="rq_contact_l">Best way to reach you</span>'+segHTML('contact',[['text','Text'],['call','Call'],['email','Email']],REQ.contact,'Best way to reach you')+'</div>'+
+   '</div></fieldset>'+
+   '<fieldset><legend><span class="num">2</span>About your pet</legend><div class="fgrid">'+
+     '<div class="fld"><label for="rq_pet">Pet\'s name</label><input type="text" id="rq_pet" name="pet" value="'+esc(REQ.pet)+'" required></div>'+
+     '<div class="fld"><span class="lbl">Dog or cat?</span>'+segHTML('species',[['dog','Dog'],['cat','Cat']],REQ.species,'Dog or cat')+'</div>'+
+     '<div class="fld"><label for="rq_breed">Breed <span class="opt">(or best guess)</span></label><input type="text" id="rq_breed" name="breed" value="'+esc(REQ.breed)+'"></div>'+
+     '<div class="fld" id="rqSizeWrap"'+(cat?' hidden':'')+'><label for="rq_size">Size</label><select id="rq_size" name="size"><option value="">Choose a size</option>'+
+       tiers.map(function(t){return '<option value="'+esc(t.name)+'"'+(REQ.size===t.name?' selected':'')+'>'+esc(t.name+(t.size?' ('+t.size+')':''))+'</option>'}).join('')+
+       '<option value="Not sure"'+(REQ.size==='Not sure'?' selected':'')+'>Not sure</option></select></div>'+
+     '<div class="fld"><span class="lbl">Coat</span>'+segHTML('coat',[['short','Short-haired'],['long','Long-haired']],REQ.coat,'Coat length')+'</div>'+
+     '<div class="fld"><span class="lbl">First visit with us?</span>'+segHTML('firstVisit',[['yes','Yes'],['no','No']],REQ.firstVisit,'First visit with us')+'</div>'+
+     '<div class="fld full"><label for="rq_petNotes">Anything we should know? <span class="opt">(age, health, nervous with the dryer, matting…)</span></label><textarea id="rq_petNotes" name="petNotes" rows="2">'+esc(REQ.petNotes)+'</textarea></div>'+
+   '</div></fieldset>'+
+   '<fieldset id="rqSvc"><legend><span class="num">3</span>Services</legend><p class="hint-line">Pick everything you\'d like.</p>'+optsHTML('services',services,REQ.services,true,'Services')+estHTML()+'</fieldset>'+
+   (cuts.length?'<fieldset><legend><span class="num">4</span>Haircut preference</legend>'+optsHTML('haircut',cuts,REQ.haircut,false,'Haircut preference')+
+     '<div class="fld full" style="margin-top:12px"><label for="rq_haircutNotes">Describe the look <span class="opt">(optional)</span></label><textarea id="rq_haircutNotes" name="haircutNotes" rows="2" placeholder="e.g. short on the body, keep the ears and tail fluffy">'+esc(REQ.haircutNotes)+'</textarea></div>'+
+     '<p class="tipline">'+I_CAMERA+'<span>Have a photo of the cut you want? Text it to '+esc(S.phone||'us')+' after you send this.</span></p></fieldset>':'')+
+   (shampoos.length?'<fieldset><legend><span class="num">'+(cuts.length?5:4)+'</span>Shampoo</legend>'+optsHTML('shampoo',shampoos,REQ.shampoo,false,'Shampoo')+'</fieldset>':'')+
+   '<fieldset><legend><span class="num">'+(4+(cuts.length?1:0)+(shampoos.length?1:0))+'</span>When works for you?</legend><div class="fgrid">'+
+     '<div class="fld"><label for="rq_date1">First choice</label><input type="date" id="rq_date1" name="date1" min="'+min+'" value="'+esc(REQ.date1)+'"></div>'+
+     '<div class="fld"><label for="rq_date2">Second choice <span class="opt">(optional)</span></label><input type="date" id="rq_date2" name="date2" min="'+min+'" value="'+esc(REQ.date2)+'"></div>'+
+     '<div class="fld full"><span class="lbl">Time of day</span><div class="seg" role="group" aria-label="Time of day">'+TIMES.map(function(t,i){return '<input type="checkbox" id="rq_times_'+i+'" name="times" value="'+t+'"'+(REQ.times.indexOf(t)>-1?' checked':'')+'><label for="rq_times_'+i+'">'+t+'</label>'}).join('')+'</div></div>'+
+     '<div class="fld full"><label for="rq_notes">Anything else? <span class="opt">(optional)</span></label><textarea id="rq_notes" name="notes" rows="2">'+esc(REQ.notes)+'</textarea></div>'+
+   '</div></fieldset>'+
+   '<div class="hp" aria-hidden="true"><label for="rq_website">Leave this empty</label><input type="text" id="rq_website" name="website" tabindex="-1" autocomplete="off"></div>'+
+   '<div class="agree" id="rqAgreeWrap"><input type="checkbox" id="rq_agree" name="agree"'+(REQ.agree?' checked':'')+'><label for="rq_agree"><span>I\'ve read the <a href="#policies">policies</a> on late arrivals, no-shows and cancellations.</span></label></div>'+
+   '<div class="rq-err" id="rqErr" role="alert" hidden></div>'+
+   '<div class="rq-send"><button class="btn" type="submit" id="rqSend">'+I_CAL+'Send request</button><p>'+esc(S.reqNext)+'</p></div>'+
+  '</form>';
+}
+function requestHTML(){
+  var steps=['Send this request with your pet\'s details.','We '+(S.phone?'call or text you':'reach out')+' to confirm a day and time.','Bring your pet in. Pay at pickup.'];
+  return '<section class="block request" id="request"><div class="wrap"><div class="head"><h2><span class="kicker">Grooming appointments</span>Request an <em>appointment</em></h2><p>'+esc(S.reqIntro)+'</p></div>'+
+    '<div class="rq-grid"><div id="rqSlot">'+requestInner()+'</div>'+
+    '<aside class="rq-side"><div class="how"><h3>How it works</h3><ol>'+steps.map(function(s){return '<li><span>'+esc(s)+'</span></li>'}).join('')+'</ol></div>'+
+    (S.phone?'<div class="callbox"><h3>Rather talk to us?</h3><p>Call or text and we\'ll set it up with you.</p><a class="btn" href="'+telHref(S.phone)+'">'+I_PHONE+esc(S.phone)+'</a></div>':'')+
+    '</aside></div></div></section>';
+}
+function redrawRequest(focusId){
+  var slot=document.getElementById('rqSlot');if(!slot)return;
+  slot.innerHTML=requestInner();
+  if(focusId){var f=document.getElementById(focusId);if(f){f.focus({preventScroll:true});f.scrollIntoView({behavior:REDUCE?'auto':'smooth',block:'start'})}}
+}
+function onReqInput(e){
+  var el=e.target;if(!el.form||el.form.id!=='rqForm')return;
+  var n=el.name;if(!n||n==='website')return;
+  if(el.type==='checkbox'){
+    if(n==='agree')REQ.agree=el.checked;
+    else{var a=REQ[n],i=a.indexOf(el.value);if(el.checked&&i<0)a.push(el.value);if(!el.checked&&i>-1)a.splice(i,1)}
+  }else if(el.type==='radio'){if(el.checked)REQ[n]=el.value}
+  else REQ[n]=el.value;
+  if(n==='species'){var sw=document.getElementById('rqSizeWrap');if(sw)sw.hidden=REQ.species==='cat'}
+  if(n==='services'||n==='size'||n==='coat'||n==='species'){var est=document.getElementById('rqEst');if(est)est.outerHTML=estHTML()}
+  var bad=el.closest('.bad');if(bad)bad.classList.remove('bad');
+  if(el.classList.contains('bad'))el.classList.remove('bad');
+  var err=document.getElementById('rqErr');
+  if(err&&!err.hidden){var p=reqProblems();if(p.length)err.textContent='Please add '+p.map(function(x){return x[1]}).join(', ')+'.';else err.hidden=true}
+}
+function reqProblems(){
+  var p=[];
+  if(!REQ.name.trim())p.push(['rq_name','your name']);
+  if(REQ.phone.replace(/\D/g,'').length<10)p.push(['rq_phone','a phone number with area code']);
+  if(REQ.contact==='email'&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(REQ.email.trim()))p.push(['rq_email','an email address (you chose email)']);
+  if(!REQ.pet.trim())p.push(['rq_pet','your pet\'s name']);
+  if(!REQ.services.length)p.push(['rqSvc','at least one service']);
+  if(!REQ.agree)p.push(['rqAgreeWrap','a check that you\'ve read the policies']);
+  return p;
+}
+function submitReq(e){
+  e.preventDefault();if(REQ_BUSY)return;
+  var form=e.target,err=document.getElementById('rqErr');
+  form.querySelectorAll('.bad').forEach(function(x){x.classList.remove('bad')});
+  var p=reqProblems();
+  if(p.length){
+    p.forEach(function(x){var el=document.getElementById(x[0]);if(el)el.classList.add('bad')});
+    err.textContent='Please add '+p.map(function(x){return x[1]}).join(', ')+'.';err.hidden=false;
+    var first=document.getElementById(p[0][0]);var fi=first&&(first.matches('input,textarea,select')?first:first.querySelector('input'));
+    if(fi){fi.focus({preventScroll:true});first.scrollIntoView({behavior:REDUCE?'auto':'smooth',block:'center'})}
+    return;
+  }
+  err.hidden=true;
+  var e2=estimateFor(REQ);
+  var body=JSON.parse(JSON.stringify(REQ));
+  if(REQ.species==='cat')body.size='';
+  body.estimate=e2?e2.amt:'';body.elapsed=Date.now()-REQ_T0;body.website=(document.getElementById('rq_website')||{}).value||'';
+  var done=function(id){
+    REQ_SENT=body;
+    if(!LIVE){var rec=JSON.parse(JSON.stringify(body));rec.id='pv'+Date.now();rec.status='new';rec.ownerNote='';rec.createdAt=new Date().toISOString();PREVIEW_REQS.unshift(rec)}
+    REQ=JSON.parse(JSON.stringify(REQ_BLANK));['name','phone','email','contact'].forEach(function(k){REQ[k]=body[k]});
+    REQ_T0=Date.now();redrawRequest('rqDone');
+  };
+  if(!LIVE){done();return}
+  var btn=document.getElementById('rqSend');REQ_BUSY=true;btn.disabled=true;btn.lastChild.textContent='Sending…';
+  fetch('/api/requests',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
+   .then(function(r){return r.json().catch(function(){return{}}).then(function(j){
+     if(!r.ok)throw new Error(j.error||'Something went wrong sending your request. Please try again, or give us a call.');
+     done(j.id);
+   })})
+   .catch(function(x){err.textContent=x&&x.message&&x.message!=='Failed to fetch'?x.message:'We couldn\'t send your request. Check your connection and try again, or give us a call.';err.hidden=false})
+   .then(function(){REQ_BUSY=false;var b=document.getElementById('rqSend');if(b){b.disabled=false;b.lastChild.textContent='Send request'}});
+}
+app.addEventListener('input',onReqInput);
+app.addEventListener('change',onReqInput);
+app.addEventListener('submit',function(e){if(e.target.id==='rqForm')submitReq(e)});
+app.addEventListener('click',function(e){if(e.target.id==='rqAgain'){REQ_SENT=null;redrawRequest('rq_pet')}});
+
 function render(){
   var ig=igHandle(S.instagram), igUrl=ig?'https://www.instagram.com/'+encodeURIComponent(ig)+'/':'';
   var fbUrl=url(S.facebook);
   var hero=safeImg(S.heroImg), aboutImg=safeImg(S.aboutImg);
   var ctas='';
-  if(S.phone)ctas+='<a class="btn" href="'+telHref(S.phone)+'">'+I_PHONE+'Call to book</a>';
+  ctas+='<a class="btn" href="#request">'+I_CAL+'Request an appointment</a>';
+  if(S.phone)ctas+='<a class="btn ghost" href="'+telHref(S.phone)+'">'+I_PHONE+'Call to book</a>';
   if(fbUrl)ctas+='<a class="btn ghost" href="'+esc(fbUrl)+'" target="_blank" rel="noopener">'+I_FB+'Facebook</a>';
   if(igUrl)ctas+='<a class="btn ghost" href="'+esc(igUrl)+'" target="_blank" rel="noopener">'+I_IG+'Instagram</a>';
 
   var card='<div class="card"><h3><span>Appointment card</span><span aria-hidden="true">✂</span></h3><dl>';
   if(S.phone)card+='<div><dt>Call</dt><dd><a href="'+telHref(S.phone)+'">'+esc(S.phone)+'</a></dd></div>';
-  card+='<div><dt>Booking</dt><dd>By phone only</dd></div>';
+  card+='<div><dt>Booking</dt><dd>'+(S.reqPaused&&S.reqPaused.trim()?'By phone':'<a href="#request">Request online</a> or call')+'</dd></div>';
   if(S.address)card+='<div><dt>Where</dt><dd><a href="'+esc(mapHref(S.address))+'" target="_blank" rel="noopener">'+esc(S.address)+'</a></dd></div>';
   var hl=lines(S.hours);
   if(hl.length)card+='<div><dt>Hours</dt><dd>'+esc(hl[0])+(hl.length>1?' <a href="#visit">+ more</a>':'')+'</dd></div>';
@@ -775,7 +1066,7 @@ function render(){
     : '<div class="empty" aria-hidden="true"><div>'+PAW+'</div><div>'+PAW+'</div><div>'+PAW+'</div></div><p class="empty-note">Fresh cuts are on the way. See the latest on '+(fbUrl?'<a href="'+esc(fbUrl)+'" target="_blank" rel="noopener">Facebook</a>':'')+(fbUrl&&igUrl?' and ':'')+(igUrl?'<a href="'+esc(igUrl)+'" target="_blank" rel="noopener">Instagram</a>':'')+'.</p>';
 
   var visit='<div class="vgrid">';
-  if(S.phone)visit+='<div class="vbox"><small>Call to book</small><div class="big">'+esc(S.phone)+'<button type="button" class="copy" data-copy="'+esc(S.phone)+'">Copy</button></div><div class="sub">Grooming and pet sitting are booked by phone.</div><a class="link" href="'+telHref(S.phone)+'">Tap to call</a></div>';
+  if(S.phone)visit+='<div class="vbox"><small>Call or text</small><div class="big">'+esc(S.phone)+'<button type="button" class="copy" data-copy="'+esc(S.phone)+'">Copy</button></div><div class="sub">Or <a href="#request">send a grooming request online</a>. Pet sitting is set up by phone.</div><a class="link" href="'+telHref(S.phone)+'">Tap to call</a></div>';
   if(S.address)visit+='<div class="vbox"><small>Find us</small><div class="big">'+esc(S.address)+'</div><a class="link" href="'+esc(mapHref(S.address))+'" target="_blank" rel="noopener">Get directions</a></div>';
   visit+='<div class="vbox"><small>Hours</small>'+(hoursList()||'<div class="big">By appointment</div>')+(S.hoursNote?'<div class="sub">'+esc(S.hoursNote)+'</div>':'')+'</div></div>';
   var soc='';
@@ -787,18 +1078,19 @@ function render(){
 
   app.innerHTML=
   '<header class="bar"><div class="wrap"><a class="logo" href="#top" aria-label="'+esc(S.name)+' home">'+LOGO+'<span>'+esc(S.name)+'</span></a>'+
-    '<nav class="nav"><a href="#grooming">Grooming</a><a href="#sitting">Pet sitting</a><a href="#policies">Policies</a><a href="#visit">Visit</a>'+(S.phone?'<a class="btn sm" href="'+telHref(S.phone)+'">'+I_PHONE+'Call</a>':'')+'</nav></div></header>'+
+    '<nav class="nav"><a href="#grooming">Grooming</a><a href="#request">Book</a><a href="#sitting">Pet sitting</a><a href="#policies">Policies</a><a href="#visit">Visit</a>'+(S.phone?'<a class="btn sm" href="'+telHref(S.phone)+'">'+I_PHONE+'Call</a>':'')+'</nav></div></header>'+
   '<main id="top">'+
   '<section class="hero">'+bubbles()+'<div class="walker" aria-hidden="true"><div class="dog"><svg viewBox="-60 -110 150 114"><g class="rig"></g></svg></div></div><div class="wrap"><div><span class="eyebrow">'+esc(S.eyebrow)+'</span><h1 aria-label="'+esc(S.name)+'"><span aria-hidden="true">'+titleHTML(S.name)+'</span><span class="shine" aria-hidden="true">'+titleHTML(S.name,1)+'</span>'+sparks()+'</h1><p class="intro">'+esc(S.intro)+'</p><div class="ctas">'+ctas+'</div></div>'+
     '<div class="hero-side">'+(hero?'<div class="photo"><img src="'+esc(hero)+'" alt="A freshly groomed pet at '+esc(S.name)+'"></div>':'')+card+'</div></div></section>'+
   '<div class="scallop" aria-hidden="true"></div>'+
   groomingHTML()+
+  requestHTML()+
   sittingHTML()+
   '<section class="block gallery" id="photos"><div class="wrap"><div class="head"><h2>Fresh <em>off the table</em></h2><p>A few of the good dogs and cats who\'ve visited us lately.</p></div>'+wall+'</div></section>'+
   policiesHTML()+
   '<section class="block about" id="about"><div class="wrap"><div class="about-art"><div class="blob"></div><div class="blob b2"></div>'+(aboutImg?'<img src="'+esc(aboutImg)+'" alt="Inside '+esc(S.name)+'">':'<svg class="paw" viewBox="0 0 64 64" aria-hidden="true">'+PAWG+'</svg>')+'</div>'+
     '<div class="about-text"><div class="head"><h2>About <em>'+esc(S.name)+'</em></h2></div><p>'+esc(S.about)+'</p></div></div></section>'+
-  '<section class="block visit" id="visit"><div class="wrap"><div class="head"><h2>Come <em>see us</em></h2><p>Call ahead to book a groom or set up pet sitting.</p></div>'+visit+(soc?'<div class="socials">'+soc+'</div>':'')+'</div></section>'+
+  '<section class="block visit" id="visit"><div class="wrap"><div class="head"><h2>Come <em>see us</em></h2><p>Call, text or send a request online to book a groom. Pet sitting is set up by phone.</p></div>'+visit+(soc?'<div class="socials">'+soc+'</div>':'')+'</div></section>'+
   '</main>'+
   '<footer><div class="wrap"><span>&copy; '+new Date().getFullYear()+' '+esc(S.name)+' · Sheffield Lake, Ohio</span><button type="button" id="ownerBtn">Owner login</button></div></footer>';
 }
@@ -833,7 +1125,7 @@ function loginView(){
   '<form id="loginForm"><label for="pw">Password</label><input type="password" id="pw" autocomplete="current-password" required>'+
   '<div class="prow2"><button class="btn" type="submit">Unlock</button></div><div class="status" id="lst"></div></form>';
   document.getElementById('pX').onclick=function(){panel.hidden=true};
-  setTimeout(function(){document.getElementById('pw').focus()},50);
+  setTimeout(function(){var pw=document.getElementById('pw');if(pw)pw.focus()},50);
   document.getElementById('loginForm').onsubmit=function(e){e.preventDefault();var pw=document.getElementById('pw').value;var st=document.getElementById('lst');
     if(!LIVE){TOKEN=pw||'preview';editView();return}
     st.className='status';st.textContent='Checking…';
@@ -856,12 +1148,20 @@ function editView(){
   draft.gallery=arr(draft.gallery);
   panel.innerHTML='<div class="ph"><h2>Edit your site</h2><button type="button" class="x" id="pX" aria-label="Close">×</button></div>'+
   (LIVE?'':'<div class="pv">Preview mode: changes show on this page but won\'t be saved.</div>')+
-  '<p class="help">Open a section, make your changes, then press Save.</p>'+
-  sec('Top of page',field('name','Business name')+field('eyebrow','Small label above the name')+field('intro','Intro sentence',{area:1})+'<label>Main photo <span class="hint">(shows beside the appointment card)</span></label><div id="heroSlot"></div>',true)+
+  '<details open id="inboxSec"><summary>Appointment requests<span class="badge" id="inboxBadge" hidden></span></summary><div class="sec"><p class="help">Changes to requests save right away.</p><div id="inbox"><p class="inbox-empty">Loading requests…</p></div></div></details>'+
+  '<p class="help">Open a section below, make your changes, then press Save.</p>'+
+  sec('Top of page',field('name','Business name')+field('eyebrow','Small label above the name')+field('intro','Intro sentence',{area:1})+'<label>Main photo <span class="hint">(shows beside the appointment card)</span></label><div id="heroSlot"></div>')+
   sec('Contact & hours',field('phone','Phone')+field('address','Address')+field('facebook','Facebook link')+field('instagram','Instagram',{hint:'(handle or link)'})+field('email','Email',{hint:'(optional)'})+
     field('hours','Hours, one day per line',{area:1,rows:5,hint:'e.g. Tue–Fri | 9am – 5pm'})+field('hoursNote','Booking note',{area:1,rows:2}))+
   sec('Grooming prices',field('groomIntro','Intro line',{area:1,rows:2})+listSlot('groomTiers')+field('catPrice','Cat price')+field('catNote','Cat note')+
     field('groomIncludes','Every full groom includes',{area:1,rows:6,hint:'(one per line)'})+field('groomNotes','Good-to-know notes',{area:1,rows:4,hint:'(one per line)'}))+
+  sec('Request form',field('reqPaused','Pause requests',{area:1,rows:2,hint:'(type a message to show instead of the form, e.g. "We\'re fully booked until Dec 1." Leave empty to accept requests.)'})+
+    field('reqIntro','Intro',{area:1,rows:2})+
+    field('reqServices','Services clients can pick',{area:1,rows:8,hint:'(one per line; add " | short description" after a name if you like)'})+
+    field('reqHaircuts','Haircut choices',{area:1,rows:6,hint:'(one per line, same format)'})+
+    field('reqShampoos','Shampoo choices',{area:1,rows:7,hint:'(one per line, same format)'})+
+    '<p class="help">Leave haircut or shampoo empty to hide that step. A Full groom estimate appears when a service name includes "Full groom".</p>'+
+    field('reqNext','Note beside the Send button',{area:1,rows:2}))+
   sec('Pet sitting',field('sitIntro','Intro',{area:1,rows:2})+'<label>How visits work</label>'+listSlot('sitVisits')+'<label>Rates <span class="hint">(rows with the same group show together)</span></label>'+listSlot('sitRows')+
     field('sitIncluded','What every visit covers',{area:1,rows:2})+'<label>Add-ons</label>'+listSlot('sitAddons')+field('sitNote','Note at the bottom',{area:1,rows:3}))+
   sec('Policies & payment',listSlot('policies')+'<p class="help">In a policy, start a new line for a second paragraph.</p>'+field('policyNote','Note under the policies',{area:1,rows:3})+
@@ -874,6 +1174,7 @@ function editView(){
   for(var key in LISTS)drawList(key);
   panel.querySelectorAll('[data-add]').forEach(function(b){b.onclick=function(){var k=b.dataset.add,o={};LISTS[k].fields.forEach(function(f){o[f[0]]=''});draft[k].push(o);drawList(k);var rows=document.querySelectorAll('#L_'+k+' .lrow');var last=rows[rows.length-1];if(last)last.querySelector('input,textarea').focus()}});
   drawThumbs();drawSlot('heroImg','heroSlot');drawSlot('aboutImg','aboutSlot');
+  loadInbox();
   document.getElementById('galIn').onchange=function(e){addPhotos(e.target.files);e.target.value=''};
   document.getElementById('saveBtn').onclick=save;
   document.getElementById('logoutBtn').onclick=function(){TOKEN='';panel.hidden=true};
@@ -960,6 +1261,107 @@ function save(){
      dels.forEach(function(src){fetch('/api/upload?key='+encodeURIComponent(src.replace(/^\/api\/img\//,'')),{method:'DELETE',headers:{Authorization:'Bearer '+TOKEN}}).catch(function(){})});
    })}).catch(function(){status('Couldn\'t reach the server. Check your connection and try again.','err')});
 }
+
+
+/* ---------- owner panel: appointment requests inbox ---------- */
+function daysFromNow(n){var d=new Date();d.setDate(d.getDate()+n);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+var PREVIEW_REQS=[
+  {id:'ex1',example:1,name:'Jane Doe',phone:'(440) 555-0142',email:'',contact:'text',pet:'Bella',species:'dog',breed:'Shih Tzu',size:'Small dogs',coat:'long',firstVisit:'yes',petNotes:'A little nervous with the dryer.',
+   services:['Full groom','Teeth cleaning'],haircut:'Teddy bear cut',haircutNotes:'Short on the body, keep the ears long.',shampoo:'Oatmeal',date1:daysFromNow(3),date2:daysFromNow(5),times:['Morning'],notes:'',estimate:'$55–65',status:'new',ownerNote:'',createdAt:new Date(Date.now()-2*3600e3).toISOString()},
+  {id:'ex2',example:1,name:'Mike Russo',phone:'(440) 555-0199',email:'',contact:'call',pet:'Duke',species:'dog',breed:'Golden Retriever',size:'Large dogs',coat:'long',firstVisit:'no',petNotes:'',
+   services:['Bath & brush','De-shedding','Nail trim'],haircut:'No haircut',haircutNotes:'',shampoo:'De-shedding',date1:daysFromNow(6),date2:'',times:['Afternoon','Any time'],notes:'Can drop off before work.',estimate:'',status:'confirmed',ownerNote:'Booked Sat 1pm',createdAt:new Date(Date.now()-26*3600e3).toISOString()}
+];
+var INBOX={items:null,filter:'new',err:'',arm:null};
+function loadInbox(){
+  INBOX.err='';
+  if(!LIVE){INBOX.items=PREVIEW_REQS;drawInbox();return}
+  INBOX.items=null;drawInbox();
+  fetch('/api/requests',{headers:{Authorization:'Bearer '+TOKEN},cache:'no-store'})
+   .then(function(r){return r.json().catch(function(){return{}}).then(function(j){
+     if(r.status===401)throw new Error('Your login expired. Close the panel and log in again.');
+     if(!r.ok)throw new Error(j.error||'Couldn\'t load requests. Try again in a moment.');
+     INBOX.items=j.requests||[];
+   })})
+   .catch(function(x){INBOX.err=x&&x.message&&x.message!=='Failed to fetch'?x.message:'Couldn\'t reach the server. Check your connection and try again.';INBOX.items=INBOX.items||[]})
+   .then(drawInbox);
+}
+function digitsTel(p){var d=String(p||'').replace(/\D/g,'');if(d.length===10)d='1'+d;return '+'+d}
+function whenText(r){var d=[niceDate(r.date1),niceDate(r.date2)].filter(Boolean).join(' or ');return [d,arr(r.times).join(', ')].filter(Boolean).join(' · ')}
+function ago(iso){var t=new Date(iso);if(isNaN(t))return '';return t.toLocaleDateString('en-US',{month:'short',day:'numeric'})+', '+t.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})}
+function reqCard(r){
+  var st=STATUS_LABEL[r.status]?r.status:'new';
+  var pet=[r.pet,r.species==='cat'?'Cat':'Dog',r.breed,r.species==='cat'?'':r.size,r.coat?r.coat+'-haired':'',r.firstVisit==='yes'?'first visit':r.firstVisit==='no'?'been here before':''].filter(Boolean).join(' · ');
+  var row=function(k,v){return v?'<div><dt>'+k+'</dt><dd>'+esc(v)+'</dd></div>':''};
+  var tel=digitsTel(r.phone),pref=r.contact||'call';
+  return '<article class="rq" data-id="'+esc(r.id)+'"><header><b>'+esc(r.name)+'</b><span class="stc '+st+'">'+STATUS_LABEL[st]+'</span>'+(r.example?'<span class="stc ex">Example</span>':'')+'<time>'+esc(ago(r.createdAt))+'</time></header>'+
+    '<p class="rq-pet">'+esc(pet)+'</p><dl>'+
+    row('Services',arr(r.services).join(', '))+
+    row('Haircut',[r.haircut,r.haircutNotes?'“'+r.haircutNotes+'”':''].filter(Boolean).join(' · '))+
+    row('Shampoo',r.shampoo)+row('When',whenText(r))+row('Estimate',r.estimate)+row('Pet notes',r.petNotes)+row('Notes',r.notes)+'</dl>'+
+    '<div class="rq-contact"><span>'+esc(r.phone)+'</span>'+
+      '<a href="tel:'+tel+'"'+(pref==='call'?' class="pref"':'')+'>Call</a><a href="sms:'+tel+'"'+(pref==='text'?' class="pref"':'')+'>Text</a>'+
+      (r.email?'<a href="mailto:'+esc(r.email)+'"'+(pref==='email'?' class="pref"':'')+'>Email</a>':'')+'</div>'+
+    '<input type="text" class="rq-note" id="note_'+esc(r.id)+'" aria-label="Private note for '+esc(r.name)+'" placeholder="Private note, e.g. booked Tue 10am" value="'+esc(r.ownerNote||'')+'">'+
+    '<div class="rq-act">'+
+      (st!=='confirmed'?'<button type="button" class="go" data-act="confirmed">Confirm</button>':'')+
+      (st!=='declined'?'<button type="button" data-act="declined">Decline</button>':'')+
+      (st!=='new'?'<button type="button" data-act="new">Mark as new</button>':'')+
+      '<span class="saved" aria-live="polite"></span>'+
+      '<button type="button" class="del'+(INBOX.arm===r.id?' arm':'')+'" data-act="delete">'+(INBOX.arm===r.id?'Tap again to delete':'Delete')+'</button>'+
+    '</div></article>';
+}
+var STATUS_LABEL={'new':'New',confirmed:'Confirmed',declined:'Declined'};
+function drawInbox(){
+  var box=document.getElementById('inbox');if(!box)return;
+  var badge=document.getElementById('inboxBadge');
+  if(INBOX.items===null){box.innerHTML='<p class="inbox-empty">Loading requests…</p>';return}
+  var items=INBOX.items,count={all:items.length,'new':0,confirmed:0,declined:0};
+  items.forEach(function(r){count[STATUS_LABEL[r.status]?r.status:'new']++});
+  if(badge){badge.hidden=!count['new'];badge.textContent=count['new']}
+  var f=INBOX.filter,shown=items.filter(function(r){return f==='all'||(STATUS_LABEL[r.status]?r.status:'new')===f});
+  var chips=[['new','New'],['confirmed','Confirmed'],['declined','Declined'],['all','All']].map(function(c){return '<button type="button" class="fchip'+(f===c[0]?' on':'')+'" data-filter="'+c[0]+'">'+c[1]+' ('+count[c[0]]+')</button>'}).join('');
+  box.innerHTML='<div class="inbox-top">'+chips+'<button type="button" class="fchip refresh" data-filter="refresh">Refresh</button></div>'+
+    (INBOX.err?'<div class="status err">'+esc(INBOX.err)+'</div>':'')+
+    (shown.length?shown.map(reqCard).join(''):'<p class="inbox-empty">'+(f==='new'?'No new requests right now.':'Nothing here yet.')+'</p>')+
+    (!LIVE?'<p class="help">Preview: these are examples. Send one from the form to see it land here.</p>':'');
+}
+function findReq(id){return (INBOX.items||[]).filter(function(r){return r.id===id})[0]}
+function patchReq(id,patch,card){
+  var r=findReq(id);if(!r)return;
+  var flash=function(t){var s=card&&card.querySelector('.saved');if(s){s.textContent=t;setTimeout(function(){if(s.isConnected)s.textContent=''},1800)}};
+  if(!LIVE||r.example){for(var k in patch)r[k]=patch[k];if('status' in patch)drawInbox();else flash('Saved');return}
+  fetch('/api/requests?id='+encodeURIComponent(id),{method:'PATCH',headers:{'Content-Type':'application/json',Authorization:'Bearer '+TOKEN},body:JSON.stringify(patch)})
+   .then(function(res){return res.json().catch(function(){return{}}).then(function(j){
+     if(!res.ok)throw new Error(res.status===401?'Your login expired. Log in again.':(j.error||'Couldn\'t save that change.'));
+     for(var k in patch)r[k]=j.request&&k in j.request?j.request[k]:patch[k];
+     if('status' in patch)drawInbox();else flash('Saved');
+   })})
+   .catch(function(x){INBOX.err=x.message;drawInbox()});
+}
+function deleteReq(id){
+  var drop=function(){INBOX.items=(INBOX.items||[]).filter(function(r){return r.id!==id});if(!LIVE)PREVIEW_REQS=INBOX.items;INBOX.arm=null;drawInbox()};
+  var r=findReq(id);if(!r)return;
+  if(!LIVE||r.example){drop();return}
+  fetch('/api/requests?id='+encodeURIComponent(id),{method:'DELETE',headers:{Authorization:'Bearer '+TOKEN}})
+   .then(function(res){if(!res.ok)throw new Error(res.status===401?'Your login expired. Log in again.':'Couldn\'t delete that request.');drop()})
+   .catch(function(x){INBOX.err=x.message;INBOX.arm=null;drawInbox()});
+}
+panel.addEventListener('click',function(e){
+  var fb=e.target.closest('[data-filter]');
+  if(fb){if(fb.dataset.filter==='refresh')loadInbox();else{INBOX.filter=fb.dataset.filter;INBOX.arm=null;drawInbox()}return}
+  var ab=e.target.closest('[data-act]');if(!ab)return;
+  var card=ab.closest('.rq'),id=card&&card.dataset.id,act=ab.dataset.act;if(!id)return;
+  if(act==='delete'){
+    if(INBOX.arm===id){deleteReq(id);return}
+    INBOX.arm=id;drawInbox();
+    setTimeout(function(){if(INBOX.arm===id){INBOX.arm=null;drawInbox()}},4000);return;
+  }
+  patchReq(id,{status:act},card);
+});
+panel.addEventListener('change',function(e){
+  if(!e.target.classList.contains('rq-note'))return;
+  var card=e.target.closest('.rq');if(card)patchReq(card.dataset.id,{ownerNote:e.target.value},card);
+});
 
 /* ---------- walking pup ---------- */
 var REDUCE=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
