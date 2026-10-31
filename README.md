@@ -77,7 +77,8 @@ When the starter content changes (new prices, a new policy), bump `CONTENT_VERSI
 in `public/index.html`. It runs once on older saved settings and only replaces values that still match the old
 starter text, so her own edits are kept. Version 2 (Oct 2026) updated the Large dog prices, the matting note and
 policy, and the Maintenance visit request option. Version 3 added the Vaccinations policy, the new request form
-intro and confirmation line, and the rabies-only cat requirement.
+intro and confirmation line, and the rabies-only cat requirement. Version 4 updated the header intro and the hours note,
+and added the How we answer messages note (editable under Contact & hours).
 
 ## Appointment requests
 
