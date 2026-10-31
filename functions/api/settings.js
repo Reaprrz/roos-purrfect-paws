@@ -6,7 +6,7 @@ const MAX_BYTES = 200 * 1024; // site text is small; photos live in R2
 // Only these fields are stored. Anything else sent by the browser is dropped.
 // Text fields: name → max length.
 const TEXT_FIELDS = {
-  name: 120, eyebrow: 200, intro: 800, phone: 40, address: 200, instagram: 200, facebook: 300, email: 200,
+  name: 120, eyebrow: 200, intro: 800, phone: 40, address: 200, instagram: 200, tiktok: 200, facebook: 300, email: 200,
   hours: 1000, hoursNote: 600, about: 4000, heroImg: 500, aboutImg: 500,
   groomIntro: 600, catPrice: 60, catNote: 200, groomIncludes: 1000, groomNotes: 2000,
   sitIntro: 800, sitIncluded: 800, sitNote: 1200,
