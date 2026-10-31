@@ -16,7 +16,10 @@ src/worker.js                serves the site and routes /api/* to the handlers b
 public/index.html            the whole site (page + owner edit panel)
 functions/api/settings.js    GET site content / PUT saves it (owner only)
 functions/api/upload.js      POST uploads a photo / DELETE removes one (owner only)
-functions/api/requests.js    appointment requests: POST from the public form; GET / PATCH / DELETE (owner only)
+functions/api/requests.js    appointment requests: POST from the public form (with optional vaccine record files);
+                             GET / PATCH / DELETE (owner only)
+functions/api/records.js     GET one vaccine record file (owner only)
+lib/records.js               record file checks (photos/PDFs by content), storage keys, cleanup
 functions/api/login.js       checks the owner password (locks out after 10 wrong tries for 15 min)
 functions/api/img/[[path]].js serves uploaded photos
 lib/auth.js                  shared password + helper code
@@ -73,7 +76,8 @@ Once the owner presses Save, her saved settings take priority over the starter c
 When the starter content changes (new prices, a new policy), bump `CONTENT_VERSION` and add a step to `migrate()`
 in `public/index.html`. It runs once on older saved settings and only replaces values that still match the old
 starter text, so her own edits are kept. Version 2 (Oct 2026) updated the Large dog prices, the matting note and
-policy, and the Maintenance visit request option.
+policy, and the Maintenance visit request option. Version 3 added the Vaccinations policy, the new request form
+intro and confirmation line, and the rabies-only cat requirement.
 
 ## Appointment requests
 
@@ -86,6 +90,11 @@ saved in KV, appear in the owner panel, and are deleted automatically after a ye
   the matching range from the Grooming prices table (or the cat price).
 - **Cats:** picking Cat switches to the cat services and styles, shows the cat "Type of groom" choices (which
   drive the estimate) and requires confirming Rabies and Distemper vaccines.
+- **Vaccine records:** a step in the form. Dog owners say whether their dog is up to date (if not, they're told
+  they'll sign a consent form at drop-off); cat owners must confirm a current rabies vaccination. Either can upload
+  up to 3 photos or PDFs (10 MB each; phone photos are shrunk first) or choose to bring them to the shop. Files are
+  checked by their contents (JPG, PNG, WebP, HEIC or PDF only), stored privately in KV next to the request, viewable
+  only by the owner in the inbox (View records), and deleted with the request or after a year.
 - **Spam protection:** a hidden trap field, a minimum time on the page, and at most 6 requests per visitor per hour.
 - **Optional phone alert (free):** install the **ntfy** app, subscribe to a long, hard-to-guess topic name (e.g.
   `roos-paws-7f3k9q2m`), then add a secret `NTFY_TOPIC` with that name in Cloudflare (Settings → Variables and Secrets).

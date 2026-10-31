@@ -1,11 +1,13 @@
 import { json, isOwner, missingBindings } from "../../lib/auth.js";
+import { MAX_FILES, MAX_FILE_BYTES, MAX_UPLOAD_BYTES, recordKey, sniff, safeName, deleteRecords } from "../../lib/records.js";
 
 // Appointment requests from the website's "Request an appointment" form.
-//   POST   /api/requests              anyone   → saves a new request (validated, spam-guarded, rate limited)
+//   POST   /api/requests              anyone   → saves a new request (validated, spam-guarded, rate limited).
+//                                              JSON, or multipart with a "data" JSON field plus up to 3 "records" files
 //   GET    /api/requests              owner    → newest requests first
 //   PATCH  /api/requests?id=…         owner    → { status: "new" | "confirmed" | "declined", ownerNote }
 //   DELETE /api/requests?id=…         owner    → removes a request
-// Requests are stored in the SITE KV namespace and expire after a year.
+// Requests and their vaccine record files are stored in the SITE KV namespace and expire after a year.
 
 const PREFIX = "req:";
 const KEEP_SECONDS = 365 * 24 * 60 * 60;
@@ -42,6 +44,8 @@ function clean(b) {
     coat: oneOf(b.coat, ["short", "long"]),
     catType: str(b.catType, 120),
     catVax: b.catVax === true,
+    dogVax: oneOf(b.dogVax, ["yes", "no", "unsure"]),
+    recordsPlan: oneOf(b.recordsPlan, ["upload", "bring"]),
     firstVisit: oneOf(b.firstVisit, ["yes", "no"]),
     petNotes: str(b.petNotes, 600),
     services: list(b.services, 20, 80),
@@ -63,7 +67,8 @@ function problems(r) {
   if (r.contact === "email" && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(r.email)) out.push("an email address");
   if (!r.pet) out.push("your pet's name");
   if (!r.services.length) out.push("at least one service");
-  if (r.species === "cat" && !r.catVax) out.push("a check that your cat's Rabies and Distemper vaccines are up to date");
+  if (r.species === "cat" && !r.catVax) out.push("a check that your cat's rabies vaccine is current");
+  if (r.species === "cat" && !r.recordsPlan) out.push("how you'll share your cat's rabies record");
   return out;
 }
 
@@ -84,11 +89,23 @@ export async function onRequestPost(context) {
   const miss = missingBindings(env, ["SITE"]);
   if (miss) return miss;
 
-  const raw = await request.text();
+  const oops = () => json({ error: "Something went wrong sending your request. Please try again." }, 400);
+  const len = parseInt(request.headers.get("Content-Length") || "0", 10);
+  if (len > MAX_UPLOAD_BYTES) return json({ error: "Those files are too large. Please attach smaller photos or PDFs (up to 10 MB each)." }, 413);
+
+  let raw = "", uploads = [];
+  if ((request.headers.get("Content-Type") || "").toLowerCase().startsWith("multipart/form-data")) {
+    let form;
+    try { form = await request.formData(); } catch { return oops(); }
+    raw = String(form.get("data") || "");
+    uploads = form.getAll("records").filter((f) => f && typeof f !== "string");
+  } else {
+    raw = await request.text();
+  }
   if (raw.length > MAX_BODY) return json({ error: "That request is too long. Please shorten the notes and try again." }, 413);
   let body;
-  try { body = JSON.parse(raw); } catch { return json({ error: "Something went wrong sending your request. Please try again." }, 400); }
-  if (!body || typeof body !== "object") return json({ error: "Something went wrong sending your request. Please try again." }, 400);
+  try { body = JSON.parse(raw); } catch { return oops(); }
+  if (!body || typeof body !== "object") return oops();
 
   // Spam guards: a hidden field people never fill in, and forms sent within seconds of opening the page.
   // Bots get a normal-looking reply so they don't retry; nothing is saved.
@@ -99,7 +116,21 @@ export async function onRequestPost(context) {
 
   const r = clean(body);
   const missing = problems(r);
+  if (r.recordsPlan === "upload" && !uploads.length) missing.push("your vaccine record files (or choose to bring them in)");
   if (missing.length) return json({ error: "Please add " + missing.join(", ") + "." }, 400);
+
+  // Vaccine records: photos or PDFs only, checked by their contents
+  if (uploads.length > MAX_FILES) return json({ error: "Please attach up to " + MAX_FILES + " files." }, 400);
+  const files = [];
+  if (r.recordsPlan === "upload") {
+    for (const f of uploads) {
+      if (f.size > MAX_FILE_BYTES) return json({ error: "\"" + safeName(f.name, "").slice(0, -1) + "\" is over 10 MB. Please attach a smaller photo or PDF." }, 413);
+      const buf = await f.arrayBuffer();
+      const kind = sniff(new Uint8Array(buf.slice(0, 16)));
+      if (!kind) return json({ error: "Vaccine records need to be photos (JPG, PNG, HEIC) or PDFs." }, 415);
+      files.push({ buf, type: kind.type, name: safeName(f.name, kind.ext), size: buf.byteLength });
+    }
+  }
 
   const ip = request.headers.get("CF-Connecting-IP") || "unknown";
   const rlKey = "rl:req:" + ip;
@@ -110,8 +141,9 @@ export async function onRequestPost(context) {
 
   const id = newId();
   const now = Date.now();
-  const record = { id, ...r, status: "new", ownerNote: "", createdAt: new Date(now).toISOString() };
+  const record = { id, ...r, records: files.map((f, n) => ({ n, name: f.name, type: f.type, size: f.size })), status: "new", ownerNote: "", createdAt: new Date(now).toISOString() };
   const expiration = Math.floor(now / 1000) + KEEP_SECONDS;
+  await Promise.all(files.map((f, n) => env.SITE.put(recordKey(id, n), f.buf, { expiration, metadata: { type: f.type, name: f.name } })));
   await env.SITE.put(PREFIX + id, JSON.stringify(record), {
     expiration,
     metadata: { status: "new", expiration },
@@ -182,6 +214,8 @@ export async function onRequestDelete({ request, env }) {
   if (!(await isOwner(request, env))) return json({ error: "Please log in again." }, 401);
   const id = idFrom(request);
   if (!id) return json({ error: "That request couldn't be found." }, 404);
+  const existing = await env.SITE.get(PREFIX + id, "json");
   await env.SITE.delete(PREFIX + id);
+  await deleteRecords(env, id, existing && Array.isArray(existing.records) ? existing.records.length : 3);
   return json({ ok: true });
 }
