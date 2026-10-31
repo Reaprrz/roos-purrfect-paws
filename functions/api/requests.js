@@ -40,6 +40,8 @@ function clean(b) {
     breed: str(b.breed, 80),
     size: str(b.size, 80),
     coat: oneOf(b.coat, ["short", "long"]),
+    catType: str(b.catType, 120),
+    catVax: b.catVax === true,
     firstVisit: oneOf(b.firstVisit, ["yes", "no"]),
     petNotes: str(b.petNotes, 600),
     services: list(b.services, 20, 80),
@@ -61,6 +63,7 @@ function problems(r) {
   if (r.contact === "email" && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(r.email)) out.push("an email address");
   if (!r.pet) out.push("your pet's name");
   if (!r.services.length) out.push("at least one service");
+  if (r.species === "cat" && !r.catVax) out.push("a check that your cat's Rabies and Distemper vaccines are up to date");
   return out;
 }
 

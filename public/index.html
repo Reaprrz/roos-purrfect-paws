@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Nunito:ital,wght@0,400;0,600;0,800;0,900;1,600&display=swap">
 <style>
-/* Layout: sticky bar → blush hero (name + appointment card, soap bubbles) → scalloped edge → grooming price table → pink-to-lavender appointment request band (scalloped edges) → lavender pet-sitting rates → photo wall → policies + payment → about → plum visit block */
+/* Layout: sticky bar → blush hero (name + appointment card, soap bubbles) → scalloped edge → grooming price table → lavender cat-grooming menu board → pink-to-lavender appointment request band (scalloped edges) → lavender pet-sitting rates → photo wall → policies + payment → about → plum visit block */
 :root{
   color-scheme:light;
   --white:#ffffff;
@@ -368,11 +368,71 @@ footer button{background:none;border:0;color:var(--lav);font:700 14px var(--body
 .savebar{position:sticky;bottom:calc(-28px - env(safe-area-inset-bottom,0px));background:var(--white);padding:14px 0 6px;margin-top:16px;border-top:2px dashed var(--line);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .pv{background:var(--lav);border-radius:12px;padding:10px 12px;font-size:14px;font-weight:800;margin-top:10px}
 
+/* dog table: link row to the cat price list */
+.prow.catlink{display:flex;justify-content:space-between;align-items:center;gap:10px 18px;flex-wrap:wrap;padding:16px 22px;background:var(--lav-soft);text-decoration:none;color:var(--plum);font-size:15px}
+.prow.catlink b{font-weight:900}
+.prow.catlink .go{display:inline-flex;align-items:center;gap:6px;font-weight:900;color:var(--lav-deep);white-space:nowrap}
+.prow.catlink .go svg{width:16px;height:16px}
+.prow.catlink:hover .go{color:var(--pink)}
+
+/* how often to groom: her advice beside a three-step routine */
+.sched{margin-top:16px;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:28px;align-items:center;border:2px solid var(--line);border-radius:24px;padding:26px 28px;background:var(--white)}
+.sched h3{margin:0 0 10px;font-family:var(--display);font-weight:400;font-size:28px;color:var(--plum);line-height:1.1}
+.sched-text p{margin:0 0 10px;font-size:16px;max-width:42em}
+.sched-text p:last-child{margin-bottom:0}
+.sched-fig{background:var(--blush);border-radius:20px;padding:20px 22px}
+.fig-cap{margin:0 0 14px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:900;color:var(--lav-deep)}
+.tl{list-style:none;margin:0;padding:0;display:grid}
+.tl li:not(.gap){display:grid;grid-template-columns:40px 1fr;column-gap:12px;align-items:center}
+.tl li b{font-weight:900;font-size:16px;line-height:1.2}
+.tl li span:not(.dot){grid-column:2;font-size:13.5px;color:var(--plum-mut);font-weight:700;line-height:1.35}
+.tl .dot{grid-row:span 2;width:40px;height:40px;border-radius:50%;background:var(--pink);color:var(--white);display:grid;place-items:center}
+.tl .dot.alt{background:var(--lav-deep)}
+.tl .dot svg{width:20px;height:20px}
+.tl li.gap{margin:6px 0 6px 19px;padding:6px 0 6px 21px;border-left:2px dashed var(--pink-soft);font-size:12.5px;font-weight:800;color:var(--plum-mut);letter-spacing:.02em}
+
+/* cat grooming: a menu board of cards on lavender */
+.cats{background:var(--lav-soft)}
+.cats .head h2 em{color:var(--lav-deep)}
+.vax{display:flex;gap:14px;align-items:center;background:var(--white);border:2px dashed var(--pink-soft);border-radius:18px;padding:14px 18px;margin-bottom:18px}
+.vax svg{flex:none;width:40px;height:40px;padding:8px;border-radius:50%;background:var(--pink);color:var(--white)}
+.vax p{margin:0;font-weight:900;font-size:16px}
+.cgrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px;align-items:start}
+.cgrid.two{margin-top:16px;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.ccol{display:grid;gap:16px;min-width:0}
+.ccard{background:var(--white);border:1.5px solid var(--lav);border-radius:22px;padding:20px 22px;min-width:0}
+.ccard h3{margin:0 0 6px;font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:900;color:var(--lav-deep)}
+.ccard h4{margin:18px 0 10px;font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:900;color:var(--pink)}
+.menu{list-style:none;margin:0;padding:0}
+.mrow{display:grid;grid-template-columns:auto minmax(12px,1fr) auto;align-items:end;column-gap:8px;padding:9px 0;border-top:1px dashed var(--lav)}
+.mrow:first-child{border-top:0}
+.mrow .mn{font-weight:800;min-width:0}
+.mrow .lead{border-bottom:2px dotted var(--pink-soft);transform:translateY(-7px)}
+.mrow b{font-weight:900;color:var(--pink);font-variant-numeric:tabular-nums;white-space:nowrap;font-size:17px}
+.mrow .mnote{grid-column:1/-1;font-size:13.5px;color:var(--plum-mut);font-weight:600;line-height:1.45;margin-top:2px}
+.inc{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.inc li{display:flex;flex-direction:column;gap:2px;background:var(--lav-soft);border-radius:12px;padding:8px 12px;font-size:14px}
+.inc li b{font-weight:900}
+.inc li.wide{grid-column:1/-1}
+.inc li span{font-size:13px;color:var(--plum-mut);font-weight:600;line-height:1.4}
+.spa{background:var(--pink);color:var(--white);border-radius:22px;padding:20px 22px}
+.spa small{display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:900;color:var(--blush);opacity:.9}
+.spa-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:4px 0 12px}
+.spa h3{margin:0;font-family:var(--display);font-weight:400;font-size:24px;line-height:1.15}
+.spa-top b{font-size:30px;font-weight:900;font-variant-numeric:tabular-nums}
+.spa .chips li{background:rgba(255,255,255,.18);color:var(--white)}
+.spa .chips li:before{background:var(--white)}
+.spa p{margin:12px 0 0;font-size:14px;font-weight:800;color:var(--blush)}
+.ccard.fees h3{color:var(--pink)}
+.cnotes{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:6px;font-size:14px;color:var(--plum-mut);font-weight:700}
+.cnotes li{padding-left:18px;position:relative}
+.cnotes li:before{content:"*";position:absolute;left:4px;color:var(--pink);font-weight:900}
+
 /* appointment request: a booking slip of numbered steps, with how-it-works and the estimate alongside */
 section.block.request{padding-block:96px}
 .request{position:relative;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cg transform='translate(18 20) rotate(-20 32 32) scale(.42)'%3E%3Cg fill='%23ffffff' fill-opacity='.42'%3E%3Cellipse cx='32' cy='42' rx='14' ry='12'/%3E%3Cellipse cx='14' cy='27' rx='6.5' ry='8.5' transform='rotate(-18 14 27)'/%3E%3Cellipse cx='25' cy='15' rx='6.5' ry='9'/%3E%3Cellipse cx='39' cy='15' rx='6.5' ry='9'/%3E%3Cellipse cx='50' cy='27' rx='6.5' ry='8.5' transform='rotate(18 50 27)'/%3E%3C/g%3E%3C/g%3E%3Cg transform='translate(108 104) rotate(16 32 32) scale(.32)'%3E%3Cg fill='%23ffffff' fill-opacity='.42'%3E%3Cellipse cx='32' cy='42' rx='14' ry='12'/%3E%3Cellipse cx='14' cy='27' rx='6.5' ry='8.5' transform='rotate(-18 14 27)'/%3E%3Cellipse cx='25' cy='15' rx='6.5' ry='9'/%3E%3Cellipse cx='39' cy='15' rx='6.5' ry='9'/%3E%3Cellipse cx='50' cy='27' rx='6.5' ry='8.5' transform='rotate(18 50 27)'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") 0 0/180px 180px,linear-gradient(160deg,var(--band-a) 0%,var(--band-b) 55%,var(--band-c) 100%)}
 .request:before,.request:after{content:"";position:absolute;left:0;right:0;height:22px;pointer-events:none}
-.request:before{top:0;background:radial-gradient(circle at 18px 0,var(--white) 17px,transparent 18px) 0 0/36px 22px repeat-x}
+.request:before{top:0;background:radial-gradient(circle at 18px 0,var(--lav-soft) 17px,transparent 18px) 0 0/36px 22px repeat-x}
 .request:after{bottom:0;background:radial-gradient(circle at 18px 100%,var(--lav-soft) 17px,transparent 18px) 0 100%/36px 22px repeat-x}
 .request .head p{color:var(--plum)}
 .request .kicker{color:var(--band-ink)}
@@ -422,6 +482,8 @@ section.block.request{padding-block:96px}
 .agree input:checked+label:before{border-color:var(--pink);background:var(--pink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.3l2.3 2.3 4.7-5.1' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/13px no-repeat}
 .agree.bad label:before{border-color:#b4233c}
 .agree a{color:var(--pink)}
+.agree.vaxq{margin-top:2px;background:var(--blush);border-radius:14px;padding:12px 14px}
+.agree.vaxq.bad{box-shadow:0 0 0 2px #b4233c inset}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .rq-err{background:#fde8ec;color:#8f1c31;border-radius:12px;padding:10px 14px;font-weight:800;font-size:15px;margin-top:16px}
 .rq-send{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;margin-top:20px}
@@ -491,6 +553,7 @@ section.block.request{padding-block:96px}
   .pay{position:static}
   .nav a:not(.btn){display:none}
   .rq-grid{grid-template-columns:1fr}
+  .sched,.cgrid,.cgrid.two{grid-template-columns:1fr}
   .rq-side{position:static;order:-1;grid-template-columns:1fr 1fr}
 }
 @media (max-width:620px){
@@ -517,6 +580,10 @@ section.block.request{padding-block:96px}
   .rq-side{grid-template-columns:1fr}
   .rq-side .callbox{display:none}
   section.block.request{padding-block:76px}
+  .sched{padding:20px 18px;gap:18px}
+  .sched h3{font-size:24px}
+  .ccard,.spa{padding:18px}
+  .prow.catlink{grid-column:1/-1;padding:14px 18px}
   .rq-card{padding:4px 16px 20px;border-radius:22px}
   .rq-card legend{font-size:21px}
   .fgrid{grid-template-columns:1fr}
@@ -542,7 +609,10 @@ section.block.request{padding-block:96px}
 
 <script>
 (function(){
+var MATTING_POLICY={title:"Matted coats",body:"Your pet's comfort and safety always come first at Roo's Purrfect Paws. An additional matting fee of $15–$50 may apply, depending on the severity of the matting and the time and care required for removal.\nSeverely matted coats may require a close shave rather than brushing to avoid unnecessary pain and stress. If your dog is extremely matted, you will be required to sign a grooming consent form acknowledging the increased risk of nicks or cuts, redness, skin irritation, bruising, and ear hematomas (swelling caused by blood collecting in the ear flap).\nRemoving matting may also reveal sores or pre-existing skin conditions hidden beneath the coat. We reserve the right to stop or decline grooming if we determine it cannot be completed safely and may require your pet to be seen by a veterinarian before grooming can proceed."};
+var CONTENT_VERSION="2";
 var DEFAULTS={
+  contentVersion:CONTENT_VERSION,
   name:"Roo's Purrfect Paws",
   eyebrow:"Grooming & pet sitting · Sheffield Lake, OH",
   intro:"Full grooms for dogs and cats, plus pet sitting in the comfort of your own home. Call us or send an appointment request right here.",
@@ -559,13 +629,56 @@ var DEFAULTS={
   groomTiers:[
     {name:"Small dogs",size:"",short:"$50–55",long:"$55–65",breeds:"Most small terriers, Toy Poodle, Shih Tzu, Chihuahua, Pug, Pomeranian, Miniature Pinscher, Cavalier King Charles Spaniel, Papillon, Maltese, Bichon, Miniature Schnauzer, French Bulldog, Corgi, Dachshund, Chinese Crested"},
     {name:"Medium dogs",size:"",short:"$55–65",long:"$60–70",breeds:"Labrador Retriever, English Bulldog, Boxer, Border Collie, Basset Hound, Cocker Spaniel, Collie, Beagle, Bull Terrier, Pit Bull, Greyhound"},
-    {name:"Large dogs",size:"",short:"$65–75",long:"$70–95",breeds:"Golden Retriever, Doberman, Standard Poodle, Doodles, Pointer, Dalmatian, Husky, German, Australian and other Shepherds, Irish and English Setter"},
+    {name:"Large dogs",size:"",short:"$65–80",long:"$80–100",breeds:"Golden Retriever, Doberman, Standard Poodle, Doodles, Pointer, Dalmatian, Husky, German, Australian and other Shepherds, Irish and English Setter"},
     {name:"XL dogs",size:"100+ lbs",short:"$70–95",long:"$90–160",breeds:"Saint Bernard, Mastiff, Rottweiler, Great Dane, Bernese Mountain Dog, Akita, Bloodhound, Newfoundland, Cane Corso, larger Huskies"}
   ],
   catPrice:"$40–100",
   catNote:"All breeds and coat types",
   groomIncludes:"Bath\nBlow-out\nBrush-out\nHaircut, if needed\nEar cleaning\nTeeth cleaning\nNail trim",
-  groomNotes:"Matting and other coat conditions that take extra time and supplies can add $10–50.\nThese ranges are estimates and the breed lists are examples. We'll give you an exact price once we see your pet in person.",
+  groomNotes:"Matting can add $15–50, depending on how severe it is. See Matted coats under Policies.\nThese ranges are estimates and the breed lists are examples. We'll give you an exact price once we see your pet in person.",
+
+  groomSchedule:"A consistent grooming schedule helps keep your dog comfortable, clean, and looking their best! We typically recommend grooming every 4–6 weeks, while some dogs can comfortably go 6–8 weeks, depending on their coat type, haircut, lifestyle, and brushing routine at home.\nRegular grooming helps prevent tangles from becoming painful mats, keeps nails maintained, and keeps the coat and skin clean. For dogs who go longer between full haircuts, we offer maintenance appointments with face and sanitary trims to help keep them tidy and comfortable.\nAlternating full grooms with maintenance visits approximately every four weeks, along with regular brushing and combing at home, is a great way to stay ahead of matting and maintain a manageable routine. We're happy to help you choose the right schedule for your pup!",
+
+  catIntro:"Full-coat grooms, lion cuts and in-between spa visits for cats of every coat.",
+  catRequire:"Cats must be up to date on Rabies and Distemper vaccinations. Proof is required before booking.",
+  catGrooms:[
+    {name:"Short-haired full-coat groom",price:"$70",note:""},
+    {name:"Long-haired full-coat groom",price:"$80",note:""},
+    {name:"Full-coat groom, 10 lbs and over",price:"$90",note:""},
+    {name:"Hairless",price:"$60",note:""},
+    {name:"Kitten (under 6 months)",price:"$50",note:""}
+  ],
+  catIncludes:"Nail trim\nEar and eye cleaning\nBath\nBlow dry\nDegrease treatment\nComb out\nDe-shed treatment | Removes excess dead coat and can reduce shedding at home by up to 80% when done every 4–6 weeks\nFace sculpting | Breed-specific\nSanitary trim | For seniors and cats with medical conditions that need one",
+  catStyles:[
+    {name:"Lion cut",price:"$60",note:"On its own. $35 when added to a full groom."},
+    {name:"Comb cut",price:"$45",note:"Only available as an add-on to a full groom."}
+  ],
+  catSpaName:"The in-between spa package",
+  catSpaPrice:"$20",
+  catSpaIncludes:"Nail trim\nEar cleaning\nFace clean\nComb out",
+  catSpaNote:"Restrictions apply.",
+  catAddons:[
+    {name:"Toe tuft trim",price:"$5",note:""},
+    {name:"Paw sculpting",price:"$5",note:""},
+    {name:"Mane / ruff trim",price:"$5",note:""},
+    {name:"Pant feather trim",price:"$10",note:""},
+    {name:"Sanitary shave",price:"$10",note:""},
+    {name:"Half shell belly & sanitary",price:"$15",note:""},
+    {name:"Full shell belly & sanitary",price:"$25",note:""},
+    {name:"Nail trim",price:"$15",note:""},
+    {name:"Nail caps, front or back",price:"$25",note:"Must be enrolled in behavior modification consulting."},
+    {name:"Nail caps, all four",price:"$35",note:"Must be enrolled in behavior modification consulting."},
+    {name:"Color, mohawks & creative grooming",price:"Let's chat!",note:""}
+  ],
+  catFees:[
+    {name:"Mat removal",price:"from $15",note:"Doesn't apply to minor tangles."},
+    {name:"Undercoat buildup",price:"from $15",note:"From an irregular grooming schedule."},
+    {name:"Fecal removal",price:"from $20",note:""},
+    {name:"Handling fee",price:"from $30",note:""},
+    {name:"Flea bath / salon sanitation",price:"$60",note:"If we find fleas, your cat gets a flea bath with no other services and must be picked up right away."},
+    {name:"Pelt removal",price:"$195–350",note:"Includes a follow-up medicated bath 5 days to 2 weeks later if it can't be done the same day, to help the coat and skin heal. Severe cases, or cats with health or behavior concerns, may be referred out. Cats referred out for sedation may not be able to be bathed."}
+  ],
+  catNotes:"Full-groom prices don't include add-ons, fecal removal, matting, pelting, handling or undercoat buildup fees.\nSome cats may not be candidates for every service or style because of temperament or health.",
 
   sitIntro:"Let your pets stay in the comfort of home while you're away. We offer daytime check-ins and overnight stays.",
   sitVisits:[
@@ -595,9 +708,11 @@ var DEFAULTS={
   sitNote:"Rates may be adjusted for extra tasks or cleaning, homes farther away, or stays longer than a week. Call for details and to book.",
 
   reqIntro:"Tell us about your pet and what you'd like done. We'll call or text you to confirm a time.",
-  reqServices:"Full groom | Bath, blow-out, brush, haircut if needed, ears, teeth and nails\nBath & brush | Bath, blow-out and brush-out, no haircut\nNail trim | Trimmed and smoothed\nTeeth cleaning | Fresh breath add-on\nEar cleaning | Gentle clean and check\nDe-shedding | Loosens and removes undercoat\nDe-matting | Works out tangles and mats (extra charge)\nFace, feet & tail tidy | A neat-up between full grooms",
+  reqServices:"Full groom | Bath, blow-out, brush, haircut if needed, ears, teeth and nails\nBath & brush | Bath, blow-out and brush-out, no haircut\nNail trim | Trimmed and smoothed\nTeeth cleaning | Fresh breath add-on\nEar cleaning | Gentle clean and check\nDe-shedding | Loosens and removes undercoat\nDe-matting | Works out tangles and mats (extra charge)\nMaintenance visit | Face and sanitary trim between full grooms",
   reqHaircuts:"No haircut | Bath and tidy only\nBreed standard | The classic cut for your pet's breed\nTeddy bear cut | Even length all over with a round, fluffy face\nShort summer cut | Short all over and easy to keep up\nJust a trim | Keep the length, neaten the edges\nSomething else | Describe it below",
   reqShampoos:"Our choice | Gentle everyday shampoo\nOatmeal | Soothing for dry or itchy skin\nHypoallergenic | Fragrance-free for sensitive skin\nWhitening | Brightens white and light coats\nDe-shedding | Helps release loose undercoat\nFlea & tick | For pets with fleas\nI'll bring my own | Medicated or prescription shampoo",
+  reqCatServices:"Full groom | Bath, blow dry, degrease, de-shed, comb out, nails, ears and eyes\nIn-between spa | Nails, ears, face clean and comb out\nNail trim\nNail caps | Requires behavior modification consulting\nSanitary or belly shave\nPaw, toe tuft or mane trim\nMat removal | Not needed for minor tangles\nCreative color or mohawk | Let's chat",
+  reqCatHaircuts:"No haircut | Full-coat groom, the coat stays long\nLion cut | Short body with a full mane, boots and tail pom\nComb cut | Even, longer length (with a full groom)\nSomething else | Describe it below",
   reqNext:"This sends a request, not a booking. We'll reach out to confirm a time.",
   reqPaused:"",
   payments:"Cash\nCheck\nCash App\nVenmo",
@@ -605,7 +720,8 @@ var DEFAULTS={
   policies:[
     {title:"Running late",body:"Once you're 10 minutes late there's a $20 late fee, plus $10 for every 10 minutes after that.\nCall at least 15 minutes before your appointment to let us know you'll be late and we'll skip the $20 fee. Only the $10 charges apply."},
     {title:"No call, no show",body:"If we don't hear from you within 30 minutes of your appointment time, you'll be charged a no-show fee equal to 100% of the service. The appointment is cancelled, and you can't rebook until the fee is paid."},
-    {title:"Cancelling or rescheduling",body:"Please cancel or reschedule at least 2 hours before your appointment, or you'll be charged 100% of the groom.\nIf something comes up, call us at (440) 228-3999. We're very accommodating."}
+    {title:"Cancelling or rescheduling",body:"Please cancel or reschedule at least 2 hours before your appointment, or you'll be charged 100% of the groom.\nIf something comes up, call us at (440) 228-3999. We're very accommodating."},
+    MATTING_POLICY
   ],
   policyNote:"We may not be able to groom your pet if you arrive very late. Our schedule is planned around the time each pet needs for a proper spa day.",
 
@@ -621,7 +737,11 @@ var LISTS={
   sitVisits:{add:'visit detail',fields:[['title','Title'],['body','Details','area']]},
   sitRows:{add:'rate',fields:[['group','Group','text','Dogs, Cats, Dogs & cats'],['label','Pets'],['day','Per day','text','$60'],['night','Overnight','text','$110']]},
   sitAddons:{add:'add-on',fields:[['label','Add-on'],['price','Price','text','+$10 per pet']]},
-  policies:{add:'policy',fields:[['title','Title'],['body','Policy','area']]}
+  policies:{add:'policy',fields:[['title','Title'],['body','Policy','area']]},
+  catGrooms:{add:'groom',fields:[['name','Groom'],['price','Price','text','$70'],['note','Note (optional)']]},
+  catStyles:{add:'style',fields:[['name','Style'],['price','Price','text','$60'],['note','Note (optional)']]},
+  catAddons:{add:'add-on',fields:[['name','Add-on'],['price','Price','text','$5'],['note','Note (optional)']]},
+  catFees:{add:'fee',fields:[['name','Fee'],['price','Price','text','from $15'],['note','Note (optional)']]}
 };
 
 var S=JSON.parse(JSON.stringify(DEFAULTS));
@@ -650,7 +770,11 @@ var I_FB=ico('<path d="M15 3h-2.5A4.5 4.5 0 0 0 8 7.5V10H5.5v4H8v7h4v-7h3l.5-4H1
 var I_CAL=ico('<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4M8 14h3"/>');
 var I_CHECK=ico('<path d="M5 12.5l4.5 4.5L19 7.5"/>',3);
 var I_CAMERA=ico('<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',2.2);
-var POL_ICONS=[ico('<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/>'),ico('<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4M10 14l4 4M14 14l-4 4"/>'),ico('<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>')];
+var I_DOWN=ico('<path d="M12 5v14M6 13l6 6 6-6"/>');
+var I_SCISSORS=ico('<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.6 7.6L20 18M8.6 16.4L20 6"/>',2.2);
+var I_SPARK=ico('<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6"/>',2.2);
+var I_SHIELD=ico('<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>');
+var POL_ICONS=[ico('<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/>'),ico('<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4M10 14l4 4M14 14l-4 4"/>'),ico('<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>'),I_SCISSORS];
 
 /* fluffy just-groomed pup, facing right. Each fluffy part is circles drawn twice (dark, then white on top) so they merge into one soft outline. */
 /* Jointed Malinois rig. Dog faces +x, y is down, ground is y=0. Limb angle 0 points straight down;
@@ -862,14 +986,50 @@ function groomingHTML(){
     return '<div class="prow"><div class="tier"><h3>'+esc(t.name)+(t.size?'<small>'+esc(t.size)+'</small>':'')+'</h3>'+(t.breeds?'<p class="breeds">'+esc(t.breeds)+'</p>':'')+'</div>'+
       '<div class="amt" data-l="Short-haired">'+esc(t.short)+'</div><div class="amt" data-l="Long-haired">'+esc(t.long)+'</div></div>';
   }).join('');
-  if(S.catPrice)rows+='<div class="prow cat"><div class="tier"><h3>Cats</h3>'+(S.catNote?'<p class="breeds">'+esc(S.catNote)+'</p>':'')+'</div><div class="amt span" data-l="All cats">'+esc(S.catPrice)+'</div></div>';
+  rows+='<a class="prow catlink" href="#cats"><span><b>Grooming a cat?</b> Cats have their own price list.</span><span class="go">See cat prices '+I_DOWN+'</span></a>';
   var inc=lines(S.groomIncludes), notes=lines(S.groomNotes);
-  return '<section class="block" id="grooming"><div class="wrap"><div class="head"><h2><span class="kicker">Dogs &amp; cats</span>Grooming <em>prices</em></h2><p>'+esc(S.groomIntro)+'</p></div>'+
+  return '<section class="block" id="grooming"><div class="wrap"><div class="head"><h2><span class="kicker">Dogs</span>Dog grooming <em>prices</em></h2><p>'+esc(S.groomIntro)+'</p></div>'+
    '<div class="ptable"><div class="prow th"><span>Size</span><span>Short-haired</span><span>Long-haired</span></div>'+rows+'</div>'+
    ((inc.length||notes.length)?'<div class="includes">'+
      (inc.length?'<div class="box pinkbox"><h3>Every full groom includes</h3><ul class="chips">'+inc.map(function(i){return '<li>'+esc(i)+'</li>'}).join('')+'</ul></div>':'')+
      (notes.length?'<div class="box lavbox"><h3>Good to know</h3><ul class="notes">'+notes.map(function(i){return '<li>'+esc(i)+'</li>'}).join('')+'</ul></div>':'')+
-   '</div>':'')+'</div></section>';
+   '</div>':'')+scheduleHTML()+'</div></section>';
+}
+function scheduleHTML(){
+  if(!lines(S.groomSchedule).length)return '';
+  return '<div class="sched"><div class="sched-text"><h3>How often to groom</h3>'+paras(S.groomSchedule)+'</div>'+
+    '<div class="sched-fig"><p class="fig-cap">A routine that stays ahead of mats</p><ol class="tl">'+
+      '<li><span class="dot">'+I_SCISSORS+'</span><b>Full groom</b><span>Bath, haircut, nails, ears and teeth</span></li>'+
+      '<li class="gap">about 4 weeks</li>'+
+      '<li><span class="dot alt">'+I_SPARK+'</span><b>Maintenance visit</b><span>Face and sanitary trim to stay tidy</span></li>'+
+      '<li class="gap">about 4 weeks</li>'+
+      '<li><span class="dot">'+I_SCISSORS+'</span><b>Full groom</b><span>And repeat, with brushing at home in between</span></li>'+
+    '</ol></div></div>';
+}
+
+/* ---------- cat grooming ---------- */
+function mrow(r){
+  return '<li class="mrow"><span class="mn">'+esc(r.name)+'</span><span class="lead" aria-hidden="true"></span><b>'+esc(r.price)+'</b>'+(r.note?'<small class="mnote">'+esc(r.note)+'</small>':'')+'</li>';
+}
+function mlist(list){var rows=arr(list).filter(function(r){return r&&r.name});return rows.length?'<ul class="menu">'+rows.map(mrow).join('')+'</ul>':''}
+function catsHTML(){
+  var grooms=mlist(S.catGrooms),styles=mlist(S.catStyles),adds=mlist(S.catAddons),fees=mlist(S.catFees);
+  var inc=optLines(S.catIncludes),spaInc=lines(S.catSpaIncludes),notes=lines(S.catNotes);
+  if(!grooms&&!styles&&!adds)return '';
+  return '<section class="block cats" id="cats"><div class="wrap"><div class="head"><h2><span class="kicker">Cats</span>Cat <em>grooming</em></h2><p>'+esc(S.catIntro)+'</p></div>'+
+   (S.catRequire?'<div class="vax">'+I_SHIELD+'<p>'+esc(S.catRequire)+'</p></div>':'')+
+   '<div class="cgrid">'+
+     '<div class="ccard"><h3>Full grooms</h3>'+grooms+
+       (inc.length?'<h4>Every full groom includes</h4><ul class="inc">'+inc.map(function(o){return '<li'+(o.d?' class="wide"':'')+'><b>'+esc(o.t)+'</b>'+(o.d?'<span>'+esc(o.d)+'</span>':'')+'</li>'}).join('')+'</ul>':'')+'</div>'+
+     '<div class="ccol">'+
+       (styles?'<div class="ccard"><h3>Styles</h3>'+styles+'</div>':'')+
+       (S.catSpaName?'<div class="spa"><small>Between full grooms</small><div class="spa-top"><h3>'+esc(S.catSpaName)+'</h3><b>'+esc(S.catSpaPrice)+'</b></div>'+
+         (spaInc.length?'<ul class="chips">'+spaInc.map(function(i){return '<li>'+esc(i)+'</li>'}).join('')+'</ul>':'')+(S.catSpaNote?'<p>'+esc(S.catSpaNote)+'</p>':'')+'</div>':'')+
+     '</div>'+
+   '</div>'+
+   ((adds||fees)?'<div class="cgrid two">'+(adds?'<div class="ccard"><h3>Add-ons</h3>'+adds+'</div>':'')+(fees?'<div class="ccard fees"><h3>Extra fees, when needed</h3>'+fees+'</div>':'')+'</div>':'')+
+   (notes.length?'<ul class="cnotes">'+notes.map(function(n){return '<li>'+esc(n)+'</li>'}).join('')+'</ul>':'')+
+  '</div></section>';
 }
 
 function sittingHTML(){
@@ -900,7 +1060,7 @@ function policiesHTML(){
 function optLines(s){return lines(s).map(function(l){var i=l.indexOf('|');return i<0?{t:l.trim(),d:''}:{t:l.slice(0,i).trim(),d:l.slice(i+1).trim()}}).filter(function(o){return o.t})}
 function todayISO(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function niceDate(iso){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(iso||'');if(!m)return '';return new Date(+m[1],m[2]-1,+m[3]).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})}
-var REQ_BLANK={name:'',phone:'',email:'',contact:'text',pet:'',species:'dog',breed:'',size:'',coat:'',firstVisit:'',petNotes:'',services:[],haircut:'',haircutNotes:'',shampoo:'',date1:'',date2:'',times:[],notes:'',agree:false};
+var REQ_BLANK={name:'',phone:'',email:'',contact:'text',pet:'',species:'dog',breed:'',size:'',coat:'',catType:'',catVax:false,firstVisit:'',petNotes:'',services:[],haircut:'',haircutNotes:'',shampoo:'',date1:'',date2:'',times:[],notes:'',agree:false};
 var REQ=JSON.parse(JSON.stringify(REQ_BLANK)), REQ_T0=Date.now(), REQ_SENT=null, REQ_BUSY=false;
 var TIMES=['Morning','Midday','Afternoon','Any time'];
 var CONTACT_WORD={call:'call',text:'text',email:'email'};
@@ -916,7 +1076,7 @@ function optsHTML(name,opts,val,multi,label){
 function estimateFor(st){
   var full=st.services.some(function(s){return /full groom/i.test(s)});
   if(!full)return null;
-  if(st.species==='cat')return S.catPrice?{amt:S.catPrice,what:'Full groom, cat'}:null;
+  if(st.species==='cat'){var c=arr(S.catGrooms).filter(function(r){return r&&r.name===st.catType})[0];return c&&c.price?{amt:c.price,what:c.name}:null}
   var t=arr(S.groomTiers).filter(function(t){return t&&t.name===st.size})[0];
   if(!t||!st.coat)return null;
   var amt=st.coat==='long'?t.long:t.short;if(!amt)return null;
@@ -935,7 +1095,7 @@ function requestInner(){
     var r=REQ_SENT,how=CONTACT_WORD[r.contact]||'call',where=r.contact==='email'&&r.email?r.email:r.phone;
     var when=[niceDate(r.date1),niceDate(r.date2)].filter(Boolean).join(' or ');
     return '<div class="rq-done" id="rqDone" tabindex="-1"><div class="ok">'+I_CHECK+'</div><h3>Request sent!</h3>'+
-      '<p>Thanks, '+esc(r.name.split(' ')[0])+'. We\'ll '+how+' you at <b>'+esc(where)+'</b> to confirm a time for '+esc(r.pet)+'. Your appointment isn\'t booked until we confirm.</p>'+
+      '<p>Thanks, '+esc(r.name.split(' ')[0])+'. We\'ll '+how+' you at <b>'+esc(where)+'</b> to confirm a time for '+esc(r.pet)+'. Your appointment isn\'t booked until we confirm.'+(r.species==='cat'?' Please have proof of your cat\'s Rabies and Distemper vaccines ready.':'')+'</p>'+
       '<dl><div><dt>Services</dt><dd>'+esc(r.services.join(', '))+'</dd></div>'+
       (r.haircut?'<div><dt>Haircut</dt><dd>'+esc(r.haircut)+'</dd></div>':'')+
       (r.shampoo?'<div><dt>Shampoo</dt><dd>'+esc(r.shampoo)+'</dd></div>':'')+
@@ -944,9 +1104,10 @@ function requestInner(){
       (!LIVE?'<p class="pvnote">Preview: on the live site this goes to the owner\'s request inbox. Here it\'s added to the inbox in the owner panel so you can try it.</p>':'')+
       '<button type="button" class="btn ghost" id="rqAgain">Send another request</button></div>';
   }
-  var tiers=arr(S.groomTiers).filter(function(t){return t&&t.name});
-  var services=optLines(S.reqServices),cuts=optLines(S.reqHaircuts),shampoos=optLines(S.reqShampoos);
-  var min=todayISO(),cat=REQ.species==='cat';
+  var tiers=arr(S.groomTiers).filter(function(t){return t&&t.name}),cat=REQ.species==='cat';
+  var services=optLines(cat?S.reqCatServices:S.reqServices),cuts=optLines(cat?S.reqCatHaircuts:S.reqHaircuts),shampoos=optLines(S.reqShampoos);
+  var catTypes=arr(S.catGrooms).filter(function(r){return r&&r.name});
+  var min=todayISO();
   return '<form class="rq-card" id="rqForm" novalidate>'+
    '<fieldset><legend><span class="num">1</span>About you</legend><div class="fgrid">'+
      '<div class="fld"><label for="rq_name">Your name</label><input type="text" id="rq_name" name="name" autocomplete="name" value="'+esc(REQ.name)+'" required></div>'+
@@ -958,16 +1119,21 @@ function requestInner(){
      '<div class="fld"><label for="rq_pet">Pet\'s name</label><input type="text" id="rq_pet" name="pet" value="'+esc(REQ.pet)+'" required></div>'+
      '<div class="fld"><span class="lbl">Dog or cat?</span>'+segHTML('species',[['dog','Dog'],['cat','Cat']],REQ.species,'Dog or cat')+'</div>'+
      '<div class="fld"><label for="rq_breed">Breed <span class="opt">(or best guess)</span></label><input type="text" id="rq_breed" name="breed" value="'+esc(REQ.breed)+'"></div>'+
-     '<div class="fld" id="rqSizeWrap"'+(cat?' hidden':'')+'><label for="rq_size">Size</label><select id="rq_size" name="size"><option value="">Choose a size</option>'+
-       tiers.map(function(t){return '<option value="'+esc(t.name)+'"'+(REQ.size===t.name?' selected':'')+'>'+esc(t.name+(t.size?' ('+t.size+')':''))+'</option>'}).join('')+
-       '<option value="Not sure"'+(REQ.size==='Not sure'?' selected':'')+'>Not sure</option></select></div>'+
-     '<div class="fld"><span class="lbl">Coat</span>'+segHTML('coat',[['short','Short-haired'],['long','Long-haired']],REQ.coat,'Coat length')+'</div>'+
+     (cat
+       ?'<div class="fld"><label for="rq_catType">Type of groom</label><select id="rq_catType" name="catType"><option value="">Choose one</option>'+
+         catTypes.map(function(r){return '<option value="'+esc(r.name)+'"'+(REQ.catType===r.name?' selected':'')+'>'+esc(r.name)+'</option>'}).join('')+
+         '<option value="Not sure"'+(REQ.catType==='Not sure'?' selected':'')+'>Not sure</option></select></div>'
+       :'<div class="fld"><label for="rq_size">Size</label><select id="rq_size" name="size"><option value="">Choose a size</option>'+
+         tiers.map(function(t){return '<option value="'+esc(t.name)+'"'+(REQ.size===t.name?' selected':'')+'>'+esc(t.name+(t.size?' ('+t.size+')':''))+'</option>'}).join('')+
+         '<option value="Not sure"'+(REQ.size==='Not sure'?' selected':'')+'>Not sure</option></select></div>'+
+         '<div class="fld"><span class="lbl">Coat</span>'+segHTML('coat',[['short','Short-haired'],['long','Long-haired']],REQ.coat,'Coat length')+'</div>')+
      '<div class="fld"><span class="lbl">First visit with us?</span>'+segHTML('firstVisit',[['yes','Yes'],['no','No']],REQ.firstVisit,'First visit with us')+'</div>'+
      '<div class="fld full"><label for="rq_petNotes">Anything we should know? <span class="opt">(age, health, nervous with the dryer, matting…)</span></label><textarea id="rq_petNotes" name="petNotes" rows="2">'+esc(REQ.petNotes)+'</textarea></div>'+
+     (cat?'<div class="fld full agree vaxq" id="rqVaxWrap"><input type="checkbox" id="rq_catVax" name="catVax"'+(REQ.catVax?' checked':'')+'><label for="rq_catVax"><span>My cat is up to date on <b>Rabies and Distemper</b> vaccines, and I can show proof before booking.</span></label></div>':'')+
    '</div></fieldset>'+
    '<fieldset id="rqSvc"><legend><span class="num">3</span>Services</legend><p class="hint-line">Pick everything you\'d like.</p>'+optsHTML('services',services,REQ.services,true,'Services')+estHTML()+'</fieldset>'+
-   (cuts.length?'<fieldset><legend><span class="num">4</span>Haircut preference</legend>'+optsHTML('haircut',cuts,REQ.haircut,false,'Haircut preference')+
-     '<div class="fld full" style="margin-top:12px"><label for="rq_haircutNotes">Describe the look <span class="opt">(optional)</span></label><textarea id="rq_haircutNotes" name="haircutNotes" rows="2" placeholder="e.g. short on the body, keep the ears and tail fluffy">'+esc(REQ.haircutNotes)+'</textarea></div>'+
+   (cuts.length?'<fieldset><legend><span class="num">4</span>'+(cat?'Style':'Haircut preference')+'</legend>'+optsHTML('haircut',cuts,REQ.haircut,false,cat?'Style':'Haircut preference')+
+     '<div class="fld full" style="margin-top:12px"><label for="rq_haircutNotes">Describe the look <span class="opt">(optional)</span></label><textarea id="rq_haircutNotes" name="haircutNotes" rows="2" placeholder="'+(cat?'e.g. lion cut, keep the boots and a fluffy tail pom':'e.g. short on the body, keep the ears and tail fluffy')+'">'+esc(REQ.haircutNotes)+'</textarea></div>'+
      '<p class="tipline">'+I_CAMERA+'<span>Have a photo of the cut you want? Text it to '+esc(S.phone||'us')+' after you send this.</span></p></fieldset>':'')+
    (shampoos.length?'<fieldset><legend><span class="num">'+(cuts.length?5:4)+'</span>Shampoo</legend>'+optsHTML('shampoo',shampoos,REQ.shampoo,false,'Shampoo')+'</fieldset>':'')+
    '<fieldset><legend><span class="num">'+(4+(cuts.length?1:0)+(shampoos.length?1:0))+'</span>When works for you?</legend><div class="fgrid">'+
@@ -999,12 +1165,21 @@ function onReqInput(e){
   var el=e.target;if(!el.form||el.form.id!=='rqForm')return;
   var n=el.name;if(!n||n==='website')return;
   if(el.type==='checkbox'){
-    if(n==='agree')REQ.agree=el.checked;
+    if(n==='agree'||n==='catVax')REQ[n]=el.checked;
     else{var a=REQ[n],i=a.indexOf(el.value);if(el.checked&&i<0)a.push(el.value);if(!el.checked&&i>-1)a.splice(i,1)}
   }else if(el.type==='radio'){if(el.checked)REQ[n]=el.value}
   else REQ[n]=el.value;
-  if(n==='species'){var sw=document.getElementById('rqSizeWrap');if(sw)sw.hidden=REQ.species==='cat'}
-  if(n==='services'||n==='size'||n==='coat'||n==='species'){var est=document.getElementById('rqEst');if(est)est.outerHTML=estHTML()}
+  if(n==='species'&&el.type==='radio'){
+    var cat=REQ.species==='cat',svc=optLines(cat?S.reqCatServices:S.reqServices).map(function(o){return o.t}),cuts=optLines(cat?S.reqCatHaircuts:S.reqHaircuts).map(function(o){return o.t});
+    REQ.services=REQ.services.filter(function(s){return svc.indexOf(s)>-1});
+    if(cuts.indexOf(REQ.haircut)<0)REQ.haircut='';
+    var errWasOpen=!document.getElementById('rqErr').hidden;
+    document.getElementById('rqSlot').innerHTML=requestInner();
+    var sp=document.getElementById('rq_species_'+(cat?1:0));if(sp)sp.focus({preventScroll:true});
+    if(errWasOpen){var p=reqProblems(),er=document.getElementById('rqErr');if(p.length){er.textContent='Please add '+p.map(function(x){return x[1]}).join(', ')+'.';er.hidden=false}}
+    return;
+  }
+  if(n==='services'||n==='size'||n==='coat'||n==='catType'){var est=document.getElementById('rqEst');if(est)est.outerHTML=estHTML()}
   var bad=el.closest('.bad');if(bad)bad.classList.remove('bad');
   if(el.classList.contains('bad'))el.classList.remove('bad');
   var err=document.getElementById('rqErr');
@@ -1017,6 +1192,7 @@ function reqProblems(){
   if(REQ.contact==='email'&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(REQ.email.trim()))p.push(['rq_email','an email address (you chose email)']);
   if(!REQ.pet.trim())p.push(['rq_pet','your pet\'s name']);
   if(!REQ.services.length)p.push(['rqSvc','at least one service']);
+  if(REQ.species==='cat'&&!REQ.catVax)p.push(['rqVaxWrap','a check that your cat\'s Rabies and Distemper vaccines are up to date']);
   if(!REQ.agree)p.push(['rqAgreeWrap','a check that you\'ve read the policies']);
   return p;
 }
@@ -1035,7 +1211,7 @@ function submitReq(e){
   err.hidden=true;
   var e2=estimateFor(REQ);
   var body=JSON.parse(JSON.stringify(REQ));
-  if(REQ.species==='cat')body.size='';
+  if(REQ.species==='cat'){body.size='';body.coat=''}else{body.catType='';body.catVax=false}
   body.estimate=e2?e2.amt:'';body.elapsed=Date.now()-REQ_T0;body.website=(document.getElementById('rq_website')||{}).value||'';
   var done=function(id){
     REQ_SENT=body;
@@ -1076,7 +1252,7 @@ function render(){
   if(S.address)card+='<div><dt>Where</dt><dd><a href="'+esc(mapHref(S.address))+'" target="_blank" rel="noopener">'+esc(S.address)+'</a></dd></div>';
   var hl=lines(S.hours);
   if(hl.length)card+='<div><dt>Hours</dt><dd>'+esc(hl[0])+(hl.length>1?' <a href="#visit">+ more</a>':'')+'</dd></div>';
-  card+='<div><dt>Services</dt><dd><a href="#grooming">Grooming</a> · <a href="#sitting">Pet sitting</a></dd></div>';
+  card+='<div><dt>Services</dt><dd><a href="#grooming">Dogs</a> · <a href="#cats">Cats</a> · <a href="#sitting">Pet sitting</a></dd></div>';
   card+='</dl></div>';
 
   var socLinks=[[fbUrl,'Facebook'],[igUrl,'Instagram'],[ttUrl,'TikTok']].filter(function(s){return s[0]}).map(function(s){return '<a href="'+esc(s[0])+'" target="_blank" rel="noopener">'+s[1]+'</a>'});
@@ -1099,12 +1275,13 @@ function render(){
 
   app.innerHTML=
   '<header class="bar"><div class="wrap"><a class="logo" href="#top" aria-label="'+esc(S.name)+' home">'+LOGO+'<span>'+esc(S.name)+'</span></a>'+
-    '<nav class="nav"><a href="#grooming">Grooming</a><a href="#request">Book</a><a href="#sitting">Pet sitting</a><a href="#policies">Policies</a><a href="#visit">Visit</a>'+(S.phone?'<a class="btn sm" href="'+telHref(S.phone)+'">'+I_PHONE+'Call</a>':'')+'</nav></div></header>'+
+    '<nav class="nav"><a href="#grooming">Dogs</a><a href="#cats">Cats</a><a href="#request">Book</a><a href="#sitting">Pet sitting</a><a href="#policies">Policies</a><a href="#visit">Visit</a>'+(S.phone?'<a class="btn sm" href="'+telHref(S.phone)+'">'+I_PHONE+'Call</a>':'')+'</nav></div></header>'+
   '<main id="top">'+
   '<section class="hero">'+bubbles()+'<div class="walker" aria-hidden="true"><div class="dog"><svg viewBox="-60 -110 150 114"><g class="rig"></g></svg></div></div><div class="wrap"><div><span class="eyebrow">'+esc(S.eyebrow)+'</span><h1 aria-label="'+esc(S.name)+'"><span aria-hidden="true">'+titleHTML(S.name)+'</span><span class="shine" aria-hidden="true">'+titleHTML(S.name,1)+'</span>'+sparks()+'</h1><p class="intro">'+esc(S.intro)+'</p><div class="ctas">'+ctas+'</div></div>'+
     '<div class="hero-side">'+(hero?'<div class="photo"><img src="'+esc(hero)+'" alt="A freshly groomed pet at '+esc(S.name)+'"></div>':'')+card+'</div></div></section>'+
   '<div class="scallop" aria-hidden="true"></div>'+
   groomingHTML()+
+  catsHTML()+
   requestHTML()+
   sittingHTML()+
   '<section class="block gallery" id="photos"><div class="wrap"><div class="head"><h2>Fresh <em>off the table</em></h2><p>A few of the good dogs and cats who\'ve visited us lately.</p></div>'+wall+'</div></section>'+
@@ -1174,13 +1351,23 @@ function editView(){
   sec('Top of page',field('name','Business name')+field('eyebrow','Small label above the name')+field('intro','Intro sentence',{area:1})+'<label>Main photo <span class="hint">(shows beside the appointment card)</span></label><div id="heroSlot"></div>')+
   sec('Contact & hours',field('phone','Phone')+field('address','Address')+field('facebook','Facebook link')+field('instagram','Instagram',{hint:'(handle or link)'})+field('tiktok','TikTok',{hint:'(handle or link)'})+field('email','Email',{hint:'(optional)'})+
     field('hours','Hours, one day per line',{area:1,rows:5,hint:'e.g. Tue–Fri | 9am – 5pm'})+field('hoursNote','Booking note',{area:1,rows:2}))+
-  sec('Grooming prices',field('groomIntro','Intro line',{area:1,rows:2})+listSlot('groomTiers')+field('catPrice','Cat price')+field('catNote','Cat note')+
-    field('groomIncludes','Every full groom includes',{area:1,rows:6,hint:'(one per line)'})+field('groomNotes','Good-to-know notes',{area:1,rows:4,hint:'(one per line)'}))+
+  sec('Dog grooming prices',field('groomIntro','Intro line',{area:1,rows:2})+listSlot('groomTiers')+
+    field('groomIncludes','Every full groom includes',{area:1,rows:6,hint:'(one per line)'})+field('groomNotes','Good-to-know notes',{area:1,rows:4,hint:'(one per line)'})+
+    field('groomSchedule','How often to groom',{area:1,rows:8,hint:'(each line is a paragraph; leave empty to hide the box)'}))+
+  sec('Cat grooming',field('catIntro','Intro line',{area:1,rows:2})+field('catRequire','Vaccine requirement',{area:1,rows:2,hint:'(leave empty to hide)'})+
+    '<label>Full grooms</label>'+listSlot('catGrooms')+'<p class="help">These also fill the "Type of groom" choices on the request form for cats.</p>'+
+    field('catIncludes','Every full groom includes',{area:1,rows:8,hint:'(one per line; add " | short description" if you like)'})+
+    '<label>Styles</label>'+listSlot('catStyles')+
+    field('catSpaName','Spa package name')+field('catSpaPrice','Spa package price')+field('catSpaIncludes','Spa package includes',{area:1,rows:4,hint:'(one per line)'})+field('catSpaNote','Spa package note')+
+    '<label>Add-ons</label>'+listSlot('catAddons')+'<label>Extra fees</label>'+listSlot('catFees')+
+    field('catNotes','Notes at the bottom',{area:1,rows:3,hint:'(one per line)'}))+
   sec('Request form',field('reqPaused','Pause requests',{area:1,rows:2,hint:'(type a message to show instead of the form, e.g. "We\'re fully booked until Dec 1." Leave empty to accept requests.)'})+
     field('reqIntro','Intro',{area:1,rows:2})+
     field('reqServices','Services clients can pick',{area:1,rows:8,hint:'(one per line; add " | short description" after a name if you like)'})+
     field('reqHaircuts','Haircut choices',{area:1,rows:6,hint:'(one per line, same format)'})+
     field('reqShampoos','Shampoo choices',{area:1,rows:7,hint:'(one per line, same format)'})+
+    field('reqCatServices','Services for cats',{area:1,rows:7,hint:'(shown when someone picks Cat)'})+
+    field('reqCatHaircuts','Style choices for cats',{area:1,rows:5,hint:'(shown when someone picks Cat)'})+
     '<p class="help">Leave haircut or shampoo empty to hide that step. A Full groom estimate appears when a service name includes "Full groom".</p>'+
     field('reqNext','Note beside the Send button',{area:1,rows:2}))+
   sec('Pet sitting',field('sitIntro','Intro',{area:1,rows:2})+'<label>How visits work</label>'+listSlot('sitVisits')+'<label>Rates <span class="hint">(rows with the same group show together)</span></label>'+listSlot('sitRows')+
@@ -1271,6 +1458,8 @@ function save(){
   data.sitRows=data.sitRows.filter(function(t){return (t.label||'').trim()});
   data.sitAddons=data.sitAddons.filter(function(t){return (t.label||'').trim()});
   data.policies=data.policies.filter(function(t){return (t.title||'').trim()});
+  ['catGrooms','catStyles','catAddons','catFees'].forEach(function(k){data[k]=data[k].filter(function(t){return (t.name||'').trim()})});
+  data.contentVersion=CONTENT_VERSION;
   if(!LIVE){S=data;render();status('Updated on this page. Saving turns on once the site is live on Cloudflare.','ok');return}
   status('Saving…');
   fetch('/api/settings',{method:'PUT',headers:{'Content-Type':'application/json',Authorization:'Bearer '+TOKEN},body:JSON.stringify(data)})
@@ -1290,7 +1479,9 @@ var PREVIEW_REQS=[
   {id:'ex1',example:1,name:'Jane Doe',phone:'(440) 555-0142',email:'',contact:'text',pet:'Bella',species:'dog',breed:'Shih Tzu',size:'Small dogs',coat:'long',firstVisit:'yes',petNotes:'A little nervous with the dryer.',
    services:['Full groom','Teeth cleaning'],haircut:'Teddy bear cut',haircutNotes:'Short on the body, keep the ears long.',shampoo:'Oatmeal',date1:daysFromNow(3),date2:daysFromNow(5),times:['Morning'],notes:'',estimate:'$55–65',status:'new',ownerNote:'',createdAt:new Date(Date.now()-2*3600e3).toISOString()},
   {id:'ex2',example:1,name:'Mike Russo',phone:'(440) 555-0199',email:'',contact:'call',pet:'Duke',species:'dog',breed:'Golden Retriever',size:'Large dogs',coat:'long',firstVisit:'no',petNotes:'',
-   services:['Bath & brush','De-shedding','Nail trim'],haircut:'No haircut',haircutNotes:'',shampoo:'De-shedding',date1:daysFromNow(6),date2:'',times:['Afternoon','Any time'],notes:'Can drop off before work.',estimate:'',status:'confirmed',ownerNote:'Booked Sat 1pm',createdAt:new Date(Date.now()-26*3600e3).toISOString()}
+   services:['Bath & brush','De-shedding','Nail trim'],haircut:'No haircut',haircutNotes:'',shampoo:'De-shedding',date1:daysFromNow(6),date2:'',times:['Afternoon','Any time'],notes:'Can drop off before work.',estimate:'',status:'confirmed',ownerNote:'Booked Sat 1pm',createdAt:new Date(Date.now()-26*3600e3).toISOString()},
+  {id:'ex3',example:1,name:'Tasha Green',phone:'(440) 555-0177',email:'',contact:'text',pet:'Luna',species:'cat',breed:'Maine Coon',size:'',coat:'',catType:'Full-coat groom, 10 lbs and over',catVax:true,firstVisit:'yes',petNotes:'Hates the dryer.',
+   services:['Full groom'],haircut:'Lion cut',haircutNotes:'Keep the tail pom.',shampoo:'Our choice',date1:daysFromNow(4),date2:'',times:['Midday'],notes:'',estimate:'$90',status:'new',ownerNote:'',createdAt:new Date(Date.now()-5*3600e3).toISOString()}
 ];
 var INBOX={items:null,filter:'new',err:'',arm:null};
 function loadInbox(){
@@ -1311,13 +1502,14 @@ function whenText(r){var d=[niceDate(r.date1),niceDate(r.date2)].filter(Boolean)
 function ago(iso){var t=new Date(iso);if(isNaN(t))return '';return t.toLocaleDateString('en-US',{month:'short',day:'numeric'})+', '+t.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})}
 function reqCard(r){
   var st=STATUS_LABEL[r.status]?r.status:'new';
-  var pet=[r.pet,r.species==='cat'?'Cat':'Dog',r.breed,r.species==='cat'?'':r.size,r.coat?r.coat+'-haired':'',r.firstVisit==='yes'?'first visit':r.firstVisit==='no'?'been here before':''].filter(Boolean).join(' · ');
+  var isCat=r.species==='cat';
+  var pet=[r.pet,isCat?'Cat':'Dog',r.breed,isCat?r.catType:r.size,!isCat&&r.coat?r.coat+'-haired':'',isCat&&r.catVax?'vaccines confirmed':'',r.firstVisit==='yes'?'first visit':r.firstVisit==='no'?'been here before':''].filter(Boolean).join(' · ');
   var row=function(k,v){return v?'<div><dt>'+k+'</dt><dd>'+esc(v)+'</dd></div>':''};
   var tel=digitsTel(r.phone),pref=r.contact||'call';
   return '<article class="rq" data-id="'+esc(r.id)+'"><header><b>'+esc(r.name)+'</b><span class="stc '+st+'">'+STATUS_LABEL[st]+'</span>'+(r.example?'<span class="stc ex">Example</span>':'')+'<time>'+esc(ago(r.createdAt))+'</time></header>'+
     '<p class="rq-pet">'+esc(pet)+'</p><dl>'+
     row('Services',arr(r.services).join(', '))+
-    row('Haircut',[r.haircut,r.haircutNotes?'“'+r.haircutNotes+'”':''].filter(Boolean).join(' · '))+
+    row(isCat?'Style':'Haircut',[r.haircut,r.haircutNotes?'“'+r.haircutNotes+'”':''].filter(Boolean).join(' · '))+
     row('Shampoo',r.shampoo)+row('When',whenText(r))+row('Estimate',r.estimate)+row('Pet notes',r.petNotes)+row('Notes',r.notes)+'</dl>'+
     '<div class="rq-contact"><span>'+esc(r.phone)+'</span>'+
       '<a href="tel:'+tel+'"'+(pref==='call'?' class="pref"':'')+'>Call</a><a href="sms:'+tel+'"'+(pref==='text'?' class="pref"':'')+'>Text</a>'+
@@ -1523,11 +1715,26 @@ app.addEventListener('pointerdown',function(e){
   var hr=hero.getBoundingClientRect();blow(hero,e.clientX-hr.left,e.clientY-hr.top);
 });
 
+/* One-time update for settings saved before content version 2 (the Oct 2026 price list).
+   Only values that still match the old starter text are replaced, so the owner's own edits are kept. */
+var OLD_GROOM_NOTES=DEFAULTS.groomNotes.replace('Matting can add $15–50, depending on how severe it is. See Matted coats under Policies.','Matting and other coat conditions that take extra time and supplies can add $10–50.');
+var OLD_REQ_SERVICES=DEFAULTS.reqServices.replace('Maintenance visit | Face and sanitary trim between full grooms','Face, feet & tail tidy | A neat-up between full grooms');
+function migrate(j){
+  if(!j||typeof j!=='object'||!Object.keys(j).length)return j;
+  if(+(j.contentVersion||1)>=+CONTENT_VERSION)return j;
+  if(Array.isArray(j.groomTiers))j.groomTiers.forEach(function(t){if(t&&/^large/i.test(t.name||'')&&t.short==='$65–75'&&t.long==='$70–95'){t.short='$65–80';t.long='$80–100'}});
+  if(j.groomNotes===OLD_GROOM_NOTES)j.groomNotes=DEFAULTS.groomNotes;
+  if(j.reqServices===OLD_REQ_SERVICES)j.reqServices=DEFAULTS.reqServices;
+  if(Array.isArray(j.policies)&&!j.policies.some(function(p){return p&&/matt/i.test(p.title||'')}))j.policies.push(JSON.parse(JSON.stringify(MATTING_POLICY)));
+  j.contentVersion=CONTENT_VERSION;
+  return j;
+}
+
 /* boot */
 render();
 fetch('/api/settings',{cache:'no-store'}).then(function(r){
   var ct=r.headers.get('content-type')||'';if(!r.ok||ct.indexOf('json')<0)throw 0;return r.json();
-}).then(function(j){LIVE=true;if(j&&typeof j==='object'){for(var k in DEFAULTS)if(j[k]!=null)S[k]=j[k]}render()}).catch(function(){LIVE=false})
+}).then(function(j){LIVE=true;j=migrate(j);if(j&&typeof j==='object'){for(var k in DEFAULTS)if(j[k]!=null)S[k]=j[k]}render()}).catch(function(){LIVE=false})
  .then(function(){if(location.hash==='#admin')openPanel()});
 })();
 </script>

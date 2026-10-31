@@ -13,6 +13,11 @@ const TEXT_FIELDS = {
   payments: 400, tipNote: 200, policyNote: 1200,
   // appointment request form
   reqIntro: 800, reqServices: 2000, reqHaircuts: 2000, reqShampoos: 2000, reqNext: 800, reqPaused: 800,
+  reqCatServices: 2000, reqCatHaircuts: 2000,
+  // dog grooming schedule + cat grooming
+  groomSchedule: 3000, catIntro: 600, catRequire: 600, catIncludes: 2000, catNotes: 2000,
+  catSpaName: 120, catSpaPrice: 60, catSpaIncludes: 1000, catSpaNote: 400,
+  contentVersion: 10,
 };
 
 // List fields: name → { field: max length }, plus the field that must be filled for a row to count.
@@ -21,7 +26,11 @@ const LIST_FIELDS = {
   sitVisits: { keep: "title", max: 12, fields: { title: 80, body: 500 } },
   sitRows: { keep: "label", max: 40, fields: { group: 60, label: 120, day: 40, night: 40 } },
   sitAddons: { keep: "label", max: 30, fields: { label: 160, price: 80 } },
-  policies: { keep: "title", max: 20, fields: { title: 120, body: 2000 } },
+  policies: { keep: "title", max: 20, fields: { title: 120, body: 3000 } },
+  catGrooms: { keep: "name", max: 20, fields: { name: 120, price: 60, note: 600 } },
+  catStyles: { keep: "name", max: 20, fields: { name: 120, price: 60, note: 600 } },
+  catAddons: { keep: "name", max: 40, fields: { name: 120, price: 60, note: 600 } },
+  catFees: { keep: "name", max: 20, fields: { name: 120, price: 60, note: 600 } },
 };
 
 function str(v, max) {

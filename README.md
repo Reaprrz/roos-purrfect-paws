@@ -50,11 +50,15 @@ Everything the owner can change lives in the edit panel, grouped into sections:
 
 - **Top of page:** name, label, intro, main photo
 - **Contact & hours:** phone, address, Facebook, Instagram, email, hours (one day per line, e.g. `Tue–Fri | 9am – 5pm`)
-- **Grooming prices:** size tiers with short/long-haired prices and example breeds, cat price, what a full groom includes, notes
+- **Dog grooming prices:** size tiers with short/long-haired prices and example breeds, what a full groom includes,
+  good-to-know notes, and the How often to groom text
+- **Cat grooming:** vaccine requirement, full grooms (these also fill the cat "Type of groom" choices on the request
+  form), what's included, styles, the in-between spa package, add-ons, extra fees and notes
 - **Pet sitting:** how visits work, the per-day/overnight rate table, add-ons, notes
 - **Appointment requests** (inbox): every request clients send, newest first, with New / Confirmed / Declined
   filters, Call / Text / Email buttons, a private note, and Confirm, Decline and Delete. These save right away.
-- **Request form:** the services, haircut and shampoo choices clients pick from (one per line; add
+- **Request form:** the services, haircut and shampoo choices clients pick from (with separate service and style
+  lists shown when someone picks Cat) (one per line; add
   ` | short description` after a name), the intro, the note beside the Send button, and a **Pause requests** message
   that replaces the form while she's booked up
 - **Policies & payment:** late, no-show and cancellation policies, accepted payment methods, tip note
@@ -62,6 +66,14 @@ Everything the owner can change lives in the edit panel, grouped into sections:
 
 Until the owner saves once, the site shows the starter content built into `public/index.html`, which matches their
 current price list, pet sitting rates, payment methods and cancellation policy.
+
+## Content updates to saved settings
+
+Once the owner presses Save, her saved settings take priority over the starter content in `public/index.html`.
+When the starter content changes (new prices, a new policy), bump `CONTENT_VERSION` and add a step to `migrate()`
+in `public/index.html`. It runs once on older saved settings and only replaces values that still match the old
+starter text, so her own edits are kept. Version 2 (Oct 2026) updated the Large dog prices, the matting note and
+policy, and the Maintenance visit request option.
 
 ## Appointment requests
 
@@ -72,6 +84,8 @@ saved in KV, appear in the owner panel, and are deleted automatically after a ye
 - **No fees:** nothing is charged online; clients pay at pickup with cash, check, Cash App or Venmo.
 - **Estimate:** when a client picks a service whose name includes "Full groom" plus a size and coat, the form shows
   the matching range from the Grooming prices table (or the cat price).
+- **Cats:** picking Cat switches to the cat services and styles, shows the cat "Type of groom" choices (which
+  drive the estimate) and requires confirming Rabies and Distemper vaccines.
 - **Spam protection:** a hidden trap field, a minimum time on the page, and at most 6 requests per visitor per hour.
 - **Optional phone alert (free):** install the **ntfy** app, subscribe to a long, hard-to-guess topic name (e.g.
   `roos-paws-7f3k9q2m`), then add a secret `NTFY_TOPIC` with that name in Cloudflare (Settings → Variables and Secrets).
