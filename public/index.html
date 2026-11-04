@@ -307,6 +307,28 @@ table.rates td+td{font-weight:900;color:var(--pink);font-size:18px}
 .about-text p{white-space:pre-line;font-size:19px;margin:0 0 16px;max-width:36em}
 
 /* visit */
+/* meet our groomers */
+.team{background:linear-gradient(var(--white),var(--lav-soft))}
+.team .head h2 em{color:var(--lav-deep)}
+.team-pv{margin:-10px 0 22px;max-width:46em;font-size:14px;font-weight:700;color:var(--plum-mut);background:var(--lav);border-radius:12px;padding:10px 14px}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:24px}
+.groomer{background:var(--white);border:1.5px solid var(--line);border-radius:26px;padding:16px 16px 22px;min-width:0;transition:transform .2s,border-color .2s;box-shadow:0 22px 44px -36px rgba(59,36,72,.5)}
+.groomer:hover{transform:translateY(-3px);border-color:var(--pink-soft)}
+.groomer.ex{border-style:dashed}
+.gp{aspect-ratio:4/5;border-radius:999px 999px 22px 22px;overflow:hidden;background:var(--lav-soft);border:6px solid var(--blush);margin-bottom:16px}
+.gp img{width:100%;height:100%;object-fit:cover;display:block}
+.gp.mono{display:grid;place-items:center;background:radial-gradient(circle at 50% 50%,var(--white) 0 38%,var(--lav) 38.5% 100%)}
+.gp.mono span{font-family:var(--display);font-size:64px;color:var(--pink);line-height:1}
+.gtop{display:flex;align-items:center;gap:14px;padding:0 4px}
+.gav{flex:none;display:grid;place-items:center;width:64px;height:64px;border-radius:50%;background:var(--lav);border:4px solid var(--blush);font-family:var(--display);font-size:26px;color:var(--pink);line-height:1}
+.groomer h3{margin:0;font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;color:var(--plum);overflow-wrap:anywhere}
+.grole{margin:4px 0 0;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:900;color:var(--lav-deep)}
+.gbio{padding:0 4px;margin-top:12px}
+.gbio p{margin:0 0 10px;font-size:16px;color:var(--plum-mut);line-height:1.6}
+.gbio p:last-child{margin-bottom:0}
+.team.compact .groomer{padding:20px 20px 22px}
+.lphoto{margin-top:4px}
+.lphoto .thumb{max-width:140px;margin-top:6px}
 .visit{background:var(--plum);color:var(--white)}
 .visit .head h2{color:var(--white)}
 .visit .head h2 em{color:var(--pink-soft)}
@@ -795,6 +817,8 @@ var DEFAULTS={
   policyNote:"We may not be able to groom your pet if you arrive very late. Our schedule is planned around the time each pet needs for a proper spa day.",
 
   about:"Roo's Purrfect Paws is a neighborhood grooming shop on Lake Road in Sheffield Lake. We groom dogs of every size and cats too, and every pet gets patient, hands-on care from the first bath to the final brush.\n\nHeading out of town? Our pet sitting keeps your animals fed, walked and happy in their own home while you're away.",
+  teamIntro:"Get to know the friendly faces who'll be pampering your pets.",
+  groomers:[],
   heroImg:"",
   aboutImg:"",
   gallery:[]
@@ -810,8 +834,15 @@ var LISTS={
   catGrooms:{add:'groom',fields:[['name','Groom'],['price','Price','text','$70'],['note','Note (optional)']]},
   catStyles:{add:'style',fields:[['name','Style'],['price','Price','text','$60'],['note','Note (optional)']]},
   catAddons:{add:'add-on',fields:[['name','Add-on'],['price','Price','text','$5'],['note','Note (optional)']]},
-  catFees:{add:'fee',fields:[['name','Fee'],['price','Price','text','from $15'],['note','Note (optional)']]}
+  catFees:{add:'fee',fields:[['name','Fee'],['price','Price','text','from $15'],['note','Note (optional)']]},
+  groomers:{add:'groomer',photo:'img',fields:[['name','Name'],['role','Title','text','e.g. Owner & groomer'],['bio','A few words about her','area']]}
 };
+/* example groomers, shown only in previews (never on the live site) so the empty section can be seen */
+var SHOW_EXAMPLES=window.ROO_PREVIEW===1||location.protocol==='file:';
+var TEAM_EXAMPLES=[
+  {name:"Groomer's name",role:"Owner & groomer",bio:"A few sentences about her: how long she's been grooming, what she loves about it, and the pets waiting for her at home.",img:"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23f7c3dc'/%3E%3Cstop offset='1' stop-color='%23d8c8f6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='500' fill='url(%23g)'/%3E%3Ccircle cx='200' cy='205' r='78' fill='%23fff' fill-opacity='.75'/%3E%3Cpath d='M60 500c0-95 63-160 140-160s140 65 140 160z' fill='%23fff' fill-opacity='.75'/%3E%3Ctext x='200' y='470' text-anchor='middle' font-family='sans-serif' font-size='26' font-weight='800' fill='%237a59bd'%3EHer photo here%3C/text%3E%3C/svg%3E"},
+  {name:"Groomer's name",role:"Cat groomer",bio:"Add a photo, a paragraph, or both. Each groomer gets her own card.",img:""}
+];
 
 var S=JSON.parse(JSON.stringify(DEFAULTS));
 var LIVE=false, TOKEN="", pendingDeletes=[];
@@ -1120,6 +1151,24 @@ function sittingHTML(){
     '<div class="sitgrid"><div>'+table+'</div><div>'+(adds.length?'<div class="addons"><h3>Add-on'+(adds.length>1?'s':'')+'</h3><ul>'+adds.map(function(a){return '<li><span>'+esc(a.label)+'</span><span>'+esc(a.price)+'</span></li>'}).join('')+'</ul></div>':'')+
     (S.sitIncluded?'<p class="sit-incl">'+esc(S.sitIncluded)+'</p>':'')+'</div></div>'+
     '<div class="sit-cta"><div class="kitty" aria-hidden="true">'+CAT+'</div><p>'+esc(S.sitNote)+'</p><a class="btn" href="#request" data-reqtype="sit">'+I_CAL+'Request pet sitting</a></div></div></section>';
+}
+
+function initials(n){var w=String(n||'').replace(/[^A-Za-z\s'-]/g,'').trim().split(/\s+/).filter(Boolean);return ((w[0]||'')[0]||'').toUpperCase()+((w.length>1?w[w.length-1][0]:'')||'').toUpperCase()}
+function teamList(){
+  var list=arr(S.groomers).filter(function(g){return g&&(g.name||'').trim()});
+  return list.length?{list:list,ex:false}:(!LIVE&&SHOW_EXAMPLES?{list:TEAM_EXAMPLES,ex:true}:null);
+}
+function teamHTML(){
+  var t=teamList();if(!t)return '';
+  var photos=t.list.some(function(g){return safeImg(g.img)});
+  return '<section class="block team'+(photos?'':' compact')+'" id="team"><div class="wrap"><div class="head"><h2><span class="kicker">The team</span>Meet our <em>groomers</em></h2>'+(S.teamIntro?'<p>'+esc(S.teamIntro)+'</p>':'')+'</div>'+
+    (t.ex?'<p class="team-pv">Preview: these two cards are examples. Add each groomer in the owner panel under <b>Meet our groomers</b>. Until then, this section stays hidden on the live site.</p>':'')+
+    '<div class="team-grid">'+t.list.map(function(g){var img=safeImg(g.img);
+      return '<article class="groomer'+(t.ex?' ex':'')+'">'+
+        (photos?'<div class="gp'+(img?'':' mono')+'">'+(img?'<img loading="lazy" src="'+esc(img)+'" alt="'+esc(g.name)+'">':'<span aria-hidden="true">'+esc(initials(g.name))+'</span>')+'</div>':'')+
+        '<div class="gtop">'+(photos?'':'<span class="gav" aria-hidden="true">'+esc(initials(g.name))+'</span>')+'<div><h3>'+esc(g.name)+'</h3>'+(g.role?'<p class="grole">'+esc(g.role)+'</p>':'')+'</div></div>'+
+        (lines(g.bio).length?'<div class="gbio">'+paras(g.bio)+'</div>':'')+
+      '</article>'}).join('')+'</div></div></section>';
 }
 
 function policiesHTML(){
@@ -1530,7 +1579,7 @@ function render(){
 
   app.innerHTML=
   '<header class="bar"><div class="wrap"><a class="logo" href="#top" aria-label="'+esc(S.name)+' home">'+LOGO+'<span>'+esc(S.name)+'</span></a>'+
-    '<nav class="nav"><a href="#grooming">Dogs</a><a href="#cats">Cats</a><a href="#request">Book</a><a href="#sitting">Pet sitting</a><a href="#policies">Policies</a><a href="#visit">Visit</a>'+(S.phone?'<a class="btn sm" href="'+telHref(S.phone)+'">'+I_PHONE+'Call</a>':'')+'</nav></div></header>'+
+    '<nav class="nav"><a href="#grooming">Dogs</a><a href="#cats">Cats</a><a href="#request">Book</a><a href="#sitting">Pet sitting</a><a href="#policies">Policies</a>'+(teamList()?'<a href="#team">Team</a>':'')+'<a href="#visit">Visit</a>'+(S.phone?'<a class="btn sm" href="'+telHref(S.phone)+'">'+I_PHONE+'Call</a>':'')+'</nav></div></header>'+
   '<main id="top">'+
   '<section class="hero">'+bubbles()+'<div class="walker" aria-hidden="true"><div class="dog"><svg viewBox="-60 -110 150 114"><g class="rig"></g></svg></div></div><div class="wrap"><div><span class="eyebrow">'+esc(S.eyebrow)+'</span><h1 aria-label="'+esc(S.name)+'"><span aria-hidden="true">'+titleHTML(S.name)+'</span><span class="shine" aria-hidden="true">'+titleHTML(S.name,1)+'</span>'+sparks()+'</h1><p class="intro">'+esc(S.intro)+'</p><div class="ctas">'+ctas+'</div></div>'+
     '<div class="hero-side">'+(hero?'<div class="photo"><img src="'+esc(hero)+'" alt="A freshly groomed pet at '+esc(S.name)+'"></div>':'')+card+'</div></div></section>'+
@@ -1543,6 +1592,7 @@ function render(){
   policiesHTML()+
   '<section class="block about" id="about"><div class="wrap"><div class="about-art"><div class="blob"></div><div class="blob b2"></div>'+(aboutImg?'<img src="'+esc(aboutImg)+'" alt="Inside '+esc(S.name)+'">':'<svg class="paw" viewBox="0 0 64 64" aria-hidden="true">'+PAWG+'</svg>')+'</div>'+
     '<div class="about-text"><div class="head"><h2>About <em>'+esc(S.name)+'</em></h2></div><p>'+esc(S.about)+'</p></div></div></section>'+
+  teamHTML()+
   '<section class="block visit" id="visit"><div class="wrap"><div class="head"><h2>Come <em>see us</em></h2><p>Text, call or send a request online to book grooming or pet sitting.</p></div>'+(lines(S.contactNote).length?'<div class="msgnote">'+I_TEXT+'<div><h3>How we answer messages</h3>'+paras(S.contactNote)+'</div></div>':'')+visit+(soc?'<div class="socials">'+soc+'</div>':'')+'</div></section>'+
   '</main>'+
   '<footer><div class="wrap"><span>&copy; '+new Date().getFullYear()+' '+esc(S.name)+' · Sheffield Lake, Ohio</span><button type="button" id="ownerBtn">Owner login</button></div></footer>';
@@ -1634,6 +1684,7 @@ function editView(){
     field('payments','Payment methods',{area:1,rows:4,hint:'(one per line)'})+field('tipNote','Tip note'))+
   sec('Photos','<p class="help">Add before-and-after shots and happy pets. Captions are optional.</p><div class="thumbs" id="thumbs"></div><div class="prow2"><span class="btn ghost sm filebtn">+ Add photos<input type="file" id="galIn" accept="image/*" multiple></span></div>')+
   sec('About',field('about','About text',{area:1,rows:8})+'<label>About photo <span class="hint">(optional)</span></label><div id="aboutSlot"></div>')+
+  sec('Meet our groomers',field('teamIntro','Intro line',{area:1,rows:2})+'<p class="help">Add each groomer with a photo, a paragraph about her, or both. The section shows on the site once at least one groomer has a name.</p>'+listSlot('groomers'))+
   '<div class="savebar"><button type="button" class="btn" id="saveBtn">Save changes</button><button type="button" class="btn ghost sm" id="logoutBtn">Log out</button><div class="status" id="pst" style="flex-basis:100%;margin:0"></div></div>';
   document.getElementById('pX').onclick=function(){panel.hidden=true};
   panel.querySelectorAll('[data-k]').forEach(function(el){el.addEventListener('input',function(){draft[el.dataset.k]=el.value})});
@@ -1652,13 +1703,23 @@ function drawList(key){
     var shorts=spec.fields.filter(function(f){return f[2]!=='area'}),longs=spec.fields.filter(function(f){return f[2]==='area'});
     var inp=function(f){var id='l_'+key+'_'+i+'_'+f[0];return '<div><label for="'+id+'">'+f[1]+'</label>'+(f[2]==='area'?'<textarea id="'+id+'" data-f="'+f[0]+'" rows="3">'+esc(item[f[0]])+'</textarea>':'<input type="text" id="'+id+'" data-f="'+f[0]+'" value="'+esc(item[f[0]])+'"'+(f[3]?' placeholder="'+esc(f[3])+'"':'')+'>')+'</div>'};
     var first=shorts.shift();
-    var pairs='';for(var j=0;j<shorts.length;j+=2)pairs+='<div class="two">'+inp(shorts[j])+(shorts[j+1]?inp(shorts[j+1]):'<div></div>')+'</div>';
+    var pairs='';for(var j=0;j<shorts.length;j+=2)pairs+=shorts[j+1]?'<div class="two">'+inp(shorts[j])+inp(shorts[j+1])+'</div>':inp(shorts[j]);
+    var ph='';
+    if(spec.photo){var src=safeImg(item[spec.photo]);
+      ph='<div class="lphoto"><label>Photo <span class="hint">(optional)</span></label>'+(src?'<div class="thumb"><img src="'+esc(src)+'" alt=""><button type="button" class="rm" data-rmphoto>Remove</button></div>':'')+
+        '<div class="prow2"><span class="btn ghost sm filebtn">'+(src?'Replace photo':'+ Add photo')+'<input type="file" accept="image/*" aria-label="'+(src?'Replace':'Add')+' photo for '+esc(item.name||'this groomer')+'"></span></div></div>';}
     return '<div class="lrow" data-i="'+i+'"><div class="tools">'+(i>0?'<button type="button" data-mv="-1" aria-label="Move up">↑</button>':'')+(i<list.length-1?'<button type="button" data-mv="1" aria-label="Move down">↓</button>':'')+'<button type="button" data-rm>Remove</button></div>'+
-      inp(first)+pairs+longs.map(inp).join('')+'</div>';
+      inp(first)+pairs+longs.map(inp).join('')+ph+'</div>';
   }).join('')||'<p class="help">Nothing here yet.</p>';
   box.querySelectorAll('.lrow').forEach(function(row){var i=+row.dataset.i;
     row.querySelectorAll('[data-f]').forEach(function(el){el.addEventListener('input',function(){list[i][el.dataset.f]=el.value})});
-    row.querySelector('[data-rm]').onclick=function(){list.splice(i,1);drawList(key)};
+    row.querySelector('[data-rm]').onclick=function(){if(spec.photo)markDelete(list[i][spec.photo]);list.splice(i,1);drawList(key)};
+    if(spec.photo){
+      var pf=row.querySelector('.lphoto input[type=file]'),pr=row.querySelector('[data-rmphoto]');
+      pf.onchange=function(e){var f=e.target.files[0];if(!f)return;status('Uploading photo…');
+        upload(f).then(function(u){markDelete(list[i][spec.photo]);list[i][spec.photo]=u;drawList(key);status('Photo added. Press Save to publish it.','ok')},function(err){status(err.message,'err')})};
+      if(pr)pr.onclick=function(){markDelete(list[i][spec.photo]);list[i][spec.photo]='';drawList(key)};
+    }
     row.querySelectorAll('[data-mv]').forEach(function(b){b.onclick=function(){var j=i+(+b.dataset.mv);var t=list[i];list[i]=list[j];list[j]=t;drawList(key)}});
   });
 }
@@ -1717,6 +1778,7 @@ function save(){
   data.sitAddons=data.sitAddons.filter(function(t){return (t.label||'').trim()});
   data.policies=data.policies.filter(function(t){return (t.title||'').trim()});
   ['catGrooms','catStyles','catAddons','catFees'].forEach(function(k){data[k]=data[k].filter(function(t){return (t.name||'').trim()})});
+  data.groomers=data.groomers.filter(function(g){if((g.name||'').trim())return true;markDelete(g.img);return false});
   data.contentVersion=CONTENT_VERSION;
   if(!LIVE){S=data;render();status('Updated on this page. Saving turns on once the site is live on Cloudflare.','ok');return}
   status('Saving…');

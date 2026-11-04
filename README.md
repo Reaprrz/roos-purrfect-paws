@@ -67,6 +67,9 @@ Everything the owner can change lives in the edit panel, grouped into sections:
 - **Policies & payment:** late, no-show, cancellation, matting, vaccination and flea policies, accepted payment
   methods, tip note. The Fleas policy is also shown as a note in the form's Shampoo step.
 - **Photos** and **About**
+- **Meet our groomers:** an intro line and a card for each groomer (name, title, a few words about her and an
+  optional photo). The section and its Team menu link stay hidden until at least one groomer has a name. If no one
+  has a photo, the cards switch to a compact layout with initials.
 
 Until the owner saves once, the site shows the starter content built into `public/index.html`, which matches their
 current price list, pet sitting rates, payment methods and cancellation policy.

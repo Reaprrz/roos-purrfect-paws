@@ -17,6 +17,7 @@ const TEXT_FIELDS = {
   // dog grooming schedule + cat grooming
   groomSchedule: 3000, catIntro: 600, catRequire: 600, catIncludes: 2000, catNotes: 2000,
   catSpaName: 120, catSpaPrice: 60, catSpaIncludes: 1000, catSpaNote: 400,
+  teamIntro: 600,
   contentVersion: 10,
 };
 
@@ -31,7 +32,11 @@ const LIST_FIELDS = {
   catStyles: { keep: "name", max: 20, fields: { name: 120, price: 60, note: 600 } },
   catAddons: { keep: "name", max: 40, fields: { name: 120, price: 60, note: 600 } },
   catFees: { keep: "name", max: 20, fields: { name: 120, price: 60, note: 600 } },
+  groomers: { keep: "name", max: 12, fields: { name: 80, role: 80, bio: 3000, img: 500 } },
 };
+
+// Photo links must point at an uploaded photo (or an https image), never anything else.
+const safeImg = (v) => (v.startsWith("/api/img/") || v.startsWith("https://") ? v : "");
 
 function str(v, max) {
   return typeof v === "string" ? v.slice(0, max) : "";
@@ -47,6 +52,7 @@ function clean(input) {
       for (const [f, max] of Object.entries(spec.fields)) r[f] = str(row && row[f], max);
       return r;
     }).filter((r) => r[spec.keep].trim() || (k === "sitVisits" && r.body.trim()));
+    if (k === "groomers") out[k].forEach((g) => { g.img = safeImg(g.img); });
   }
   if (Array.isArray(input.gallery)) {
     out.gallery = input.gallery.slice(0, 200)
