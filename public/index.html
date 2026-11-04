@@ -482,6 +482,28 @@ section.block.request{padding-block:96px}
 .est span{font-size:14px;font-weight:700;color:var(--plum)}
 .est b{font-size:24px;font-weight:900;color:var(--pink);font-variant-numeric:tabular-nums;white-space:nowrap}
 .agree{margin-top:20px}
+/* grooming / pet sitting switch at the top of the form */
+.kindset legend{font-size:21px}
+.kind{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kind .o{position:relative;min-width:0}
+.kind input{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.kind label{display:flex;align-items:center;gap:12px;height:100%;padding:14px 16px;border-radius:18px;border:1.5px solid var(--line);background:var(--white);cursor:pointer;transition:border-color .15s,background .15s}
+.kind label:hover{border-color:var(--pink-soft)}
+.kind .ki{flex:none;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--lav-soft);color:var(--lav-deep);transition:background .15s,color .15s}
+.kind .ki svg{width:22px;height:22px}
+.kind b{display:block;font-weight:900;font-size:17px;line-height:1.25}
+.kind small{display:block;font-size:13.5px;font-weight:600;color:var(--plum-mut);line-height:1.35}
+.kind input:checked+label{border-color:var(--pink);background:var(--blush)}
+.kind input:checked+label .ki{background:var(--pink);color:var(--white)}
+.kind input:focus-visible+label{outline:3px solid var(--lav-deep);outline-offset:2px}
+.kind-hint{margin:12px 0 0}
+.fld.sub{margin-top:16px}
+#rqCare .opts{grid-template-columns:1fr 1fr}
+.sitlen{grid-column:1/-1;display:flex;align-items:center;gap:8px;margin:0;font-weight:900;color:var(--pink);font-size:15px}
+.sitlen svg{width:18px;height:18px;flex:none}
+.sitlen[hidden]{display:none}
+.fleanote{display:flex;gap:10px;align-items:flex-start;margin:14px 0 0;background:var(--blush);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:700;color:var(--plum);line-height:1.45}
+.fleanote svg{flex:none;width:19px;height:19px;color:var(--pink);margin-top:1px}
 .agree label{display:flex;gap:12px;align-items:flex-start;cursor:pointer;font-weight:700;font-size:15px;line-height:1.5}
 .agree label:before{content:"";flex:none;width:22px;height:22px;border-radius:7px;border:2px solid var(--pink-soft);background:var(--white);margin-top:1px}
 .agree input:checked+label:before{border-color:var(--pink);background:var(--pink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.3l2.3 2.3 4.7-5.1' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/13px no-repeat}
@@ -562,6 +584,8 @@ section.block.request{padding-block:96px}
 .stc.confirmed{background:#e3f4ea;color:#2f7a4f}
 .stc.declined{background:#efeaf1;color:var(--plum-mut)}
 .stc.ex{background:var(--lav);color:var(--lav-deep)}
+.stc.sitk{background:var(--plum);color:var(--white)}
+.rq.sit{border-left:5px solid var(--lav-deep)}
 .rq-pet{margin:4px 0 8px;font-size:14px;color:var(--plum-mut);font-weight:800}
 .rq dl{margin:0;display:grid;gap:5px;font-size:14px}
 .rq dl div{display:grid;grid-template-columns:76px 1fr;gap:8px}
@@ -625,6 +649,8 @@ section.block.request{padding-block:96px}
   .prow.catlink{grid-column:1/-1;padding:14px 18px}
   .rq-card{padding:4px 16px 20px;border-radius:22px}
   .rq-card legend{font-size:21px}
+  .kind,#rqCare .opts{grid-template-columns:1fr}
+  .kind label{padding:12px 14px}
   .fgrid{grid-template-columns:1fr}
   .opts{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
   .opts label{padding:10px 34px 10px 12px}
@@ -650,7 +676,8 @@ section.block.request{padding-block:96px}
 (function(){
 var MATTING_POLICY={title:"Matted coats",body:"Your pet's comfort and safety always come first at Roo's Purrfect Paws. An additional matting fee of $15–$50 may apply, depending on the severity of the matting and the time and care required for removal.\nSeverely matted coats may require a close shave rather than brushing to avoid unnecessary pain and stress. If your dog is extremely matted, you will be required to sign a grooming consent form acknowledging the increased risk of nicks or cuts, redness, skin irritation, bruising, and ear hematomas (swelling caused by blood collecting in the ear flap).\nRemoving matting may also reveal sores or pre-existing skin conditions hidden beneath the coat. We reserve the right to stop or decline grooming if we determine it cannot be completed safely and may require your pet to be seen by a veterinarian before grooming can proceed."};
 var VAX_POLICY={title:"Vaccinations",body:"At Roo's Purrfect Paws, the health and safety of your pets and our team are a priority! We strongly recommend that all dogs and cats stay up to date on their veterinarian-recommended vaccinations to help protect the animals in our care and support a safe, healthy grooming environment.\nFor dogs, these include rabies, Bordetella, and DHPP/DAPP. For cats, these include rabies and FVRCP. Vaccines help prevent serious diseases and may reduce the severity of illness, but they do not guarantee complete protection or replace proper cleaning and sanitation.\nOur cat groomer requires all cats to have a current rabies vaccination, with proof provided before grooming; this requirement cannot be waived. Vaccinations are recommended for dog grooming but are not required under our salon policy.\nIf your pet is not current on recommended vaccinations, please notify us before your appointment. You will need to sign a consent form acknowledging the risks of exposure to contagious illnesses in a shared grooming environment. To help protect everyone, please reschedule if your pet is showing signs of illness."};
-var CONTENT_VERSION="4";
+var FLEA_POLICY={title:"Fleas",body:"If fleas are found on your pet, they will receive a flea bath with no other services and will need to be picked up immediately."};
+var CONTENT_VERSION="5";
 var DEFAULTS={
   contentVersion:CONTENT_VERSION,
   name:"Roo's Purrfect Paws",
@@ -734,19 +761,15 @@ var DEFAULTS={
     {group:"Cats",label:"1 cat",day:"$40",night:"$80"},
     {group:"Cats",label:"2 cats",day:"$55",night:"$100"},
     {group:"Cats",label:"3 or more cats",day:"$65+",night:"$110"},
-    {group:"Dogs & cats",label:"1 dog and 1 cat",day:"$70",night:"$120"},
+    {group:"Dogs & cats",label:"1 dog and 1 cat",day:"$70",night:"$110"},
     {group:"Dogs & cats",label:"Up to 3 pets total",day:"$85",night:"$150"},
-    {group:"Dogs & cats",label:"4 or more pets",day:"$95+",night:"$160"}
+    {group:"Dogs & cats",label:"Each additional pet",day:"+$10",night:"+$10"}
   ],
-  sitIncluded:"Every check-in and overnight covers potty breaks, meals and playtime. For anything extra, see the add-ons.",
+  sitIncluded:"Every check-in and overnight covers potty breaks, meals and playtime.",
   sitAddons:[
-    {label:"Other small animals (birds, reptiles, etc.)",price:"+$5 each"},
-    {label:"Walks, up to 1 hour",price:"+$10 per pet, per walk"},
-    {label:"Transportation",price:"+$15 per pet, per trip"},
-    {label:"Medication",price:"+$5 per pet, per dose"},
-    {label:"Pet waste cleanup",price:"$20 per cleanup, all pets"}
+    {label:"Other small animals (birds, reptiles, etc.)",price:"+$5 each"}
   ],
-  sitNote:"Rates may be adjusted for extra tasks or cleaning, homes farther away, or stays longer than a week. Call for details and to book.",
+  sitNote:"Rates may vary based on travel distance and stays exceeding seven days. Additional cleaning fees may apply for pet accidents in the home.",
 
   reqIntro:"Please complete the form below with your pet's information and desired grooming services. Our team will contact you to discuss availability and confirm your appointment.",
   reqServices:"Full groom | Bath, blow-out, brush, haircut if needed, ears, teeth and nails\nBath & brush | Bath, blow-out and brush-out, no haircut\nNail trim | Trimmed and smoothed\nTeeth cleaning | Fresh breath add-on\nEar cleaning | Gentle clean and check\nDe-shedding | Loosens and removes undercoat\nDe-matting | Works out tangles and mats (extra charge)\nMaintenance visit | Face and sanitary trim between full grooms",
@@ -755,6 +778,7 @@ var DEFAULTS={
   reqCatServices:"Full groom | Bath, blow dry, degrease, de-shed, comb out, nails, ears and eyes\nIn-between spa | Nails, ears, face clean and comb out\nNail trim\nNail caps | Requires behavior modification consulting\nSanitary or belly shave\nPaw, toe tuft or mane trim\nMat removal | Not needed for minor tangles\nCreative color or mohawk | Let's chat",
   reqCatHaircuts:"No haircut | Full-coat groom, the coat stays long\nLion cut | Short body with a full mane, boots and tail pom\nComb cut | Even, longer length (with a full groom)\nSomething else | Describe it below",
   reqNext:"Appointments are confirmed once you receive a response from our team.",
+  reqSitIntro:"Tell us about your pets and the dates you'll be away. We'll reach out to talk through the details and confirm.",
   reqVaxDog:"Rabies, Bordetella and DHPP/DAPP are recommended for dogs but not required.",
   reqVaxCat:"All cats must have a current rabies vaccination, with proof provided before grooming. FVRCP is also recommended.",
   reqPaused:"",
@@ -765,7 +789,8 @@ var DEFAULTS={
     {title:"No call, no show",body:"If we don't hear from you within 30 minutes of your appointment time, you'll be charged a no-show fee equal to 100% of the service. The appointment is cancelled, and you can't rebook until the fee is paid."},
     {title:"Cancelling or rescheduling",body:"Please cancel or reschedule at least 2 hours before your appointment, or you'll be charged 100% of the groom.\nIf something comes up, call us at (440) 228-3999. We're very accommodating."},
     MATTING_POLICY,
-    VAX_POLICY
+    VAX_POLICY,
+    FLEA_POLICY
   ],
   policyNote:"We may not be able to groom your pet if you arrive very late. Our schedule is planned around the time each pet needs for a proper spa day.",
 
@@ -821,8 +846,10 @@ var I_SCISSORS=ico('<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><
 var I_SPARK=ico('<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6"/>',2.2);
 var I_SHIELD=ico('<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>');
 var I_SYRINGE=ico('<path d="M18 2l4 4M20 4l-9.5 9.5M15 5l4 4M13 7l-8.5 8.5a2 2 0 0 0 0 2.8l1.2 1.2a2 2 0 0 0 2.8 0L17 11M3 21l2.5-2.5M9 11l2 2M7 13l2 2"/>',2.1);
+var I_HOME=ico('<path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/>');
+var I_BUG=ico('<ellipse cx="12" cy="14" rx="4.6" ry="6"/><path d="M12 8V5.5M9.5 4l1.4 2.2M14.5 4l-1.4 2.2M7.4 12H4M7.6 15.5L4.5 17.5M16.6 12H20M16.4 15.5l3.1 2M9 19.5l-1.8 1.8M15 19.5l1.8 1.8"/>',2.1);
 var I_UPLOAD=ico('<path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/>');
-function polIcon(t,i){t=String(t||'');return /late/i.test(t)?POL_ICONS[0]:/show/i.test(t)?POL_ICONS[1]:/cancel|resched/i.test(t)?POL_ICONS[2]:/matt/i.test(t)?I_SCISSORS:/vaccin|shot/i.test(t)?I_SYRINGE:POL_ICONS[i%POL_ICONS.length]}
+function polIcon(t,i){t=String(t||'');return /late/i.test(t)?POL_ICONS[0]:/show/i.test(t)?POL_ICONS[1]:/cancel|resched/i.test(t)?POL_ICONS[2]:/matt/i.test(t)?I_SCISSORS:/vaccin|shot/i.test(t)?I_SYRINGE:/flea/i.test(t)?I_BUG:POL_ICONS[i%POL_ICONS.length]}
 var POL_ICONS=[ico('<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/>'),ico('<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4M10 14l4 4M14 14l-4 4"/>'),ico('<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>'),I_SCISSORS];
 
 /* fluffy just-groomed pup, facing right. Each fluffy part is circles drawn twice (dark, then white on top) so they merge into one soft outline. */
@@ -1090,9 +1117,9 @@ function sittingHTML(){
   var adds=arr(S.sitAddons).filter(function(a){return a&&a.label});
   return '<section class="block sitting" id="sitting"><div class="wrap"><div class="head sit-head"><div><h2><span class="kicker">While you\'re away</span>Pet <em>sitting</em></h2><p>'+esc(S.sitIntro)+'</p></div><div class="yard" aria-hidden="true"><div class="ground"></div><div class="house">'+HOUSE+'</div><svg class="pupsvg" viewBox="0 0 320 180" aria-hidden="true"><g transform="translate(72 170) scale(.92)"><g class="rig"></g><path class="swoosh"/><path class="swoosh s2"/><g class="fball" visibility="hidden"><circle r="6.2"/><path d="M-4.8 -2 Q0 3 4.8 -2"/></g></g></svg></div></div>'+
     (visits.length?'<div class="visits">'+visits.map(function(v){return '<div class="visit-card"><b>'+esc(v.title)+'</b><p>'+esc(v.body)+'</p></div>'}).join('')+'</div>':'')+
-    '<div class="sitgrid"><div>'+table+'</div><div>'+(adds.length?'<div class="addons"><h3>Add-ons</h3><ul>'+adds.map(function(a){return '<li><span>'+esc(a.label)+'</span><span>'+esc(a.price)+'</span></li>'}).join('')+'</ul></div>':'')+
+    '<div class="sitgrid"><div>'+table+'</div><div>'+(adds.length?'<div class="addons"><h3>Add-on'+(adds.length>1?'s':'')+'</h3><ul>'+adds.map(function(a){return '<li><span>'+esc(a.label)+'</span><span>'+esc(a.price)+'</span></li>'}).join('')+'</ul></div>':'')+
     (S.sitIncluded?'<p class="sit-incl">'+esc(S.sitIncluded)+'</p>':'')+'</div></div>'+
-    '<div class="sit-cta"><div class="kitty" aria-hidden="true">'+CAT+'</div><p>'+esc(S.sitNote)+'</p>'+(S.phone?'<a class="btn" href="'+telHref(S.phone)+'">'+I_PHONE+'Call '+esc(S.phone)+'</a>':'')+'</div></div></section>';
+    '<div class="sit-cta"><div class="kitty" aria-hidden="true">'+CAT+'</div><p>'+esc(S.sitNote)+'</p><a class="btn" href="#request" data-reqtype="sit">'+I_CAL+'Request pet sitting</a></div></div></section>';
 }
 
 function policiesHTML(){
@@ -1109,21 +1136,28 @@ function policiesHTML(){
 function optLines(s){return lines(s).map(function(l){var i=l.indexOf('|');return i<0?{t:l.trim(),d:''}:{t:l.slice(0,i).trim(),d:l.slice(i+1).trim()}}).filter(function(o){return o.t})}
 function todayISO(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function niceDate(iso){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(iso||'');if(!m)return '';return new Date(+m[1],m[2]-1,+m[3]).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})}
-var REQ_BLANK={name:'',phone:'',email:'',contact:'text',pet:'',species:'dog',breed:'',size:'',coat:'',catType:'',catVax:false,dogVax:'',recordsPlan:'',firstVisit:'',petNotes:'',services:[],haircut:'',haircutNotes:'',shampoo:'',date1:'',date2:'',times:[],notes:'',agree:false};
+var REQ_BLANK={type:'groom',name:'',phone:'',email:'',contact:'text',address:'',pet:'',species:'dog',breed:'',size:'',coat:'',catType:'',catVax:false,dogVax:'',recordsPlan:'',firstVisit:'',petNotes:'',services:[],haircut:'',haircutNotes:'',shampoo:'',date1:'',date2:'',times:[],
+  dogs:'0',cats:'0',others:'',sitVisit:'',sitCheckins:'',sitStart:'',sitEnd:'',sitTimes:[],notes:'',agree:false};
 var REQ=JSON.parse(JSON.stringify(REQ_BLANK)), REQ_T0=Date.now(), REQ_SENT=null, REQ_BUSY=false, REQ_FILES=[];
 var MAX_REC_FILES=3;
 var TIMES=['Morning','Midday','Afternoon','Any time'];
+var SIT_TIMES=['Morning','Midday','Afternoon','Evening'];
+var PET_COUNTS=['0','1','2','3','4','5','6+'];
 var CONTACT_WORD={call:'call',text:'text',email:'email'};
 
 function segHTML(name,opts,val,label){
   return '<div class="seg" role="radiogroup" aria-label="'+esc(label)+'">'+opts.map(function(o,i){var id='rq_'+name+'_'+i;
     return '<input type="radio" id="'+id+'" name="'+name+'" value="'+esc(o[0])+'"'+(val===o[0]?' checked':'')+'><label for="'+id+'">'+esc(o[1])+'</label>'}).join('')+'</div>';
 }
+function checksHTML(name,opts,val,label){
+  return '<div class="seg" role="group" aria-label="'+esc(label)+'">'+opts.map(function(t,i){return '<input type="checkbox" id="rq_'+name+'_'+i+'" name="'+name+'" value="'+esc(t)+'"'+(val.indexOf(t)>-1?' checked':'')+'><label for="rq_'+name+'_'+i+'">'+esc(t)+'</label>'}).join('')+'</div>';
+}
 function optsHTML(name,opts,val,multi,label){
-  return '<div class="opts'+(multi?' multi':'')+'" role="group" aria-label="'+esc(label)+'">'+opts.map(function(o,i){var id='rq_'+name+'_'+i,on=multi?val.indexOf(o.t)>-1:val===o.t;
-    return '<div class="o"><input type="'+(multi?'checkbox':'radio')+'" id="'+id+'" name="'+name+'" value="'+esc(o.t)+'"'+(on?' checked':'')+'><label for="'+id+'"><b>'+esc(o.t)+'</b>'+(o.d?'<span>'+esc(o.d)+'</span>':'')+'</label></div>'}).join('')+'</div>';
+  return '<div class="opts'+(multi?' multi':'')+'" role="group" aria-label="'+esc(label)+'">'+opts.map(function(o,i){var id='rq_'+name+'_'+i,v=o.v!=null?o.v:o.t,on=multi?val.indexOf(v)>-1:val===v;
+    return '<div class="o"><input type="'+(multi?'checkbox':'radio')+'" id="'+id+'" name="'+name+'" value="'+esc(v)+'"'+(on?' checked':'')+'><label for="'+id+'"><b>'+esc(o.t)+'</b>'+(o.d?'<span>'+esc(o.d)+'</span>':'')+'</label></div>'}).join('')+'</div>';
 }
 function estimateFor(st){
+  if(st.type==='sit')return null;
   var full=st.services.some(function(s){return /full groom/i.test(s)});
   if(!full)return null;
   if(st.species==='cat'){var c=arr(S.catGrooms).filter(function(r){return r&&r.name===st.catType})[0];return c&&c.price?{amt:c.price,what:c.name}:null}
@@ -1137,37 +1171,103 @@ function estHTML(){
   if(!e)return '<div class="est" id="rqEst" hidden></div>';
   return '<div class="est" id="rqEst"><div><small>Estimate</small><span>'+esc(e.what)+'. Final price once we see your pet.</span></div><b>'+esc(e.amt)+'</b></div>';
 }
+
+/* pet sitting helpers (shared by the form, the confirmation and the owner inbox) */
+function dayNum(iso){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(iso||'');return m?Date.UTC(+m[1],m[2]-1,+m[3])/864e5:NaN}
+function plural(n,w){return n+' '+w+(n===1?'':'s')}
+function sitLen(r){
+  var a=dayNum(r.sitStart),b=dayNum(r.sitEnd);if(isNaN(a)||isNaN(b)||b<a)return '';
+  var n=b-a;
+  if(r.sitVisit==='overnight')return n?plural(n,'night'):'';
+  return plural(n+1,'day')+(r.sitVisit!=='day'&&n?', '+plural(n,'night'):'');
+}
+function sitDates(r){
+  var a=niceDate(r.sitStart),b=niceDate(r.sitEnd);if(!a&&!b)return '';
+  var d=a&&b&&a!==b?a+' – '+b:(a||b),l=sitLen(r);
+  return d+(l?' · '+l:'');
+}
+function petCount(r){
+  var out=[],c=function(n,w){if(n&&n!=='0')out.push(n+' '+w+(n==='1'?'':'s'))};
+  c(r.dogs,'dog');c(r.cats,'cat');if(r.others)out.push(r.others);
+  return out.join(', ');
+}
+function careText(r){
+  return r.sitVisit==='overnight'?'Overnight stays':r.sitVisit==='day'?'Daytime check-ins'+(r.sitCheckins?', '+r.sitCheckins+' a day':''):'';
+}
+
+function kindHTML(){
+  var k=[['groom','Grooming','Dogs and cats at our salon',I_SCISSORS],['sit','Pet sitting','Check-ins or overnights at your home',I_HOME]];
+  return '<div class="kind">'+k.map(function(o,i){var id='rq_type_'+i;
+    return '<div class="o"><input type="radio" id="'+id+'" name="type" value="'+o[0]+'"'+(REQ.type===o[0]?' checked':'')+'><label for="'+id+'"><span class="ki">'+o[3]+'</span><span><b>'+o[1]+'</b><small>'+o[2]+'</small></span></label></div>'}).join('')+'</div>';
+}
+function doneRow(k,v){return v?'<div><dt>'+k+'</dt><dd>'+esc(v)+'</dd></div>':''}
+function doneHTML(r){
+  var how=CONTACT_WORD[r.contact]||'call',where=r.contact==='email'&&r.email?r.email:r.phone,first=esc(r.name.split(' ')[0]),sit=r.type==='sit';
+  var when=[niceDate(r.date1),niceDate(r.date2)].filter(Boolean).join(' or ');
+  return '<div class="rq-done" id="rqDone" tabindex="-1"><div class="ok">'+I_CHECK+'</div><h3>Request sent!</h3>'+
+    (sit
+      ?'<p>Thanks, '+first+'. We\'ll '+how+' you at <b>'+esc(where)+'</b> to talk through the details and confirm pet sitting for '+esc(r.pet)+'. '+esc(S.reqNext)+'</p>'+
+        '<dl>'+doneRow('Care',careText(r))+doneRow('Dates',sitDates(r))+doneRow('Times',r.sitTimes.join(', '))+doneRow('Pets',petCount(r))+doneRow('Address',r.address)+'</dl>'
+      :'<p>Thanks, '+first+'. We\'ll '+how+' you at <b>'+esc(where)+'</b> to discuss availability and confirm a time for '+esc(r.pet)+'. '+esc(S.reqNext)+'</p>'+vaxDoneHTML(r)+
+        '<dl>'+doneRow('Services',r.services.join(', '))+doneRow('Haircut',r.haircut)+doneRow('Shampoo',r.shampoo)+
+        doneRow('When',[when,r.times.join(', ')].filter(Boolean).join(' · '))+doneRow('Estimate',r.estimate)+
+        (r.recordsPlan?doneRow('Vaccine records',r.recordsPlan==='upload'?plural(r.recordsCount,'file')+' sent':'Bringing them to the shop'):'')+'</dl>')+
+    (!LIVE?'<p class="pvnote">Preview: on the live site this goes to the owner\'s request inbox. Here it\'s added to the inbox in the owner panel so you can try it.</p>':'')+
+    '<button type="button" class="btn ghost" id="rqAgain">Send another request</button></div>';
+}
 function requestInner(){
   if(S.reqPaused&&S.reqPaused.trim()){
     return '<div class="rq-paused"><h3>Requests are paused</h3><p>'+esc(S.reqPaused)+'</p>'+(S.phone?'<a class="btn" href="'+telHref(S.phone)+'">'+I_PHONE+'Call '+esc(S.phone)+'</a>':'')+'</div>';
   }
-  if(REQ_SENT){
-    var r=REQ_SENT,how=CONTACT_WORD[r.contact]||'call',where=r.contact==='email'&&r.email?r.email:r.phone;
-    var when=[niceDate(r.date1),niceDate(r.date2)].filter(Boolean).join(' or ');
-    return '<div class="rq-done" id="rqDone" tabindex="-1"><div class="ok">'+I_CHECK+'</div><h3>Request sent!</h3>'+
-      '<p>Thanks, '+esc(r.name.split(' ')[0])+'. We\'ll '+how+' you at <b>'+esc(where)+'</b> to discuss availability and confirm a time for '+esc(r.pet)+'. '+esc(S.reqNext)+'</p>'+vaxDoneHTML(r)+
-      '<dl><div><dt>Services</dt><dd>'+esc(r.services.join(', '))+'</dd></div>'+
-      (r.haircut?'<div><dt>Haircut</dt><dd>'+esc(r.haircut)+'</dd></div>':'')+
-      (r.shampoo?'<div><dt>Shampoo</dt><dd>'+esc(r.shampoo)+'</dd></div>':'')+
-      (when||r.times.length?'<div><dt>When</dt><dd>'+esc([when,r.times.join(', ')].filter(Boolean).join(' · '))+'</dd></div>':'')+
-      (r.estimate?'<div><dt>Estimate</dt><dd>'+esc(r.estimate)+'</dd></div>':'')+
-      (r.recordsPlan?'<div><dt>Vaccine records</dt><dd>'+(r.recordsPlan==='upload'?r.recordsCount+' file'+(r.recordsCount===1?'':'s')+' sent':'Bringing them to the shop')+'</dd></div>':'')+'</dl>'+
-      (!LIVE?'<p class="pvnote">Preview: on the live site this goes to the owner\'s request inbox. Here it\'s added to the inbox in the owner panel so you can try it.</p>':'')+
-      '<button type="button" class="btn ghost" id="rqAgain">Send another request</button></div>';
-  }
-  var tiers=arr(S.groomTiers).filter(function(t){return t&&t.name}),cat=REQ.species==='cat';
-  var services=optLines(cat?S.reqCatServices:S.reqServices),cuts=optLines(cat?S.reqCatHaircuts:S.reqHaircuts),shampoos=optLines(S.reqShampoos);
-  var catTypes=arr(S.catGrooms).filter(function(r){return r&&r.name});
-  var min=todayISO(),step=0,num=function(){return '<span class="num">'+(++step)+'</span>'};
-  var vaxLink=arr(S.policies).some(function(p){return p&&/vaccin/i.test(p.title||'')})?'#vaccinations':'#policies';
+  if(REQ_SENT)return doneHTML(REQ_SENT);
+  var sit=REQ.type==='sit',min=todayISO(),step=0,num=function(){return '<span class="num">'+(++step)+'</span>'};
   return '<form class="rq-card" id="rqForm" novalidate>'+
+   '<fieldset class="kindset"><legend>What would you like to request?</legend>'+kindHTML()+
+     (sit&&S.reqSitIntro?'<p class="hint-line kind-hint">'+esc(S.reqSitIntro)+'</p>':'')+'</fieldset>'+
    '<fieldset><legend>'+num()+'About you</legend><div class="fgrid">'+
      '<div class="fld"><label for="rq_name">Your name</label><input type="text" id="rq_name" name="name" autocomplete="name" value="'+esc(REQ.name)+'" required></div>'+
      '<div class="fld"><label for="rq_phone">Phone</label><input type="tel" id="rq_phone" name="phone" autocomplete="tel" inputmode="tel" placeholder="(440) 555-0123" value="'+esc(REQ.phone)+'" required></div>'+
      '<div class="fld"><label for="rq_email">Email <span class="opt">(optional)</span></label><input type="email" id="rq_email" name="email" autocomplete="email" value="'+esc(REQ.email)+'"></div>'+
      '<div class="fld"><span class="lbl" id="rq_contact_l">Best way to reach you</span>'+segHTML('contact',[['text','Text'],['call','Call'],['email','Email']],REQ.contact,'Best way to reach you')+'</div>'+
+     (sit?'<div class="fld full"><label for="rq_address">Home address <span class="opt">(where we\'ll be pet sitting)</span></label><input type="text" id="rq_address" name="address" autocomplete="street-address" placeholder="Street and city" value="'+esc(REQ.address)+'" required></div>':'')+
    '</div></fieldset>'+
-   '<fieldset><legend>'+num()+'About your pet</legend><div class="fgrid">'+
+   (sit?sitSteps(num,min):groomSteps(num,min))+
+   '<div class="hp" aria-hidden="true"><label for="rq_website">Leave this empty</label><input type="text" id="rq_website" name="website" tabindex="-1" autocomplete="off"></div>'+
+   '<div class="agree" id="rqAgreeWrap"><input type="checkbox" id="rq_agree" name="agree"'+(REQ.agree?' checked':'')+'><label for="rq_agree"><span>'+
+     (sit?'I\'ve read the <a href="#sitting">pet sitting rates and notes</a>.':'I\'ve read the <a href="#policies">policies</a> on late arrivals, no-shows and cancellations.')+'</span></label></div>'+
+   '<div class="rq-err" id="rqErr" role="alert" hidden></div>'+
+   '<div class="rq-send"><button class="btn" type="submit" id="rqSend">'+I_CAL+'Send request</button><p>'+esc(S.reqNext)+'</p></div>'+
+  '</form>';
+}
+function sitSteps(num,min){
+  var sel=function(n,label){return '<div class="fld"><label for="rq_'+n+'">'+label+'</label><select id="rq_'+n+'" name="'+n+'">'+PET_COUNTS.map(function(c){return '<option value="'+c+'"'+(REQ[n]===c?' selected':'')+'>'+c+'</option>'}).join('')+'</select></div>'};
+  var addon=arr(S.sitAddons).filter(function(a){return a&&/other|small|bird|reptile/i.test(a.label||'')})[0];
+  var vdesc=function(re,fb){var v=arr(S.sitVisits).filter(function(x){return x&&re.test(x.title||'')})[0];return v&&v.body?v.body:fb};
+  var care=[{v:'day',t:'Daytime check-ins',d:vdesc(/day/i,'Up to 3 check-ins a day.')},{v:'overnight',t:'Overnight stays',d:vdesc(/night/i,'Check-ins during the day, then we stay the night.')}];
+  var len=sitLen(REQ);
+  return '<fieldset><legend>'+num()+'Your pets</legend><div class="fgrid">'+sel('dogs','Dogs')+sel('cats','Cats')+
+     '<div class="fld full"><label for="rq_others">Other animals <span class="opt">(optional'+(addon&&addon.price?', '+esc(addon.price):'')+')</span></label><input type="text" id="rq_others" name="others" placeholder="e.g. 1 bird, 2 fish" value="'+esc(REQ.others)+'"></div>'+
+     '<div class="fld full"><label for="rq_pet">Your pets\' names</label><input type="text" id="rq_pet" name="pet" value="'+esc(REQ.pet)+'" required></div>'+
+     '<div class="fld full"><label for="rq_petNotes">About your pets <span class="opt">(feeding, medication, walks, anything we should know)</span></label><textarea id="rq_petNotes" name="petNotes" rows="3">'+esc(REQ.petNotes)+'</textarea></div>'+
+   '</div></fieldset>'+
+   '<fieldset id="rqCare"><legend>'+num()+'Type of care</legend><p class="hint-line">See the <a href="#sitting">pet sitting rates</a> for prices.</p>'+optsHTML('sitVisit',care,REQ.sitVisit,false,'Type of care')+
+     '<div class="fld sub" id="rqCheckins"'+(REQ.sitVisit==='day'?'':' hidden')+'><span class="lbl">Check-ins per day</span>'+segHTML('sitCheckins',[['1','1'],['2','2'],['3','3']],REQ.sitCheckins,'Check-ins per day')+'</div>'+
+     '<div class="fld sub"><span class="lbl">Preferred check-in times <span class="opt">(optional)</span></span>'+checksHTML('sitTimes',SIT_TIMES,REQ.sitTimes,'Preferred check-in times')+'</div>'+
+   '</fieldset>'+
+   '<fieldset><legend>'+num()+'Please share the dates you need pet sitting</legend><div class="fgrid">'+
+     '<div class="fld"><label for="rq_sitStart">Start date</label><input type="date" id="rq_sitStart" name="sitStart" min="'+min+'" value="'+esc(REQ.sitStart)+'" required></div>'+
+     '<div class="fld"><label for="rq_sitEnd">End date</label><input type="date" id="rq_sitEnd" name="sitEnd" min="'+esc(REQ.sitStart||min)+'" value="'+esc(REQ.sitEnd)+'" required></div>'+
+     '<p class="sitlen" id="rqSitLen"'+(len?'':' hidden')+'>'+I_CAL+'<span>'+esc(len)+'</span></p>'+
+     '<div class="fld full"><label for="rq_notes">Anything else? <span class="opt">(optional)</span></label><textarea id="rq_notes" name="notes" rows="2">'+esc(REQ.notes)+'</textarea></div>'+
+   '</div></fieldset>';
+}
+function groomSteps(num,min){
+  var tiers=arr(S.groomTiers).filter(function(t){return t&&t.name}),cat=REQ.species==='cat';
+  var services=optLines(cat?S.reqCatServices:S.reqServices),cuts=optLines(cat?S.reqCatHaircuts:S.reqHaircuts),shampoos=optLines(S.reqShampoos);
+  var catTypes=arr(S.catGrooms).filter(function(r){return r&&r.name});
+  var vaxLink=arr(S.policies).some(function(p){return p&&/vaccin/i.test(p.title||'')})?'#vaccinations':'#policies';
+  var flea=arr(S.policies).filter(function(p){return p&&/flea/i.test(p.title||'')&&lines(p.body).length})[0];
+  return '<fieldset><legend>'+num()+'About your pet</legend><div class="fgrid">'+
      '<div class="fld"><label for="rq_pet">Pet\'s name</label><input type="text" id="rq_pet" name="pet" value="'+esc(REQ.pet)+'" required></div>'+
      '<div class="fld"><span class="lbl">Dog or cat?</span>'+segHTML('species',[['dog','Dog'],['cat','Cat']],REQ.species,'Dog or cat')+'</div>'+
      '<div class="fld"><label for="rq_breed">Breed <span class="opt">(or best guess)</span></label><input type="text" id="rq_breed" name="breed" value="'+esc(REQ.breed)+'"></div>'+
@@ -1196,18 +1296,14 @@ function requestInner(){
    (cuts.length?'<fieldset><legend>'+num()+(cat?'Style':'Haircut preference')+'</legend>'+optsHTML('haircut',cuts,REQ.haircut,false,cat?'Style':'Haircut preference')+
      '<div class="fld full" style="margin-top:12px"><label for="rq_haircutNotes">Describe the look <span class="opt">(optional)</span></label><textarea id="rq_haircutNotes" name="haircutNotes" rows="2" placeholder="'+(cat?'e.g. lion cut, keep the boots and a fluffy tail pom':'e.g. short on the body, keep the ears and tail fluffy')+'">'+esc(REQ.haircutNotes)+'</textarea></div>'+
      '<p class="tipline">'+I_CAMERA+'<span>Have a photo of the cut you want? Text it to '+esc(S.phone||'us')+' after you send this.</span></p></fieldset>':'')+
-   (shampoos.length?'<fieldset><legend>'+num()+'Shampoo</legend>'+optsHTML('shampoo',shampoos,REQ.shampoo,false,'Shampoo')+'</fieldset>':'')+
+   (shampoos.length?'<fieldset><legend>'+num()+'Shampoo</legend>'+optsHTML('shampoo',shampoos,REQ.shampoo,false,'Shampoo')+
+     (flea?'<p class="fleanote">'+I_BUG+'<span><b>'+esc(flea.title)+':</b> '+esc(lines(flea.body).join(' '))+'</span></p>':'')+'</fieldset>':'')+
    '<fieldset><legend>'+num()+'Please share your preferred appointment dates and times</legend><div class="fgrid">'+
      '<div class="fld"><label for="rq_date1">First choice</label><input type="date" id="rq_date1" name="date1" min="'+min+'" value="'+esc(REQ.date1)+'"></div>'+
      '<div class="fld"><label for="rq_date2">Second choice <span class="opt">(optional)</span></label><input type="date" id="rq_date2" name="date2" min="'+min+'" value="'+esc(REQ.date2)+'"></div>'+
-     '<div class="fld full"><span class="lbl">Time of day</span><div class="seg" role="group" aria-label="Time of day">'+TIMES.map(function(t,i){return '<input type="checkbox" id="rq_times_'+i+'" name="times" value="'+t+'"'+(REQ.times.indexOf(t)>-1?' checked':'')+'><label for="rq_times_'+i+'">'+t+'</label>'}).join('')+'</div></div>'+
+     '<div class="fld full"><span class="lbl">Time of day</span>'+checksHTML('times',TIMES,REQ.times,'Time of day')+'</div>'+
      '<div class="fld full"><label for="rq_notes">Anything else? <span class="opt">(optional)</span></label><textarea id="rq_notes" name="notes" rows="2">'+esc(REQ.notes)+'</textarea></div>'+
-   '</div></fieldset>'+
-   '<div class="hp" aria-hidden="true"><label for="rq_website">Leave this empty</label><input type="text" id="rq_website" name="website" tabindex="-1" autocomplete="off"></div>'+
-   '<div class="agree" id="rqAgreeWrap"><input type="checkbox" id="rq_agree" name="agree"'+(REQ.agree?' checked':'')+'><label for="rq_agree"><span>I\'ve read the <a href="#policies">policies</a> on late arrivals, no-shows and cancellations.</span></label></div>'+
-   '<div class="rq-err" id="rqErr" role="alert" hidden></div>'+
-   '<div class="rq-send"><button class="btn" type="submit" id="rqSend">'+I_CAL+'Send request</button><p>'+esc(S.reqNext)+'</p></div>'+
-  '</form>';
+   '</div></fieldset>';
 }
 
 /* vaccine record files picked in the form (kept in memory until the request is sent) */
@@ -1257,19 +1353,26 @@ function vaxDoneHTML(r){
   }
   return t?'<p class="vaxdone">'+I_SYRINGE+'<span>'+t+'</span></p>':'';
 }
+function howHTML(){
+  var steps=REQ.type==='sit'
+    ?['Send this request with your pets and the dates you\'ll be away.','We '+(S.phone?'text or call you':'reach out')+' to talk through the details and confirm.','We care for your pets at home while you\'re away.']
+    :['Send this request with your pet\'s details and vaccine records.','We '+(S.phone?'call or text you':'reach out')+' to discuss availability and confirm your appointment.','Bring your pet in. Pay at pickup.'];
+  return '<div class="how" id="rqHow"><h3>How it works</h3><ol>'+steps.map(function(s){return '<li><span>'+esc(s)+'</span></li>'}).join('')+'</ol></div>';
+}
 function requestHTML(){
-  var steps=['Send this request with your pet\'s details and vaccine records.','We '+(S.phone?'call or text you':'reach out')+' to discuss availability and confirm your appointment.','Bring your pet in. Pay at pickup.'];
-  return '<section class="block request" id="request"><div class="wrap"><div class="head"><h2><span class="kicker">Grooming appointments</span>Request an <em>appointment</em></h2><p>'+esc(S.reqIntro)+'</p></div>'+
+  return '<section class="block request" id="request"><div class="wrap"><div class="head"><h2><span class="kicker">Grooming &amp; pet sitting</span>Request an <em>appointment</em></h2><p>'+esc(S.reqIntro)+'</p></div>'+
     '<div class="rq-grid"><div id="rqSlot">'+requestInner()+'</div>'+
-    '<aside class="rq-side"><div class="how"><h3>How it works</h3><ol>'+steps.map(function(s){return '<li><span>'+esc(s)+'</span></li>'}).join('')+'</ol></div>'+
+    '<aside class="rq-side">'+howHTML()+
     (S.phone?'<div class="callbox"><h3>Prefer to text?</h3><p>Texting is the best way to reach us. We reply between appointments, early in the morning or after the grooming day wraps up.</p><a class="btn" href="'+smsHref(S.phone)+'">'+I_TEXT+'Text '+esc(S.phone)+'</a></div>':'')+
     '</aside></div></div></section>';
 }
 function redrawRequest(focusId){
   var slot=document.getElementById('rqSlot');if(!slot)return;
   slot.innerHTML=requestInner();
+  var h=document.getElementById('rqHow');if(h)h.outerHTML=howHTML();
   if(focusId){var f=document.getElementById(focusId);if(f){f.focus({preventScroll:true});f.scrollIntoView({behavior:REDUCE?'auto':'smooth',block:'start'})}}
 }
+function showReqErr(){var er=document.getElementById('rqErr');if(!er)return;var p=reqProblems();if(p.length){er.textContent='Please add '+p.map(function(x){return x[1]}).join(', ')+'.';er.hidden=false}else er.hidden=true}
 function onReqInput(e){
   var el=e.target;if(!el.form||el.form.id!=='rqForm')return;
   if(el.type==='file'){if(e.type==='change'){addReqFiles(el.files);el.value=''}return}
@@ -1279,6 +1382,11 @@ function onReqInput(e){
     else{var a=REQ[n],i=a.indexOf(el.value);if(el.checked&&i<0)a.push(el.value);if(!el.checked&&i>-1)a.splice(i,1)}
   }else if(el.type==='radio'){if(el.checked)REQ[n]=el.value}
   else REQ[n]=el.value;
+  if(n==='type'&&el.type==='radio'){
+    redrawRequest();
+    var tp=document.getElementById('rq_type_'+(REQ.type==='sit'?1:0));if(tp)tp.focus({preventScroll:true});
+    return;
+  }
   if(n==='species'&&el.type==='radio'){
     var cat=REQ.species==='cat',svc=optLines(cat?S.reqCatServices:S.reqServices).map(function(o){return o.t}),cuts=optLines(cat?S.reqCatHaircuts:S.reqHaircuts).map(function(o){return o.t});
     REQ.services=REQ.services.filter(function(s){return svc.indexOf(s)>-1});
@@ -1286,22 +1394,37 @@ function onReqInput(e){
     var errWasOpen=!document.getElementById('rqErr').hidden;
     document.getElementById('rqSlot').innerHTML=requestInner();
     var sp=document.getElementById('rq_species_'+(cat?1:0));if(sp)sp.focus({preventScroll:true});
-    if(errWasOpen){var p=reqProblems(),er=document.getElementById('rqErr');if(p.length){er.textContent='Please add '+p.map(function(x){return x[1]}).join(', ')+'.';er.hidden=false}}
+    if(errWasOpen)showReqErr();
     return;
   }
   if(n==='services'||n==='size'||n==='coat'||n==='catType'){var est=document.getElementById('rqEst');if(est)est.outerHTML=estHTML()}
   if(n==='recordsPlan'){var fw=document.getElementById('rqFilesWrap');if(fw)fw.hidden=REQ.recordsPlan!=='upload'}
   if(n==='dogVax'){var vn=document.getElementById('rqDogVaxNote');if(vn)vn.hidden=!(REQ.dogVax==='no'||REQ.dogVax==='unsure')}
+  if(n==='sitVisit'){var ci=document.getElementById('rqCheckins');if(ci)ci.hidden=REQ.sitVisit!=='day'}
+  if(n==='sitStart'){var en=document.getElementById('rq_sitEnd');if(en)en.min=REQ.sitStart||todayISO()}
+  if(n==='sitStart'||n==='sitEnd'||n==='sitVisit'){var sl=document.getElementById('rqSitLen'),len=sitLen(REQ);if(sl){sl.hidden=!len;sl.lastChild.textContent=len}}
+  if(n==='dogs'||n==='cats'){['rq_dogs','rq_cats'].forEach(function(id){var s=document.getElementById(id);if(s)s.classList.remove('bad')})}
   var bad=el.closest('.bad');if(bad)bad.classList.remove('bad');
   if(el.classList.contains('bad'))el.classList.remove('bad');
   var err=document.getElementById('rqErr');
-  if(err&&!err.hidden){var p=reqProblems();if(p.length)err.textContent='Please add '+p.map(function(x){return x[1]}).join(', ')+'.';else err.hidden=true}
+  if(err&&!err.hidden)showReqErr();
 }
 function reqProblems(){
-  var p=[];
+  var p=[],sit=REQ.type==='sit';
   if(!REQ.name.trim())p.push(['rq_name','your name']);
   if(REQ.phone.replace(/\D/g,'').length<10)p.push(['rq_phone','a phone number with area code']);
   if(REQ.contact==='email'&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(REQ.email.trim()))p.push(['rq_email','an email address (you chose email)']);
+  if(sit){
+    if(!REQ.address.trim())p.push(['rq_address','your home address']);
+    if(REQ.dogs==='0'&&REQ.cats==='0'&&!REQ.others.trim())p.push(['rq_dogs','how many pets we\'ll be caring for']);
+    if(!REQ.pet.trim())p.push(['rq_pet','your pets\' names']);
+    if(!REQ.sitVisit)p.push(['rqCare','daytime check-ins or overnight stays']);
+    if(!REQ.sitStart)p.push(['rq_sitStart','a start date']);
+    if(!REQ.sitEnd)p.push(['rq_sitEnd','an end date']);
+    else if(REQ.sitStart&&REQ.sitEnd<REQ.sitStart)p.push(['rq_sitEnd','an end date on or after the start date']);
+    if(!REQ.agree)p.push(['rqAgreeWrap','a check that you\'ve read the pet sitting rates']);
+    return p;
+  }
   if(!REQ.pet.trim())p.push(['rq_pet','your pet\'s name']);
   if(!REQ.services.length)p.push(['rqSvc','at least one service']);
   if(REQ.species==='cat'&&!REQ.catVax)p.push(['rqVaxWrap','a check that your cat\'s rabies vaccination is current']);
@@ -1311,22 +1434,28 @@ function reqProblems(){
   if(!REQ.agree)p.push(['rqAgreeWrap','a check that you\'ve read the policies']);
   return p;
 }
+var GROOM_KEYS=['species','breed','size','coat','catType','dogVax','recordsPlan','firstVisit','haircut','haircutNotes','shampoo','date1','date2'];
+var SIT_KEYS=['address','others','sitVisit','sitCheckins','sitStart','sitEnd'];
 function submitReq(e){
   e.preventDefault();if(REQ_BUSY)return;
   var form=e.target,err=document.getElementById('rqErr');
   form.querySelectorAll('.bad').forEach(function(x){x.classList.remove('bad')});
   var p=reqProblems();
   if(p.length){
-    p.forEach(function(x){var el=document.getElementById(x[0]);if(el)el.classList.add('bad')});
+    p.forEach(function(x){var el=document.getElementById(x[0]);if(el)el.classList.add('bad');if(x[0]==='rq_dogs'){var c=document.getElementById('rq_cats');if(c)c.classList.add('bad')}});
     err.textContent='Please add '+p.map(function(x){return x[1]}).join(', ')+'.';err.hidden=false;
     var first=document.getElementById(p[0][0]);var fi=first&&(first.matches('input,textarea,select')?first:first.querySelector('input'));
     if(fi){fi.focus({preventScroll:true});first.scrollIntoView({behavior:REDUCE?'auto':'smooth',block:'center'})}
     return;
   }
   err.hidden=true;
-  var e2=estimateFor(REQ);
+  var e2=estimateFor(REQ),sit=REQ.type==='sit';
   var body=JSON.parse(JSON.stringify(REQ));
-  if(REQ.species==='cat'){body.size='';body.coat='';body.dogVax=''}else{body.catType='';body.catVax=false}
+  if(sit){GROOM_KEYS.forEach(function(k){body[k]=''});body.catVax=false;body.services=[];body.times=[]}
+  else{
+    SIT_KEYS.forEach(function(k){body[k]=''});body.dogs='0';body.cats='0';body.sitTimes=[];
+    if(REQ.species==='cat'){body.size='';body.coat='';body.dogVax=''}else{body.catType='';body.catVax=false}
+  }
   var sendFiles=body.recordsPlan==='upload'?REQ_FILES.slice():[];
   body.recordsCount=sendFiles.length;
   body.estimate=e2?e2.amt:'';body.elapsed=Date.now()-REQ_T0;body.website=(document.getElementById('rq_website')||{}).value||'';
@@ -1335,7 +1464,7 @@ function submitReq(e){
     if(!LIVE){var rec=JSON.parse(JSON.stringify(body));rec.id='pv'+Date.now();rec.status='new';rec.ownerNote='';rec.createdAt=new Date().toISOString();
       rec.records=sendFiles.map(function(f,n){f.keep=1;return {n:n,name:f.name,type:f.type,size:f.size,previewUrl:f.thumb||URL.createObjectURL(f.blob)}});PREVIEW_REQS.unshift(rec)}
     REQ_FILES.forEach(function(f){if(f.thumb&&!f.keep)URL.revokeObjectURL(f.thumb)});REQ_FILES=[];
-    REQ=JSON.parse(JSON.stringify(REQ_BLANK));['name','phone','email','contact'].forEach(function(k){REQ[k]=body[k]});
+    REQ=JSON.parse(JSON.stringify(REQ_BLANK));['type','name','phone','email','contact','address'].forEach(function(k){REQ[k]=body[k]||REQ_BLANK[k]});
     REQ_T0=Date.now();redrawRequest('rqDone');
   };
   if(!LIVE){done();return}
@@ -1353,7 +1482,11 @@ function submitReq(e){
 app.addEventListener('input',onReqInput);
 app.addEventListener('change',onReqInput);
 app.addEventListener('submit',function(e){if(e.target.id==='rqForm')submitReq(e)});
-app.addEventListener('click',function(e){if(e.target.id==='rqAgain'){REQ_SENT=null;redrawRequest('rq_pet')}});
+app.addEventListener('click',function(e){
+  if(e.target.id==='rqAgain'){REQ_SENT=null;redrawRequest('rq_pet');return}
+  var k=e.target.closest('[data-reqtype]');
+  if(k&&(REQ.type!==k.dataset.reqtype||REQ_SENT)){REQ.type=k.dataset.reqtype;REQ_SENT=null;redrawRequest()}
+});
 
 function render(){
   var ig=igHandle(S.instagram), igUrl=ig?'https://www.instagram.com/'+encodeURIComponent(ig)+'/':'';
@@ -1384,7 +1517,7 @@ function render(){
     : '<div class="empty" aria-hidden="true"><div>'+PAW+'</div><div>'+PAW+'</div><div>'+PAW+'</div></div><p class="empty-note">Fresh cuts are on the way.'+(socLinks.length?' See the latest on '+socLinks.slice(0,-1).join(', ')+(socLinks.length>1?' and ':'')+socLinks[socLinks.length-1]+'.':'')+'</p>';
 
   var visit='<div class="vgrid">';
-  if(S.phone)visit+='<div class="vbox"><small>Text or call</small><div class="big">'+esc(S.phone)+'<button type="button" class="copy" data-copy="'+esc(S.phone)+'">Copy</button></div><div class="sub">Or <a href="#request">send a grooming request online</a>. Pet sitting is set up by phone.</div><div class="vlinks"><a class="link" href="'+smsHref(S.phone)+'">Tap to text</a><a class="link" href="'+telHref(S.phone)+'">Tap to call</a></div></div>';
+  if(S.phone)visit+='<div class="vbox"><small>Text or call</small><div class="big">'+esc(S.phone)+'<button type="button" class="copy" data-copy="'+esc(S.phone)+'">Copy</button></div><div class="sub">Or <a href="#request">send a request online</a> for grooming or pet sitting.</div><div class="vlinks"><a class="link" href="'+smsHref(S.phone)+'">Tap to text</a><a class="link" href="'+telHref(S.phone)+'">Tap to call</a></div></div>';
   if(S.address)visit+='<div class="vbox"><small>Find us</small><div class="big">'+esc(S.address)+'</div><a class="link" href="'+esc(mapHref(S.address))+'" target="_blank" rel="noopener">Get directions</a></div>';
   visit+='<div class="vbox"><small>Hours</small>'+(hoursList()||'<div class="big">By appointment</div>')+(S.hoursNote?'<div class="sub">'+esc(S.hoursNote)+'</div>':'')+'</div></div>';
   var soc='';
@@ -1410,7 +1543,7 @@ function render(){
   policiesHTML()+
   '<section class="block about" id="about"><div class="wrap"><div class="about-art"><div class="blob"></div><div class="blob b2"></div>'+(aboutImg?'<img src="'+esc(aboutImg)+'" alt="Inside '+esc(S.name)+'">':'<svg class="paw" viewBox="0 0 64 64" aria-hidden="true">'+PAWG+'</svg>')+'</div>'+
     '<div class="about-text"><div class="head"><h2>About <em>'+esc(S.name)+'</em></h2></div><p>'+esc(S.about)+'</p></div></div></section>'+
-  '<section class="block visit" id="visit"><div class="wrap"><div class="head"><h2>Come <em>see us</em></h2><p>Text, call or send a request online to book a groom. Pet sitting is set up by phone.</p></div>'+(lines(S.contactNote).length?'<div class="msgnote">'+I_TEXT+'<div><h3>How we answer messages</h3>'+paras(S.contactNote)+'</div></div>':'')+visit+(soc?'<div class="socials">'+soc+'</div>':'')+'</div></section>'+
+  '<section class="block visit" id="visit"><div class="wrap"><div class="head"><h2>Come <em>see us</em></h2><p>Text, call or send a request online to book grooming or pet sitting.</p></div>'+(lines(S.contactNote).length?'<div class="msgnote">'+I_TEXT+'<div><h3>How we answer messages</h3>'+paras(S.contactNote)+'</div></div>':'')+visit+(soc?'<div class="socials">'+soc+'</div>':'')+'</div></section>'+
   '</main>'+
   '<footer><div class="wrap"><span>&copy; '+new Date().getFullYear()+' '+esc(S.name)+' · Sheffield Lake, Ohio</span><button type="button" id="ownerBtn">Owner login</button></div></footer>';
 }
@@ -1485,6 +1618,7 @@ function editView(){
     field('catNotes','Notes at the bottom',{area:1,rows:3,hint:'(one per line)'}))+
   sec('Request form',field('reqPaused','Pause requests',{area:1,rows:2,hint:'(type a message to show instead of the form, e.g. "We\'re fully booked until Dec 1." Leave empty to accept requests.)'})+
     field('reqIntro','Intro',{area:1,rows:2})+
+    field('reqSitIntro','Pet sitting note',{area:1,rows:2,hint:'(shown in the form when someone picks Pet sitting)'})+
     field('reqServices','Services clients can pick',{area:1,rows:8,hint:'(one per line; add " | short description" after a name if you like)'})+
     field('reqHaircuts','Haircut choices',{area:1,rows:6,hint:'(one per line, same format)'})+
     field('reqShampoos','Shampoo choices',{area:1,rows:7,hint:'(one per line, same format)'})+
@@ -1605,7 +1739,9 @@ var PREVIEW_REQS=[
   {id:'ex2',example:1,name:'Mike Russo',phone:'(440) 555-0199',email:'',contact:'call',pet:'Duke',species:'dog',breed:'Golden Retriever',size:'Large dogs',coat:'long',dogVax:'unsure',recordsPlan:'bring',firstVisit:'no',petNotes:'',
    services:['Bath & brush','De-shedding','Nail trim'],haircut:'No haircut',haircutNotes:'',shampoo:'De-shedding',date1:daysFromNow(6),date2:'',times:['Afternoon','Any time'],notes:'Can drop off before work.',estimate:'',status:'confirmed',ownerNote:'Booked Sat 1pm',createdAt:new Date(Date.now()-26*3600e3).toISOString()},
   {id:'ex3',example:1,name:'Tasha Green',phone:'(440) 555-0177',email:'',contact:'text',pet:'Luna',species:'cat',breed:'Maine Coon',size:'',coat:'',catType:'Full-coat groom, 10 lbs and over',catVax:true,recordsPlan:'bring',firstVisit:'yes',petNotes:'Hates the dryer.',
-   services:['Full groom'],haircut:'Lion cut',haircutNotes:'Keep the tail pom.',shampoo:'Our choice',date1:daysFromNow(4),date2:'',times:['Midday'],notes:'',estimate:'$90',status:'new',ownerNote:'',createdAt:new Date(Date.now()-5*3600e3).toISOString()}
+   services:['Full groom'],haircut:'Lion cut',haircutNotes:'Keep the tail pom.',shampoo:'Our choice',date1:daysFromNow(4),date2:'',times:['Midday'],notes:'',estimate:'$90',status:'new',ownerNote:'',createdAt:new Date(Date.now()-5*3600e3).toISOString()},
+  {id:'ex4',example:1,type:'sit',name:'Kara Lewis',phone:'(440) 555-0163',email:'',contact:'text',address:'123 Example St, Sheffield Lake',pet:'Max and Mittens',dogs:'1',cats:'1',others:'1 parakeet',
+   petNotes:'Max eats twice a day and gets one pill with breakfast. Mittens hides from strangers at first.',sitVisit:'overnight',sitCheckins:'',sitStart:daysFromNow(10),sitEnd:daysFromNow(13),sitTimes:['Morning','Evening'],notes:'Spare key is with the neighbor.',status:'new',ownerNote:'',createdAt:new Date(Date.now()-8*3600e3).toISOString()}
 ];
 var INBOX={items:null,filter:'new',err:'',arm:null};
 function loadInbox(){
@@ -1647,17 +1783,24 @@ function showRecords(id,card){
 }
 function reqCard(r){
   var st=STATUS_LABEL[r.status]?r.status:'new';
-  var isCat=r.species==='cat';
-  var pet=[r.pet,isCat?'Cat':'Dog',r.breed,isCat?r.catType:r.size,!isCat&&r.coat?r.coat+'-haired':'',isCat&&r.catVax?'vaccines confirmed':'',r.firstVisit==='yes'?'first visit':r.firstVisit==='no'?'been here before':''].filter(Boolean).join(' · ');
+  var sit=r.type==='sit',isCat=r.species==='cat';
   var row=function(k,v){return v?'<div><dt>'+k+'</dt><dd>'+esc(v)+'</dd></div>':''};
+  var pet,rows;
+  if(sit){
+    pet=[r.pet,petCount(r)].filter(Boolean).join(' · ');
+    rows=row('Care',careText(r))+row('Dates',sitDates(r))+row('Times',arr(r.sitTimes).join(', '))+
+      (r.address?'<div><dt>Address</dt><dd>'+esc(r.address)+' <a class="linkbtn" href="'+esc(mapHref(r.address))+'" target="_blank" rel="noopener">Map</a></dd></div>':'');
+  }else{
+    pet=[r.pet,isCat?'Cat':'Dog',r.breed,isCat?r.catType:r.size,!isCat&&r.coat?r.coat+'-haired':'',isCat&&r.catVax?'vaccines confirmed':'',r.firstVisit==='yes'?'first visit':r.firstVisit==='no'?'been here before':''].filter(Boolean).join(' · ');
+    rows=row('Services',arr(r.services).join(', '))+
+      row(isCat?'Style':'Haircut',[r.haircut,r.haircutNotes?'“'+r.haircutNotes+'”':''].filter(Boolean).join(' · '))+
+      row('Shampoo',r.shampoo)+row('When',whenText(r))+row('Estimate',r.estimate)+row('Vaccines',vaxText(r))+
+      (r.recordsPlan==='bring'?row('Records','Bringing them to the shop'):'')+
+      (arr(r.records).length?'<div><dt>Records</dt><dd>'+arr(r.records).length+' file'+(arr(r.records).length===1?'':'s')+' uploaded <button type="button" class="linkbtn" data-act="records">View records</button></dd></div>':'');
+  }
   var tel=digitsTel(r.phone),pref=r.contact||'call';
-  return '<article class="rq" data-id="'+esc(r.id)+'"><header><b>'+esc(r.name)+'</b><span class="stc '+st+'">'+STATUS_LABEL[st]+'</span>'+(r.example?'<span class="stc ex">Example</span>':'')+'<time>'+esc(ago(r.createdAt))+'</time></header>'+
-    '<p class="rq-pet">'+esc(pet)+'</p><dl>'+
-    row('Services',arr(r.services).join(', '))+
-    row(isCat?'Style':'Haircut',[r.haircut,r.haircutNotes?'“'+r.haircutNotes+'”':''].filter(Boolean).join(' · '))+
-    row('Shampoo',r.shampoo)+row('When',whenText(r))+row('Estimate',r.estimate)+row('Vaccines',vaxText(r))+
-    (r.recordsPlan==='bring'?row('Records','Bringing them to the shop'):'')+
-    (arr(r.records).length?'<div><dt>Records</dt><dd>'+arr(r.records).length+' file'+(arr(r.records).length===1?'':'s')+' uploaded <button type="button" class="linkbtn" data-act="records">View records</button></dd></div>':'')+
+  return '<article class="rq'+(sit?' sit':'')+'" data-id="'+esc(r.id)+'"><header><b>'+esc(r.name)+'</b><span class="stc '+st+'">'+STATUS_LABEL[st]+'</span>'+(sit?'<span class="stc sitk">Pet sitting</span>':'')+(r.example?'<span class="stc ex">Example</span>':'')+'<time>'+esc(ago(r.createdAt))+'</time></header>'+
+    '<p class="rq-pet">'+esc(pet)+'</p><dl>'+rows+
     row('Pet notes',r.petNotes)+row('Notes',r.notes)+'</dl><div class="rq-files"></div>'+
     '<div class="rq-contact"><span>'+esc(r.phone)+'</span>'+
       '<a href="tel:'+tel+'"'+(pref==='call'?' class="pref"':'')+'>Call</a><a href="sms:'+tel+'"'+(pref==='text'?' class="pref"':'')+'>Text</a>'+
@@ -1887,6 +2030,18 @@ function migrate(j){
   if(v<4){
     if(j.intro==="Full grooms for dogs and cats, plus pet sitting in the comfort of your own home. Call us or send an appointment request right here."||j.intro==="Full grooms for dogs and cats, plus pet sitting in the comfort of your own home. All appointments are booked by phone.")j.intro=DEFAULTS.intro;
     if(j.hoursNote==="By appointment. Call us or send a request online and we'll set up a time.")j.hoursNote=DEFAULTS.hoursNote;
+  }
+  if(v<5){
+    var oldAddons=[["Other small animals (birds, reptiles, etc.)","+$5 each"],["Walks, up to 1 hour","+$10 per pet, per walk"],["Transportation","+$15 per pet, per trip"],["Medication","+$5 per pet, per dose"],["Pet waste cleanup","$20 per cleanup, all pets"]];
+    if(Array.isArray(j.sitAddons)&&JSON.stringify(j.sitAddons.map(function(a){return [a&&a.label,a&&a.price]}))===JSON.stringify(oldAddons))j.sitAddons=JSON.parse(JSON.stringify(DEFAULTS.sitAddons));
+    if(Array.isArray(j.sitRows))j.sitRows.forEach(function(r){
+      if(!r)return;
+      if(r.label==="1 dog and 1 cat"&&r.night==="$120")r.night="$110";
+      if(r.label==="4 or more pets"&&r.day==="$95+"&&r.night==="$160"){r.label="Each additional pet";r.day="+$10";r.night="+$10"}
+    });
+    if(j.sitIncluded==="Every check-in and overnight covers potty breaks, meals and playtime. For anything extra, see the add-ons.")j.sitIncluded=DEFAULTS.sitIncluded;
+    if(j.sitNote==="Rates may be adjusted for extra tasks or cleaning, homes farther away, or stays longer than a week. Call for details and to book.")j.sitNote=DEFAULTS.sitNote;
+    if(Array.isArray(j.policies)&&!j.policies.some(function(p){return p&&/flea/i.test(p.title||'')}))j.policies.push(JSON.parse(JSON.stringify(FLEA_POLICY)));
   }
   j.contentVersion=CONTENT_VERSION;
   return j;

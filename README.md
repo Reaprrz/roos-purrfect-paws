@@ -62,9 +62,10 @@ Everything the owner can change lives in the edit panel, grouped into sections:
   filters, Call / Text / Email buttons, a private note, and Confirm, Decline and Delete. These save right away.
 - **Request form:** the services, haircut and shampoo choices clients pick from (with separate service and style
   lists shown when someone picks Cat) (one per line; add
-  ` | short description` after a name), the intro, the note beside the Send button, and a **Pause requests** message
+  ` | short description` after a name), the intro, the pet sitting note, the note beside the Send button, and a **Pause requests** message
   that replaces the form while she's booked up
-- **Policies & payment:** late, no-show and cancellation policies, accepted payment methods, tip note
+- **Policies & payment:** late, no-show, cancellation, matting, vaccination and flea policies, accepted payment
+  methods, tip note. The Fleas policy is also shown as a note in the form's Shampoo step.
 - **Photos** and **About**
 
 Until the owner saves once, the site shows the starter content built into `public/index.html`, which matches their
@@ -78,19 +79,25 @@ in `public/index.html`. It runs once on older saved settings and only replaces v
 starter text, so her own edits are kept. Version 2 (Oct 2026) updated the Large dog prices, the matting note and
 policy, and the Maintenance visit request option. Version 3 added the Vaccinations policy, the new request form
 intro and confirmation line, and the rabies-only cat requirement. Version 4 updated the header intro and the hours note,
-and added the How we answer messages note (editable under Contact & hours).
+and added the How we answer messages note (editable under Contact & hours). Version 5 (Nov 2026) updated the pet
+sitting rates (1 dog and 1 cat overnight $110, "Each additional pet +$10" in place of "4 or more pets"), kept only the
+small-animals add-on, replaced the note in the purple cat box, and added the Fleas policy.
 
 ## Appointment requests
 
-Clients fill in the **Request an appointment** form (their contact details, pet, services, haircut, shampoo, two
-preferred dates and time of day). A request is not a booking: the owner confirms by call or text. Requests are
-saved in KV, appear in the owner panel, and are deleted automatically after a year.
+Clients fill in the **Request an appointment** form and choose **Grooming** or **Pet sitting** at the top.
+Grooming asks for their contact details, pet, services, haircut, shampoo, two preferred dates and time of day.
+Pet sitting asks for their home address (for travel distance), how many dogs, cats and other animals, the pets'
+names and care notes, daytime check-ins (and how many a day) or overnight stays, preferred check-in times, and start
+and end dates. The **Request pet sitting** button in the Pet sitting section opens the form on Pet sitting.
+A request is not a booking: the owner confirms by call or text. Requests are saved in KV, appear in the owner panel
+(pet sitting requests are tagged), and are deleted automatically after a year.
 
 - **No fees:** nothing is charged online; clients pay at pickup with cash, check, Cash App or Venmo.
 - **Estimate:** when a client picks a service whose name includes "Full groom" plus a size and coat, the form shows
   the matching range from the Grooming prices table (or the cat price).
 - **Cats:** picking Cat switches to the cat services and styles, shows the cat "Type of groom" choices (which
-  drive the estimate) and requires confirming Rabies and Distemper vaccines.
+  drive the estimate) and requires confirming a current rabies vaccination.
 - **Vaccine records:** a step in the form. Dog owners say whether their dog is up to date (if not, they're told
   they'll sign a consent form at drop-off); cat owners must confirm a current rabies vaccination. Either can upload
   up to 3 photos or PDFs (10 MB each; phone photos are shrunk first) or choose to bring them to the shop. Files are

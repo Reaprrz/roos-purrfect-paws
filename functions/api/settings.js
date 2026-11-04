@@ -13,7 +13,7 @@ const TEXT_FIELDS = {
   payments: 400, tipNote: 200, policyNote: 1200,
   // appointment request form
   reqIntro: 800, reqServices: 2000, reqHaircuts: 2000, reqShampoos: 2000, reqNext: 800, reqPaused: 800,
-  reqCatServices: 2000, reqCatHaircuts: 2000, reqVaxDog: 800, reqVaxCat: 800,
+  reqCatServices: 2000, reqCatHaircuts: 2000, reqVaxDog: 800, reqVaxCat: 800, reqSitIntro: 800,
   // dog grooming schedule + cat grooming
   groomSchedule: 3000, catIntro: 600, catRequire: 600, catIncludes: 2000, catNotes: 2000,
   catSpaName: 120, catSpaPrice: 60, catSpaIncludes: 1000, catSpaNote: 400,

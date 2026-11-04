@@ -1,7 +1,7 @@
 import { json, isOwner, missingBindings } from "../../lib/auth.js";
 import { MAX_FILES, MAX_FILE_BYTES, MAX_UPLOAD_BYTES, recordKey, sniff, safeName, deleteRecords } from "../../lib/records.js";
 
-// Appointment requests from the website's "Request an appointment" form.
+// Grooming and pet sitting requests from the website's "Request an appointment" form.
 //   POST   /api/requests              anyone   → saves a new request (validated, spam-guarded, rate limited).
 //                                              JSON, or multipart with a "data" JSON field plus up to 3 "records" files
 //   GET    /api/requests              owner    → newest requests first
@@ -31,13 +31,36 @@ function day(v) {
   return /^\d{4}-\d{2}-\d{2}$/.test(v) ? v : "";
 }
 
+const PET_COUNTS = ["0", "1", "2", "3", "4", "5", "6+"];
+
 function clean(b) {
-  return {
+  const type = oneOf(b.type, ["groom", "sit"]) || "groom";
+  const base = {
+    type,
     name: str(b.name, 80),
     phone: str(b.phone, 30),
     email: str(b.email, 120),
     contact: oneOf(b.contact, ["call", "text", "email"]) || "call",
-    pet: str(b.pet, 60),
+    pet: str(b.pet, 120),
+    petNotes: str(b.petNotes, 1000),
+    notes: str(b.notes, 1000),
+  };
+  if (type === "sit") {
+    return {
+      ...base,
+      address: str(b.address, 200),
+      dogs: oneOf(b.dogs, PET_COUNTS) || "0",
+      cats: oneOf(b.cats, PET_COUNTS) || "0",
+      others: str(b.others, 120),
+      sitVisit: oneOf(b.sitVisit, ["day", "overnight"]),
+      sitCheckins: oneOf(b.sitCheckins, ["1", "2", "3"]),
+      sitStart: day(b.sitStart),
+      sitEnd: day(b.sitEnd),
+      sitTimes: list(b.sitTimes, 4, 20),
+    };
+  }
+  return {
+    ...base,
     species: oneOf(b.species, ["dog", "cat"]) || "dog",
     breed: str(b.breed, 80),
     size: str(b.size, 80),
@@ -47,7 +70,6 @@ function clean(b) {
     dogVax: oneOf(b.dogVax, ["yes", "no", "unsure"]),
     recordsPlan: oneOf(b.recordsPlan, ["upload", "bring"]),
     firstVisit: oneOf(b.firstVisit, ["yes", "no"]),
-    petNotes: str(b.petNotes, 600),
     services: list(b.services, 20, 80),
     haircut: str(b.haircut, 80),
     haircutNotes: str(b.haircutNotes, 500),
@@ -55,7 +77,6 @@ function clean(b) {
     date1: day(b.date1),
     date2: day(b.date2),
     times: list(b.times, 4, 20),
-    notes: str(b.notes, 1000),
     estimate: str(b.estimate, 80),
   };
 }
@@ -65,6 +86,16 @@ function problems(r) {
   if (!r.name) out.push("your name");
   if (r.phone.replace(/\D/g, "").length < 10) out.push("a phone number with area code");
   if (r.contact === "email" && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(r.email)) out.push("an email address");
+  if (r.type === "sit") {
+    if (!r.address) out.push("your home address");
+    if (r.dogs === "0" && r.cats === "0" && !r.others) out.push("how many pets we'll be caring for");
+    if (!r.pet) out.push("your pets' names");
+    if (!r.sitVisit) out.push("daytime check-ins or overnight stays");
+    if (!r.sitStart) out.push("a start date");
+    if (!r.sitEnd) out.push("an end date");
+    else if (r.sitStart && r.sitEnd < r.sitStart) out.push("an end date on or after the start date");
+    return out;
+  }
   if (!r.pet) out.push("your pet's name");
   if (!r.services.length) out.push("at least one service");
   if (r.species === "cat" && !r.catVax) out.push("a check that your cat's rabies vaccine is current");
@@ -112,9 +143,10 @@ export async function onRequestPost(context) {
   if (str(body.website, 200) || (typeof body.elapsed === "number" && body.elapsed < 3000)) {
     return json({ ok: true });
   }
-  if (body.agree !== true) return json({ error: "Please confirm you've read our policies." }, 400);
-
   const r = clean(body);
+  if (body.agree !== true) {
+    return json({ error: r.type === "sit" ? "Please confirm you've read the pet sitting rates." : "Please confirm you've read our policies." }, 400);
+  }
   const missing = problems(r);
   if (r.recordsPlan === "upload" && !uploads.length) missing.push("your vaccine record files (or choose to bring them in)");
   if (missing.length) return json({ error: "Please add " + missing.join(", ") + "." }, 400);
@@ -122,7 +154,7 @@ export async function onRequestPost(context) {
   // Vaccine records: photos or PDFs only, checked by their contents
   if (uploads.length > MAX_FILES) return json({ error: "Please attach up to " + MAX_FILES + " files." }, 400);
   const files = [];
-  if (r.recordsPlan === "upload") {
+  if (r.type !== "sit" && r.recordsPlan === "upload") {
     for (const f of uploads) {
       if (f.size > MAX_FILE_BYTES) return json({ error: "\"" + safeName(f.name, "").slice(0, -1) + "\" is over 10 MB. Please attach a smaller photo or PDF." }, 413);
       const buf = await f.arrayBuffer();
@@ -156,8 +188,8 @@ export async function onRequestPost(context) {
     const server = (env.NTFY_URL || "https://ntfy.sh").replace(/\/+$/, "");
     later(context, fetch(server + "/" + encodeURIComponent(env.NTFY_TOPIC), {
       method: "POST",
-      headers: { Title: "New appointment request", Tags: "dog", Priority: "high" },
-      body: "Someone sent an appointment request on your website. Open the owner panel to see it.",
+      headers: { Title: r.type === "sit" ? "New pet sitting request" : "New appointment request", Tags: r.type === "sit" ? "house" : "dog", Priority: "high" },
+      body: "Someone sent a " + (r.type === "sit" ? "pet sitting" : "grooming") + " request on your website. Open the owner panel to see it.",
     }));
   }
 
