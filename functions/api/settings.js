@@ -12,7 +12,7 @@ const TEXT_FIELDS = {
   sitIntro: 800, sitIncluded: 800, sitNote: 1200,
   payments: 400, tipNote: 200, policyNote: 1200,
   // Square: booking page, card surcharge, payment links
-  bookUrl: 500, bookNote: 400, cardFee: 20,
+  bookUrl: 500, bookNote: 400, cardFee: 20, reqIntroSq: 800,
   // appointment request form
   reqIntro: 800, reqServices: 2000, reqHaircuts: 2000, reqShampoos: 2000, reqNext: 800, reqPaused: 800,
   reqCatServices: 2000, reqCatHaircuts: 2000, reqVaxDog: 800, reqVaxCat: 800, reqSitIntro: 800,

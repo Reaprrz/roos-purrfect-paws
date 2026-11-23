@@ -67,7 +67,9 @@ Everything the owner can change lives in the edit panel, grouped into sections:
 - **Square: booking & payments:** the Square Appointments booking page link (shows **Book online** buttons in the
   header, appointment card and request section), the note beside it, the credit card surcharge (shown in the
   We accept box; leave empty for none) and **Pay online** buttons that open Square payment links (e.g. a deposit).
-  Each part stays hidden until it's filled in. Only `https://` links are accepted.
+  Each part stays hidden until it's filled in. Only `https://` links are accepted. Once the booking link is set,
+  grooming is booked entirely on Square: the request section's Grooming option shows a "Book your groom on Square"
+  box (with the vaccine reminder) instead of the form, and the website form is used for pet sitting only.
 - **Policies & payment:** late, no-show, cancellation, matting, vaccination and flea policies, accepted payment
   methods, tip note. The Fleas policy is also shown as a note in the form's Shampoo step.
 - **Photos** and **About**

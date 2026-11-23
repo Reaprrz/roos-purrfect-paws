@@ -306,6 +306,17 @@ table.rates td+td{font-weight:900;color:var(--pink);font-size:18px}
 .sqbook h3{margin:0;font-family:var(--display);font-weight:400;font-size:24px;color:var(--plum);line-height:1.2}
 .sqbook p{margin:4px 0 0;font-size:15px;color:var(--plum-mut)}
 .sqbook .exa-line{font-size:13px;font-weight:800;color:var(--lav-deep)}
+.sqpanel{padding:22px 0 4px}
+.sqtop{display:flex;align-items:center;gap:14px}
+.sqtop h3{margin:0;font-family:var(--display);font-weight:400;font-size:25px;line-height:1.2;color:var(--plum)}
+.sqtop p{margin:4px 0 0;font-size:15px;color:var(--plum-mut)}
+.sqsteps{list-style:none;margin:18px 0;padding:0;display:grid;gap:10px;counter-reset:sq}
+.sqsteps li{display:flex;align-items:center;gap:12px;font-weight:800;counter-increment:sq}
+.sqsteps li:before{content:counter(sq);flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--blush);color:var(--pink);font-weight:900;font-size:14px}
+.sqpanel .sqgo{width:100%;min-height:54px;font-size:18px}
+.sqpanel .exa-line{margin:8px 0 0;font-size:13px;font-weight:800;color:var(--lav-deep)}
+.sqpanel .vaxdone{margin:18px 0 0;font-size:14px}
+.sqsit{margin:14px 0 0;font-size:14px;color:var(--plum-mut);font-weight:700}
 .sqi{flex:none;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--pink);color:var(--white)}
 .sqi svg{width:24px;height:24px}
 .tip{margin-top:16px;background:var(--white);border:2px dashed var(--pink-soft);border-radius:999px;padding:10px 16px;text-align:center;font-weight:900;color:var(--pink)}
@@ -822,6 +833,7 @@ var DEFAULTS={
   cardFee:"",
   bookUrl:"",
   bookNote:"See open times on our calendar and book your groom in a few taps.",
+  reqIntroSq:"Book your dog or cat's groom online through Square, or send us a request for pet sitting.",
   payLinks:[],
   tipNote:"Tips are greatly appreciated!",
   policies:[
@@ -1282,7 +1294,7 @@ function careText(r){
 }
 
 function kindHTML(){
-  var k=[['groom','Grooming','Dogs and cats at our salon',I_SCISSORS],['sit','Pet sitting','Check-ins or overnights at your home',I_HOME]];
+  var k=[['groom','Grooming',sq().book?'Book online through Square':'Dogs and cats at our salon',I_SCISSORS],['sit','Pet sitting','Check-ins or overnights at your home',I_HOME]];
   return '<div class="kind">'+k.map(function(o,i){var id='rq_type_'+i;
     return '<div class="o"><input type="radio" id="'+id+'" name="type" value="'+o[0]+'"'+(REQ.type===o[0]?' checked':'')+'><label for="'+id+'"><span class="ki">'+o[3]+'</span><span><b>'+o[1]+'</b><small>'+o[2]+'</small></span></label></div>'}).join('')+'</div>';
 }
@@ -1306,10 +1318,11 @@ function requestInner(){
     return '<div class="rq-paused"><h3>Requests are paused</h3><p>'+esc(S.reqPaused)+'</p>'+(S.phone?'<a class="btn" href="'+telHref(S.phone)+'">'+I_PHONE+'Call '+esc(S.phone)+'</a>':'')+'</div>';
   }
   if(REQ_SENT)return doneHTML(REQ_SENT);
-  var sit=REQ.type==='sit',min=todayISO(),step=0,num=function(){return '<span class="num">'+(++step)+'</span>'};
-  return '<form class="rq-card" id="rqForm" novalidate>'+
-   '<fieldset class="kindset"><legend>What would you like to request?</legend>'+kindHTML()+
-     (sit&&S.reqSitIntro?'<p class="hint-line kind-hint">'+esc(S.reqSitIntro)+'</p>':'')+'</fieldset>'+
+  var sit=REQ.type==='sit',min=todayISO(),step=0,num=function(){return '<span class="num">'+(++step)+'</span>'},q=sq();
+  var kind='<fieldset class="kindset"><legend>What would you like to '+(q.book?'book':'request')+'?</legend>'+kindHTML()+
+     (sit&&S.reqSitIntro?'<p class="hint-line kind-hint">'+esc(S.reqSitIntro)+'</p>':'')+'</fieldset>';
+  if(!sit&&q.book)return '<form class="rq-card" id="rqForm" novalidate>'+kind+squareGroomHTML(q)+'</form>';
+  return '<form class="rq-card" id="rqForm" novalidate>'+kind+
    '<fieldset><legend>'+num()+'About you</legend><div class="fgrid">'+
      '<div class="fld"><label for="rq_name">Your name</label><input type="text" id="rq_name" name="name" autocomplete="name" value="'+esc(REQ.name)+'" required></div>'+
      '<div class="fld"><label for="rq_phone">Phone</label><input type="tel" id="rq_phone" name="phone" autocomplete="tel" inputmode="tel" placeholder="(440) 555-0123" value="'+esc(REQ.phone)+'" required></div>'+
@@ -1324,6 +1337,16 @@ function requestInner(){
    '<div class="rq-err" id="rqErr" role="alert" hidden></div>'+
    '<div class="rq-send"><button class="btn" type="submit" id="rqSend">'+I_CAL+'Send request</button><p>'+esc(S.reqNext)+'</p></div>'+
   '</form>';
+}
+/* grooming is booked on Square once a booking link is set; the website form is then used for pet sitting */
+function squareGroomHTML(q){
+  var steps=['Pick your dog or cat\'s services','Choose a groomer, or anyone available','Pick a day and time that works for you'];
+  return '<div class="sqpanel"><div class="sqtop"><span class="sqi">'+I_CAL+'</span><div><h3>Book your groom on Square</h3><p>'+esc(S.bookNote)+'</p></div></div>'+
+    '<ol class="sqsteps">'+steps.map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ol>'+
+    '<a class="btn sqgo" '+extA(q.book,q.bookEx)+'>'+I_LINK+'Book on Square</a>'+
+    (q.bookEx?'<p class="exa-line">Preview: this button opens your Square booking page once its link is in the owner panel.</p>':'')+
+    '<p class="vaxdone">'+I_SYRINGE+'<span>'+esc(S.reqVaxCat)+' '+(S.phone?'Text a photo of your pet\'s vaccine records to '+esc(S.phone)+', or bring them to your appointment.':'Please bring your pet\'s vaccine records to your appointment.')+'</span></p>'+
+    '<p class="sqsit">Going out of town? Choose <b>Pet sitting</b> above to send us a request.</p></div>';
 }
 function sitSteps(num,min){
   var sel=function(n,label){return '<div class="fld"><label for="rq_'+n+'">'+label+'</label><select id="rq_'+n+'" name="'+n+'">'+PET_COUNTS.map(function(c){return '<option value="'+c+'"'+(REQ[n]===c?' selected':'')+'>'+c+'</option>'}).join('')+'</select></div>'};
@@ -1440,17 +1463,16 @@ function vaxDoneHTML(r){
   return t?'<p class="vaxdone">'+I_SYRINGE+'<span>'+t+'</span></p>':'';
 }
 function howHTML(){
-  var steps=REQ.type==='sit'
+  var steps=REQ.type!=='sit'&&sq().book
+    ?['Pick your services, groomer and time on our Square booking page.','We confirm your appointment.','Bring your pet in and pay the rest at pickup.']
+    :REQ.type==='sit'
     ?['Send this request with your pets and the dates you\'ll be away.','We '+(S.phone?'text or call you':'reach out')+' to talk through the details and confirm.','We care for your pets at home while you\'re away.']
     :['Send this request with your pet\'s details and vaccine records.','We '+(S.phone?'call or text you':'reach out')+' to discuss availability and confirm your appointment.','Bring your pet in. Pay at pickup.'];
   return '<div class="how" id="rqHow"><h3>How it works</h3><ol>'+steps.map(function(s){return '<li><span>'+esc(s)+'</span></li>'}).join('')+'</ol></div>';
 }
 function requestHTML(){
   var q=sq();
-  return '<section class="block request" id="request"><div class="wrap"><div class="head"><h2><span class="kicker">Grooming &amp; pet sitting</span>Request an <em>appointment</em></h2><p>'+esc(S.reqIntro)+'</p></div>'+
-    (q.book?'<div class="sqbook"><span class="sqi">'+I_CAL+'</span><div><h3>Book grooming online</h3><p>'+esc(S.bookNote)+' Or use the request form below.</p>'+
-      (q.bookEx?'<p class="exa-line">Preview: this button opens your Square booking page once you paste its link in the owner panel.</p>':'')+'</div>'+
-      '<a class="btn" '+extA(q.book,q.bookEx)+'>'+I_LINK+'Book online</a></div>':'')+
+  return '<section class="block request" id="request"><div class="wrap"><div class="head"><h2><span class="kicker">Grooming &amp; pet sitting</span>'+(q.book?'Book an':'Request an')+' <em>appointment</em></h2><p>'+esc(q.book?(S.reqIntroSq||S.reqIntro):S.reqIntro)+'</p></div>'+
     '<div class="rq-grid"><div id="rqSlot">'+requestInner()+'</div>'+
     '<aside class="rq-side">'+howHTML()+
     (S.phone?'<div class="callbox"><h3>Prefer to text?</h3><p>Texting is the best way to reach us. We reply between appointments, early in the morning or after the grooming day wraps up.</p><a class="btn" href="'+smsHref(S.phone)+'">'+I_TEXT+'Text '+esc(S.phone)+'</a></div>':'')+
@@ -1595,7 +1617,7 @@ function render(){
   if(S.phone)card+='<div><dt>Phone</dt><dd><a href="'+telHref(S.phone)+'">'+esc(S.phone)+'</a></dd></div>';
   var txt=S.phone?'<a href="'+smsHref(S.phone)+'">text</a>':'text',cl=S.phone?'<a href="'+telHref(S.phone)+'">call</a>':'call';
   var paused=S.reqPaused&&S.reqPaused.trim();
-  card+='<div><dt>Booking</dt><dd>'+(q.book?'<a '+extA(q.book,q.bookEx)+'>Book online</a>, '+(paused?'':'<a href="#request">request</a>, ')+txt+' or '+cl:(paused?'Text or call':'<a href="#request">Request online</a>, '+txt+' or '+cl))+'</dd></div>';
+  card+='<div><dt>Booking</dt><dd>'+(q.book?'<a '+extA(q.book,q.bookEx)+'>Book online</a>, '+txt+' or '+cl:(paused?'Text or call':'<a href="#request">Request online</a>, '+txt+' or '+cl))+'</dd></div>';
   if(S.address)card+='<div><dt>Where</dt><dd><a href="'+esc(mapHref(S.address))+'" target="_blank" rel="noopener">'+esc(S.address)+'</a></dd></div>';
   var hl=lines(S.hours);
   if(hl.length)card+='<div><dt>Hours</dt><dd>'+esc(hl[0])+(hl.length>1?' <a href="#visit">+ more</a>':'')+'</dd></div>';
@@ -1636,7 +1658,7 @@ function render(){
   '<section class="block about" id="about"><div class="wrap"><div class="about-art"><div class="blob"></div><div class="blob b2"></div>'+(aboutImg?'<img src="'+esc(aboutImg)+'" alt="Inside '+esc(S.name)+'">':'<svg class="paw" viewBox="0 0 64 64" aria-hidden="true">'+PAWG+'</svg>')+'</div>'+
     '<div class="about-text"><div class="head"><h2>About <em>'+esc(S.name)+'</em></h2></div><p>'+esc(S.about)+'</p></div></div></section>'+
   teamHTML()+
-  '<section class="block visit" id="visit"><div class="wrap"><div class="head"><h2>Come <em>see us</em></h2><p>'+(q.book?'Book grooming online, or text, call or send us a request for grooming or pet sitting.':'Text, call or send a request online to book grooming or pet sitting.')+'</p></div>'+(lines(S.contactNote).length?'<div class="msgnote">'+I_TEXT+'<div><h3>How we answer messages</h3>'+paras(S.contactNote)+'</div></div>':'')+visit+(soc?'<div class="socials">'+soc+'</div>':'')+'</div></section>'+
+  '<section class="block visit" id="visit"><div class="wrap"><div class="head"><h2>Come <em>see us</em></h2><p>'+(q.book?'Book grooming online, text or call us, or send a request for pet sitting.':'Text, call or send a request online to book grooming or pet sitting.')+'</p></div>'+(lines(S.contactNote).length?'<div class="msgnote">'+I_TEXT+'<div><h3>How we answer messages</h3>'+paras(S.contactNote)+'</div></div>':'')+visit+(soc?'<div class="socials">'+soc+'</div>':'')+'</div></section>'+
   '</main>'+
   '<footer><div class="wrap"><span>&copy; '+new Date().getFullYear()+' '+esc(S.name)+' · Sheffield Lake, Ohio</span><button type="button" id="ownerBtn">Owner login</button></div></footer>';
 }
@@ -1724,7 +1746,8 @@ function editView(){
   sec('Pet sitting',field('sitIntro','Intro',{area:1,rows:2})+'<label>How visits work</label>'+listSlot('sitVisits')+'<label>Rates <span class="hint">(rows with the same group show together)</span></label>'+listSlot('sitRows')+
     field('sitIncluded','What every visit covers',{area:1,rows:2})+'<label>Add-ons</label>'+listSlot('sitAddons')+field('sitNote','Note at the bottom',{area:1,rows:3}))+
   sec('Square: booking &amp; payments','<p class="help">Paste links from your Square Dashboard. Anything left empty stays hidden on the site.</p>'+
-    field('bookUrl','Square booking page link',{hint:'(Appointments → Online booking → Channels → Get URL)'})+field('bookNote','Note beside the Book online button',{area:1,rows:2})+
+    field('bookUrl','Square booking page link',{hint:'(Appointments → Online booking → Channels → Get URL. Once it\'s here, grooming is booked on Square and the website form is for pet sitting only.)'})+
+    field('bookNote','Note on the Book on Square box',{area:1,rows:2})+field('reqIntroSq','Intro for the booking section',{area:1,rows:2,hint:'(used while the Square link is set)'})+
     field('cardFee','Credit card surcharge',{hint:'(e.g. 3%. Use the same rate you set in Square; leave empty for no surcharge)'})+
     '<label>Pay online buttons <span class="hint">(Payments → Payment links in Square)</span></label>'+listSlot('payLinks'))+
   sec('Policies & payment',listSlot('policies')+'<p class="help">In a policy, start a new line for a second paragraph.</p>'+field('policyNote','Note under the policies',{area:1,rows:3})+
