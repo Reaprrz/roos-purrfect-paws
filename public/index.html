@@ -293,7 +293,21 @@ table.rates td+td{font-weight:900;color:var(--pink);font-size:18px}
 .pay h3{font-family:var(--display);font-weight:400;font-size:30px;color:var(--pink);margin:0 0 4px}
 .pay p{margin:0 0 16px;color:var(--plum-mut);font-size:15px}
 .methods{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.methods li{background:var(--white);border-radius:16px;padding:14px;text-align:center;font-weight:900;font-size:18px;color:var(--lav-deep);border:1.5px solid var(--line)}
+.methods li{display:grid;place-items:center;background:var(--white);border-radius:16px;padding:12px 10px;text-align:center;font-weight:900;font-size:16px;line-height:1.25;color:var(--lav-deep);border:1.5px solid var(--line)}
+.cardfee{display:flex;gap:10px;align-items:flex-start;margin:14px 0 0!important;font-size:14px!important;font-weight:700;color:var(--plum)!important;line-height:1.45}
+.cardfee svg{flex:none;width:18px;height:18px;color:var(--pink);margin-top:2px}
+.payon{margin-top:16px;padding-top:14px;border-top:2px dashed var(--pink-soft);display:grid;gap:6px}
+.payon h4{margin:0 0 4px;font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:900;color:var(--lav-deep)}
+.payon .btn{width:100%}
+.payon small{display:block;font-size:13px;font-weight:700;color:var(--plum-mut);text-align:center;margin-bottom:4px}
+.exa{font-style:normal;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:900;color:var(--lav-deep);background:var(--lav);border-radius:999px;padding:2px 8px;white-space:nowrap}
+.sqbook{display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px;background:var(--white);border:1.5px solid var(--line);border-radius:24px;padding:18px 22px;margin:-6px 0 24px;box-shadow:0 24px 50px -40px rgba(59,36,72,.5)}
+.sqbook>div{flex:1 1 260px;min-width:0}
+.sqbook h3{margin:0;font-family:var(--display);font-weight:400;font-size:24px;color:var(--plum);line-height:1.2}
+.sqbook p{margin:4px 0 0;font-size:15px;color:var(--plum-mut)}
+.sqbook .exa-line{font-size:13px;font-weight:800;color:var(--lav-deep)}
+.sqi{flex:none;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--pink);color:var(--white)}
+.sqi svg{width:24px;height:24px}
 .tip{margin-top:16px;background:var(--white);border:2px dashed var(--pink-soft);border-radius:999px;padding:10px 16px;text-align:center;font-weight:900;color:var(--pink)}
 
 /* about */
@@ -699,7 +713,7 @@ section.block.request{padding-block:96px}
 var MATTING_POLICY={title:"Matted coats",body:"Your pet's comfort and safety always come first at Roo's Purrfect Paws. An additional matting fee of $15–$50 may apply, depending on the severity of the matting and the time and care required for removal.\nSeverely matted coats may require a close shave rather than brushing to avoid unnecessary pain and stress. If your dog is extremely matted, you will be required to sign a grooming consent form acknowledging the increased risk of nicks or cuts, redness, skin irritation, bruising, and ear hematomas (swelling caused by blood collecting in the ear flap).\nRemoving matting may also reveal sores or pre-existing skin conditions hidden beneath the coat. We reserve the right to stop or decline grooming if we determine it cannot be completed safely and may require your pet to be seen by a veterinarian before grooming can proceed."};
 var VAX_POLICY={title:"Vaccinations",body:"At Roo's Purrfect Paws, the health and safety of your pets and our team are a priority! We strongly recommend that all dogs and cats stay up to date on their veterinarian-recommended vaccinations to help protect the animals in our care and support a safe, healthy grooming environment.\nFor dogs, these include rabies, Bordetella, and DHPP/DAPP. For cats, these include rabies and FVRCP. Vaccines help prevent serious diseases and may reduce the severity of illness, but they do not guarantee complete protection or replace proper cleaning and sanitation.\nOur cat groomer requires all cats to have a current rabies vaccination, with proof provided before grooming; this requirement cannot be waived. Vaccinations are recommended for dog grooming but are not required under our salon policy.\nIf your pet is not current on recommended vaccinations, please notify us before your appointment. You will need to sign a consent form acknowledging the risks of exposure to contagious illnesses in a shared grooming environment. To help protect everyone, please reschedule if your pet is showing signs of illness."};
 var FLEA_POLICY={title:"Fleas",body:"If fleas are found on your pet, they will receive a flea bath with no other services and will need to be picked up immediately."};
-var CONTENT_VERSION="5";
+var CONTENT_VERSION="6";
 var DEFAULTS={
   contentVersion:CONTENT_VERSION,
   name:"Roo's Purrfect Paws",
@@ -804,7 +818,11 @@ var DEFAULTS={
   reqVaxDog:"Rabies, Bordetella and DHPP/DAPP are recommended for dogs but not required.",
   reqVaxCat:"All cats must have a current rabies vaccination, with proof provided before grooming. FVRCP is also recommended.",
   reqPaused:"",
-  payments:"Cash\nCheck\nCash App\nVenmo",
+  payments:"Cash\nCheck\nCredit & debit cards\nApple Pay & Google Pay\nCash App\nVenmo",
+  cardFee:"",
+  bookUrl:"",
+  bookNote:"See open times on our calendar and book your groom in a few taps.",
+  payLinks:[],
   tipNote:"Tips are greatly appreciated!",
   policies:[
     {title:"Running late",body:"Once you're 10 minutes late there's a $20 late fee, plus $10 for every 10 minutes after that.\nCall at least 15 minutes before your appointment to let us know you'll be late and we'll skip the $20 fee. Only the $10 charges apply."},
@@ -835,6 +853,7 @@ var LISTS={
   catStyles:{add:'style',fields:[['name','Style'],['price','Price','text','$60'],['note','Note (optional)']]},
   catAddons:{add:'add-on',fields:[['name','Add-on'],['price','Price','text','$5'],['note','Note (optional)']]},
   catFees:{add:'fee',fields:[['name','Fee'],['price','Price','text','from $15'],['note','Note (optional)']]},
+  payLinks:{add:'payment link',fields:[['label','Button text','text','e.g. Pay a deposit'],['url','Square payment link','text','https://square.link/u/…'],['note','Note under the button (optional)']]},
   groomers:{add:'groomer',photo:'img',fields:[['name','Name'],['role','Title','text','e.g. Owner & groomer'],['bio','A few words about her','area']]}
 };
 /* example groomers, shown only in previews (never on the live site) so the empty section can be seen */
@@ -1153,6 +1172,21 @@ function sittingHTML(){
     '<div class="sit-cta"><div class="kitty" aria-hidden="true">'+CAT+'</div><p>'+esc(S.sitNote)+'</p><a class="btn" href="#request" data-reqtype="sit">'+I_CAL+'Request pet sitting</a></div></div></section>';
 }
 
+function safeLink(v){v=url(v);return /^https:\/\/[^\s"'<>]+$/i.test(v)?v:''}
+var I_CARD=ico('<rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6.5 15h4"/>');
+var I_LINK=ico('<path d="M14 4h6v6M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>',2.2);
+function feeText(f){f=String(f||'').trim();return /^\d+(\.\d+)?$/.test(f)?f+'%':f}
+/* Square booking link, payment links and card surcharge. Previews show labeled examples so the layout can be seen. */
+function sq(){
+  var ex=!LIVE&&SHOW_EXAMPLES;
+  var links=arr(S.payLinks).filter(function(l){return l&&(l.label||'').trim()&&safeLink(l.url)}).map(function(l){return {label:l.label,url:safeLink(l.url),note:l.note||''}});
+  return {
+    book:safeLink(S.bookUrl)||(ex?'#request':''),bookEx:ex&&!safeLink(S.bookUrl),
+    fee:feeText(S.cardFee)||(ex?'3%':''),feeEx:ex&&!feeText(S.cardFee),
+    links:links.length?links:(ex?[{label:'Pay a deposit',url:'#policies',note:'Example: paste a Square payment link in the owner panel.'}]:[]),linksEx:ex&&!links.length
+  };
+}
+function extA(href,ex){return ex?'href="'+esc(href)+'"':'href="'+esc(href)+'" target="_blank" rel="noopener"'}
 function initials(n){var w=String(n||'').replace(/[^A-Za-z\s'-]/g,'').trim().split(/\s+/).filter(Boolean);return ((w[0]||'')[0]||'').toUpperCase()+((w.length>1?w[w.length-1][0]:'')||'').toUpperCase()}
 function teamList(){
   var list=arr(S.groomers).filter(function(g){return g&&(g.name||'').trim()});
@@ -1173,11 +1207,14 @@ function teamHTML(){
 
 function policiesHTML(){
   var pol=arr(S.policies).filter(function(p){return p&&p.title});
-  var pays=lines(S.payments);
+  var pays=lines(S.payments),q=sq();
   return '<section class="block" id="policies"><div class="wrap"><div class="head"><h2><span class="kicker">Before your visit</span>Policies &amp; <em>payment</em></h2></div><div class="gtk">'+
     '<div><div class="policies">'+pol.map(function(p,i){return '<article class="policy"'+(/vaccin/i.test(p.title)?' id="vaccinations"':'')+'><div class="ic">'+polIcon(p.title,i)+'</div><div><h3>'+esc(p.title)+'</h3>'+paras(p.body)+'</div></article>'}).join('')+'</div>'+
     (S.policyNote?'<p class="pol-note">'+esc(S.policyNote)+'</p>':'')+'</div>'+
-    (pays.length?'<aside class="pay"><h3>We accept</h3><p>Pay at pickup with any of these.</p><ul class="methods">'+pays.map(function(m){return '<li>'+esc(m)+'</li>'}).join('')+'</ul>'+(S.tipNote?'<div class="tip">'+esc(S.tipNote)+'</div>':'')+'</aside>':'')+
+    (pays.length||q.links.length?'<aside class="pay"><h3>We accept</h3>'+(pays.length?'<p>Pay at pickup with any of these.</p><ul class="methods">'+pays.map(function(m){return '<li>'+esc(m)+'</li>'}).join('')+'</ul>':'')+
+      (q.fee?'<p class="cardfee">'+I_CARD+'<span>Credit cards have a '+esc(q.fee)+' surcharge. There\'s no surcharge on debit cards or any other payment method.'+(q.feeEx?' <em class="exa">Example rate</em>':'')+'</span></p>':'')+
+      (q.links.length?'<div class="payon"><h4>Pay online</h4>'+q.links.map(function(l){return '<a class="btn sm" '+extA(l.url,q.linksEx)+'>'+I_CARD+esc(l.label)+'</a>'+(l.note?'<small>'+esc(l.note)+'</small>':'')}).join('')+'</div>':'')+
+      (S.tipNote?'<div class="tip">'+esc(S.tipNote)+'</div>':'')+'</aside>':'')+
   '</div></div></section>';
 }
 
@@ -1409,7 +1446,11 @@ function howHTML(){
   return '<div class="how" id="rqHow"><h3>How it works</h3><ol>'+steps.map(function(s){return '<li><span>'+esc(s)+'</span></li>'}).join('')+'</ol></div>';
 }
 function requestHTML(){
+  var q=sq();
   return '<section class="block request" id="request"><div class="wrap"><div class="head"><h2><span class="kicker">Grooming &amp; pet sitting</span>Request an <em>appointment</em></h2><p>'+esc(S.reqIntro)+'</p></div>'+
+    (q.book?'<div class="sqbook"><span class="sqi">'+I_CAL+'</span><div><h3>Book grooming online</h3><p>'+esc(S.bookNote)+' Or use the request form below.</p>'+
+      (q.bookEx?'<p class="exa-line">Preview: this button opens your Square booking page once you paste its link in the owner panel.</p>':'')+'</div>'+
+      '<a class="btn" '+extA(q.book,q.bookEx)+'>'+I_LINK+'Book online</a></div>':'')+
     '<div class="rq-grid"><div id="rqSlot">'+requestInner()+'</div>'+
     '<aside class="rq-side">'+howHTML()+
     (S.phone?'<div class="callbox"><h3>Prefer to text?</h3><p>Texting is the best way to reach us. We reply between appointments, early in the morning or after the grooming day wraps up.</p><a class="btn" href="'+smsHref(S.phone)+'">'+I_TEXT+'Text '+esc(S.phone)+'</a></div>':'')+
@@ -1543,7 +1584,8 @@ function render(){
   var fbUrl=url(S.facebook);
   var hero=safeImg(S.heroImg), aboutImg=safeImg(S.aboutImg);
   var ctas='';
-  ctas+='<a class="btn" href="#request">'+I_CAL+'Request an appointment</a>';
+  var q=sq();
+  ctas+=q.book?'<a class="btn" '+extA(q.book,q.bookEx)+'>'+I_CAL+'Book online</a>':'<a class="btn" href="#request">'+I_CAL+'Request an appointment</a>';
   if(S.phone)ctas+='<a class="btn ghost half" href="'+smsHref(S.phone)+'">'+I_TEXT+'Text us</a><a class="btn ghost half" href="'+telHref(S.phone)+'">'+I_PHONE+'Call</a>';
   if(fbUrl)ctas+='<a class="btn ghost social" href="'+esc(fbUrl)+'" target="_blank" rel="noopener">'+I_FB+'Facebook</a>';
   if(igUrl)ctas+='<a class="btn ghost social" href="'+esc(igUrl)+'" target="_blank" rel="noopener">'+I_IG+'Instagram</a>';
@@ -1552,7 +1594,8 @@ function render(){
   var card='<div class="card"><h3><span>Appointment card</span><span aria-hidden="true">✂</span></h3><dl>';
   if(S.phone)card+='<div><dt>Phone</dt><dd><a href="'+telHref(S.phone)+'">'+esc(S.phone)+'</a></dd></div>';
   var txt=S.phone?'<a href="'+smsHref(S.phone)+'">text</a>':'text',cl=S.phone?'<a href="'+telHref(S.phone)+'">call</a>':'call';
-  card+='<div><dt>Booking</dt><dd>'+(S.reqPaused&&S.reqPaused.trim()?'Text or call':'<a href="#request">Request online</a>, '+txt+' or '+cl)+'</dd></div>';
+  var paused=S.reqPaused&&S.reqPaused.trim();
+  card+='<div><dt>Booking</dt><dd>'+(q.book?'<a '+extA(q.book,q.bookEx)+'>Book online</a>, '+(paused?'':'<a href="#request">request</a>, ')+txt+' or '+cl:(paused?'Text or call':'<a href="#request">Request online</a>, '+txt+' or '+cl))+'</dd></div>';
   if(S.address)card+='<div><dt>Where</dt><dd><a href="'+esc(mapHref(S.address))+'" target="_blank" rel="noopener">'+esc(S.address)+'</a></dd></div>';
   var hl=lines(S.hours);
   if(hl.length)card+='<div><dt>Hours</dt><dd>'+esc(hl[0])+(hl.length>1?' <a href="#visit">+ more</a>':'')+'</dd></div>';
@@ -1593,7 +1636,7 @@ function render(){
   '<section class="block about" id="about"><div class="wrap"><div class="about-art"><div class="blob"></div><div class="blob b2"></div>'+(aboutImg?'<img src="'+esc(aboutImg)+'" alt="Inside '+esc(S.name)+'">':'<svg class="paw" viewBox="0 0 64 64" aria-hidden="true">'+PAWG+'</svg>')+'</div>'+
     '<div class="about-text"><div class="head"><h2>About <em>'+esc(S.name)+'</em></h2></div><p>'+esc(S.about)+'</p></div></div></section>'+
   teamHTML()+
-  '<section class="block visit" id="visit"><div class="wrap"><div class="head"><h2>Come <em>see us</em></h2><p>Text, call or send a request online to book grooming or pet sitting.</p></div>'+(lines(S.contactNote).length?'<div class="msgnote">'+I_TEXT+'<div><h3>How we answer messages</h3>'+paras(S.contactNote)+'</div></div>':'')+visit+(soc?'<div class="socials">'+soc+'</div>':'')+'</div></section>'+
+  '<section class="block visit" id="visit"><div class="wrap"><div class="head"><h2>Come <em>see us</em></h2><p>'+(q.book?'Book grooming online, or text, call or send us a request for grooming or pet sitting.':'Text, call or send a request online to book grooming or pet sitting.')+'</p></div>'+(lines(S.contactNote).length?'<div class="msgnote">'+I_TEXT+'<div><h3>How we answer messages</h3>'+paras(S.contactNote)+'</div></div>':'')+visit+(soc?'<div class="socials">'+soc+'</div>':'')+'</div></section>'+
   '</main>'+
   '<footer><div class="wrap"><span>&copy; '+new Date().getFullYear()+' '+esc(S.name)+' · Sheffield Lake, Ohio</span><button type="button" id="ownerBtn">Owner login</button></div></footer>';
 }
@@ -1680,6 +1723,10 @@ function editView(){
     field('reqNext','Note beside the Send button',{area:1,rows:2}))+
   sec('Pet sitting',field('sitIntro','Intro',{area:1,rows:2})+'<label>How visits work</label>'+listSlot('sitVisits')+'<label>Rates <span class="hint">(rows with the same group show together)</span></label>'+listSlot('sitRows')+
     field('sitIncluded','What every visit covers',{area:1,rows:2})+'<label>Add-ons</label>'+listSlot('sitAddons')+field('sitNote','Note at the bottom',{area:1,rows:3}))+
+  sec('Square: booking &amp; payments','<p class="help">Paste links from your Square Dashboard. Anything left empty stays hidden on the site.</p>'+
+    field('bookUrl','Square booking page link',{hint:'(Appointments → Online booking → Channels → Get URL)'})+field('bookNote','Note beside the Book online button',{area:1,rows:2})+
+    field('cardFee','Credit card surcharge',{hint:'(e.g. 3%. Use the same rate you set in Square; leave empty for no surcharge)'})+
+    '<label>Pay online buttons <span class="hint">(Payments → Payment links in Square)</span></label>'+listSlot('payLinks'))+
   sec('Policies & payment',listSlot('policies')+'<p class="help">In a policy, start a new line for a second paragraph.</p>'+field('policyNote','Note under the policies',{area:1,rows:3})+
     field('payments','Payment methods',{area:1,rows:4,hint:'(one per line)'})+field('tipNote','Tip note'))+
   sec('Photos','<p class="help">Add before-and-after shots and happy pets. Captions are optional.</p><div class="thumbs" id="thumbs"></div><div class="prow2"><span class="btn ghost sm filebtn">+ Add photos<input type="file" id="galIn" accept="image/*" multiple></span></div>')+
@@ -1778,6 +1825,7 @@ function save(){
   data.sitAddons=data.sitAddons.filter(function(t){return (t.label||'').trim()});
   data.policies=data.policies.filter(function(t){return (t.title||'').trim()});
   ['catGrooms','catStyles','catAddons','catFees'].forEach(function(k){data[k]=data[k].filter(function(t){return (t.name||'').trim()})});
+  data.payLinks=data.payLinks.filter(function(l){return (l.label||'').trim()&&(l.url||'').trim()});
   data.groomers=data.groomers.filter(function(g){if((g.name||'').trim())return true;markDelete(g.img);return false});
   data.contentVersion=CONTENT_VERSION;
   if(!LIVE){S=data;render();status('Updated on this page. Saving turns on once the site is live on Cloudflare.','ok');return}
@@ -2104,6 +2152,9 @@ function migrate(j){
     if(j.sitIncluded==="Every check-in and overnight covers potty breaks, meals and playtime. For anything extra, see the add-ons.")j.sitIncluded=DEFAULTS.sitIncluded;
     if(j.sitNote==="Rates may be adjusted for extra tasks or cleaning, homes farther away, or stays longer than a week. Call for details and to book.")j.sitNote=DEFAULTS.sitNote;
     if(Array.isArray(j.policies)&&!j.policies.some(function(p){return p&&/flea/i.test(p.title||'')}))j.policies.push(JSON.parse(JSON.stringify(FLEA_POLICY)));
+  }
+  if(v<6){
+    if(j.payments==="Cash\nCheck\nCash App\nVenmo")j.payments=DEFAULTS.payments;
   }
   j.contentVersion=CONTENT_VERSION;
   return j;

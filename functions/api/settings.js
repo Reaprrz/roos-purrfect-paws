@@ -11,6 +11,8 @@ const TEXT_FIELDS = {
   groomIntro: 600, catPrice: 60, catNote: 200, groomIncludes: 1000, groomNotes: 2000,
   sitIntro: 800, sitIncluded: 800, sitNote: 1200,
   payments: 400, tipNote: 200, policyNote: 1200,
+  // Square: booking page, card surcharge, payment links
+  bookUrl: 500, bookNote: 400, cardFee: 20,
   // appointment request form
   reqIntro: 800, reqServices: 2000, reqHaircuts: 2000, reqShampoos: 2000, reqNext: 800, reqPaused: 800,
   reqCatServices: 2000, reqCatHaircuts: 2000, reqVaxDog: 800, reqVaxCat: 800, reqSitIntro: 800,
@@ -32,11 +34,14 @@ const LIST_FIELDS = {
   catStyles: { keep: "name", max: 20, fields: { name: 120, price: 60, note: 600 } },
   catAddons: { keep: "name", max: 40, fields: { name: 120, price: 60, note: 600 } },
   catFees: { keep: "name", max: 20, fields: { name: 120, price: 60, note: 600 } },
+  payLinks: { keep: "label", max: 6, fields: { label: 80, url: 500, note: 300 } },
   groomers: { keep: "name", max: 12, fields: { name: 80, role: 80, bio: 3000, img: 500 } },
 };
 
 // Photo links must point at an uploaded photo (or an https image), never anything else.
 const safeImg = (v) => (v.startsWith("/api/img/") || v.startsWith("https://") ? v : "");
+// Outside links (Square booking and payment pages) must be plain https links.
+const safeLink = (v) => (/^https:\/\/[^\s"'<>]+$/i.test(v.trim()) ? v.trim() : "");
 
 function str(v, max) {
   return typeof v === "string" ? v.slice(0, max) : "";
@@ -45,6 +50,7 @@ function str(v, max) {
 function clean(input) {
   const out = {};
   for (const [k, max] of Object.entries(TEXT_FIELDS)) if (k in input) out[k] = str(input[k], max);
+  if ("bookUrl" in out && out.bookUrl.trim()) out.bookUrl = safeLink(/^https?:\/\//i.test(out.bookUrl.trim()) ? out.bookUrl : "https://" + out.bookUrl.trim());
   for (const [k, spec] of Object.entries(LIST_FIELDS)) {
     if (!Array.isArray(input[k])) continue;
     out[k] = input[k].slice(0, spec.max).map((row) => {
@@ -53,6 +59,7 @@ function clean(input) {
       return r;
     }).filter((r) => r[spec.keep].trim() || (k === "sitVisits" && r.body.trim()));
     if (k === "groomers") out[k].forEach((g) => { g.img = safeImg(g.img); });
+    if (k === "payLinks") out[k] = out[k].map((l) => ({ ...l, url: safeLink(l.url) })).filter((l) => l.url);
   }
   if (Array.isArray(input.gallery)) {
     out.gallery = input.gallery.slice(0, 200)

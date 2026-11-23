@@ -64,6 +64,10 @@ Everything the owner can change lives in the edit panel, grouped into sections:
   lists shown when someone picks Cat) (one per line; add
   ` | short description` after a name), the intro, the pet sitting note, the note beside the Send button, and a **Pause requests** message
   that replaces the form while she's booked up
+- **Square: booking & payments:** the Square Appointments booking page link (shows **Book online** buttons in the
+  header, appointment card and request section), the note beside it, the credit card surcharge (shown in the
+  We accept box; leave empty for none) and **Pay online** buttons that open Square payment links (e.g. a deposit).
+  Each part stays hidden until it's filled in. Only `https://` links are accepted.
 - **Policies & payment:** late, no-show, cancellation, matting, vaccination and flea policies, accepted payment
   methods, tip note. The Fleas policy is also shown as a note in the form's Shampoo step.
 - **Photos** and **About**
@@ -84,7 +88,8 @@ policy, and the Maintenance visit request option. Version 3 added the Vaccinatio
 intro and confirmation line, and the rabies-only cat requirement. Version 4 updated the header intro and the hours note,
 and added the How we answer messages note (editable under Contact & hours). Version 5 (Nov 2026) updated the pet
 sitting rates (1 dog and 1 cat overnight $110, "Each additional pet +$10" in place of "4 or more pets"), kept only the
-small-animals add-on, replaced the note in the purple cat box, and added the Fleas policy.
+small-animals add-on, replaced the note in the purple cat box, and added the Fleas policy. Version 6 added credit/debit
+cards and Apple Pay & Google Pay to the payment methods (Square Register).
 
 ## Appointment requests
 
@@ -96,7 +101,9 @@ and end dates. The **Request pet sitting** button in the Pet sitting section ope
 A request is not a booking: the owner confirms by call or text. Requests are saved in KV, appear in the owner panel
 (pet sitting requests are tagged), and are deleted automatically after a year.
 
-- **No fees:** nothing is charged online; clients pay at pickup with cash, check, Cash App or Venmo.
+- **Payments:** requests don't charge anything. Clients pay at pickup (cash, check, cards on the Square Register,
+  Apple Pay & Google Pay, Cash App or Venmo), or online through a Square booking page or payment link if the owner
+  adds them.
 - **Estimate:** when a client picks a service whose name includes "Full groom" plus a size and coat, the form shows
   the matching range from the Grooming prices table (or the cat price).
 - **Cats:** picking Cat switches to the cat services and styles, shows the cat "Type of groom" choices (which
