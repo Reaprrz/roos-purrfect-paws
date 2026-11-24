@@ -69,7 +69,12 @@ Everything the owner can change lives in the edit panel, grouped into sections:
   We accept box; leave empty for none) and **Pay online** buttons that open Square payment links (e.g. a deposit).
   Each part stays hidden until it's filled in. Only `https://` links are accepted. Once the booking link is set,
   grooming is booked entirely on Square: the request section's Grooming option shows a "Book your groom on Square"
-  box (with the vaccine reminder) instead of the form, and the website form is used for pet sitting only.
+  box (with the vaccine reminder). Without a link it shows Text/Call buttons. The website form is for pet sitting
+  only, and the server refuses grooming requests.
+- **Pet sitting email alerts:** each new pet sitting request is emailed to roospurrfectpaws@gmail.com from
+  requests@roospurrfectpaws.store (Cloudflare Email Routing, free). The address is set in `wrangler.jsonc`
+  (`send_email` and `vars`) and must be a verified destination address in Email Routing. Replies go to the client
+  if they gave an email.
 - **Policies & payment:** late, no-show, cancellation, matting, vaccination and flea policies, accepted payment
   methods, tip note. The Fleas policy is also shown as a note in the form's Shampoo step.
 - **Photos** and **About**

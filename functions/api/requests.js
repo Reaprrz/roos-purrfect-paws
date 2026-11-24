@@ -1,7 +1,9 @@
 import { json, isOwner, missingBindings } from "../../lib/auth.js";
 import { MAX_FILES, MAX_FILE_BYTES, MAX_UPLOAD_BYTES, recordKey, sniff, safeName, deleteRecords } from "../../lib/records.js";
+import { emailNewSitting } from "../../lib/alerts.js";
 
-// Grooming and pet sitting requests from the website's "Request an appointment" form.
+// Pet sitting requests from the website's booking section. Grooming is booked on Square, so grooming
+// requests are refused (older grooming requests stay in the inbox until deleted or expired).
 //   POST   /api/requests              anyone   → saves a new request (validated, spam-guarded, rate limited).
 //                                              JSON, or multipart with a "data" JSON field plus up to 3 "records" files
 //   GET    /api/requests              owner    → newest requests first
@@ -144,6 +146,9 @@ export async function onRequestPost(context) {
     return json({ ok: true });
   }
   const r = clean(body);
+  if (r.type !== "sit") {
+    return json({ error: "Grooming appointments are booked online through Square. Please use the Book online button, or text us." }, 400);
+  }
   if (body.agree !== true) {
     return json({ error: r.type === "sit" ? "Please confirm you've read the pet sitting rates." : "Please confirm you've read our policies." }, 400);
   }
@@ -181,6 +186,9 @@ export async function onRequestPost(context) {
     metadata: { status: "new", expiration },
   });
   await env.SITE.put(rlKey, String(count + 1), { expirationTtl: 3600 });
+
+  // Email alert to the shop (Cloudflare Email Routing), sent after the response so the visitor isn't kept waiting.
+  if (r.type === "sit") later(context, emailNewSitting(env, record));
 
   // Optional phone alert through ntfy (free). Set NTFY_TOPIC to a long, hard-to-guess name.
   // Only a generic message is sent, never the client's details.

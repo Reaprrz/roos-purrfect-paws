@@ -316,6 +316,8 @@ table.rates td+td{font-weight:900;color:var(--pink);font-size:18px}
 .sqpanel .sqgo{width:100%;min-height:54px;font-size:18px}
 .sqpanel .exa-line{margin:8px 0 0;font-size:13px;font-weight:800;color:var(--lav-deep)}
 .sqpanel .vaxdone{margin:18px 0 0;font-size:14px}
+.sqbtns{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.sqbtns .btn{flex:1 1 180px}
 .sqsit{margin:14px 0 0;font-size:14px;color:var(--plum-mut);font-weight:700}
 .sqi{flex:none;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--pink);color:var(--white)}
 .sqi svg{width:24px;height:24px}
@@ -1294,7 +1296,7 @@ function careText(r){
 }
 
 function kindHTML(){
-  var k=[['groom','Grooming',sq().book?'Book online through Square':'Dogs and cats at our salon',I_SCISSORS],['sit','Pet sitting','Check-ins or overnights at your home',I_HOME]];
+  var k=[['groom','Grooming',sq().book?'Book online through Square':'Book by text or call',I_SCISSORS],['sit','Pet sitting','Check-ins or overnights at your home',I_HOME]];
   return '<div class="kind">'+k.map(function(o,i){var id='rq_type_'+i;
     return '<div class="o"><input type="radio" id="'+id+'" name="type" value="'+o[0]+'"'+(REQ.type===o[0]?' checked':'')+'><label for="'+id+'"><span class="ki">'+o[3]+'</span><span><b>'+o[1]+'</b><small>'+o[2]+'</small></span></label></div>'}).join('')+'</div>';
 }
@@ -1319,9 +1321,10 @@ function requestInner(){
   }
   if(REQ_SENT)return doneHTML(REQ_SENT);
   var sit=REQ.type==='sit',min=todayISO(),step=0,num=function(){return '<span class="num">'+(++step)+'</span>'},q=sq();
-  var kind='<fieldset class="kindset"><legend>What would you like to '+(q.book?'book':'request')+'?</legend>'+kindHTML()+
+  var kind='<fieldset class="kindset"><legend>What would you like to book?</legend>'+kindHTML()+
      (sit&&S.reqSitIntro?'<p class="hint-line kind-hint">'+esc(S.reqSitIntro)+'</p>':'')+'</fieldset>';
-  if(!sit&&q.book)return '<form class="rq-card" id="rqForm" novalidate>'+kind+squareGroomHTML(q)+'</form>';
+  // grooming is only booked on Square (or by text/call); the website form is for pet sitting
+  if(!sit)return '<form class="rq-card" id="rqForm" novalidate>'+kind+(q.book?squareGroomHTML(q):groomContactHTML())+'</form>';
   return '<form class="rq-card" id="rqForm" novalidate>'+kind+
    '<fieldset><legend>'+num()+'About you</legend><div class="fgrid">'+
      '<div class="fld"><label for="rq_name">Your name</label><input type="text" id="rq_name" name="name" autocomplete="name" value="'+esc(REQ.name)+'" required></div>'+
@@ -1346,6 +1349,12 @@ function squareGroomHTML(q){
     '<a class="btn sqgo" '+extA(q.book,q.bookEx)+'>'+I_LINK+'Book on Square</a>'+
     (q.bookEx?'<p class="exa-line">Preview: this button opens your Square booking page once its link is in the owner panel.</p>':'')+
     '<p class="vaxdone">'+I_SYRINGE+'<span>'+esc(S.reqVaxCat)+' '+(S.phone?'Text a photo of your pet\'s vaccine records to '+esc(S.phone)+', or bring them to your appointment.':'Please bring your pet\'s vaccine records to your appointment.')+'</span></p>'+
+    '<p class="sqsit">Going out of town? Choose <b>Pet sitting</b> above to send us a request.</p></div>';
+}
+function groomContactHTML(){
+  return '<div class="sqpanel"><div class="sqtop"><span class="sqi">'+I_TEXT+'</span><div><h3>Book your groom by text or call</h3><p>Text or call us and we\'ll find a time that works for you.</p></div></div>'+
+    (S.phone?'<div class="sqbtns"><a class="btn" href="'+smsHref(S.phone)+'">'+I_TEXT+'Text '+esc(S.phone)+'</a><a class="btn ghost" href="'+telHref(S.phone)+'">'+I_PHONE+'Call</a></div>':'')+
+    '<p class="vaxdone">'+I_SYRINGE+'<span>'+esc(S.reqVaxCat)+' Please bring your pet\'s vaccine records to your appointment.</span></p>'+
     '<p class="sqsit">Going out of town? Choose <b>Pet sitting</b> above to send us a request.</p></div>';
 }
 function sitSteps(num,min){
@@ -1463,8 +1472,9 @@ function vaxDoneHTML(r){
   return t?'<p class="vaxdone">'+I_SYRINGE+'<span>'+t+'</span></p>':'';
 }
 function howHTML(){
-  var steps=REQ.type!=='sit'&&sq().book
-    ?['Pick your services, groomer and time on our Square booking page.','We confirm your appointment.','Bring your pet in and pay the rest at pickup.']
+  var steps=REQ.type!=='sit'
+    ?(sq().book?['Pick your services, groomer and time on our Square booking page.','We confirm your appointment.','Bring your pet in and pay the rest at pickup.']
+      :['Text or call us to set up a time.','We confirm your appointment.','Bring your pet in and pay at pickup.'])
     :REQ.type==='sit'
     ?['Send this request with your pets and the dates you\'ll be away.','We '+(S.phone?'text or call you':'reach out')+' to talk through the details and confirm.','We care for your pets at home while you\'re away.']
     :['Send this request with your pet\'s details and vaccine records.','We '+(S.phone?'call or text you':'reach out')+' to discuss availability and confirm your appointment.','Bring your pet in. Pay at pickup.'];
@@ -1472,7 +1482,7 @@ function howHTML(){
 }
 function requestHTML(){
   var q=sq();
-  return '<section class="block request" id="request"><div class="wrap"><div class="head"><h2><span class="kicker">Grooming &amp; pet sitting</span>'+(q.book?'Book an':'Request an')+' <em>appointment</em></h2><p>'+esc(q.book?(S.reqIntroSq||S.reqIntro):S.reqIntro)+'</p></div>'+
+  return '<section class="block request" id="request"><div class="wrap"><div class="head"><h2><span class="kicker">Grooming &amp; pet sitting</span>Book an <em>appointment</em></h2><p>'+esc(q.book?S.reqIntroSq:'Text or call us to book a groom, or send us a request for pet sitting.')+'</p></div>'+
     '<div class="rq-grid"><div id="rqSlot">'+requestInner()+'</div>'+
     '<aside class="rq-side">'+howHTML()+
     (S.phone?'<div class="callbox"><h3>Prefer to text?</h3><p>Texting is the best way to reach us. We reply between appointments, early in the morning or after the grooming day wraps up.</p><a class="btn" href="'+smsHref(S.phone)+'">'+I_TEXT+'Text '+esc(S.phone)+'</a></div>':'')+
@@ -1607,7 +1617,7 @@ function render(){
   var hero=safeImg(S.heroImg), aboutImg=safeImg(S.aboutImg);
   var ctas='';
   var q=sq();
-  ctas+=q.book?'<a class="btn" '+extA(q.book,q.bookEx)+'>'+I_CAL+'Book online</a>':'<a class="btn" href="#request">'+I_CAL+'Request an appointment</a>';
+  ctas+=q.book?'<a class="btn" '+extA(q.book,q.bookEx)+'>'+I_CAL+'Book online</a>':'<a class="btn" href="#request">'+I_CAL+'Book an appointment</a>';
   if(S.phone)ctas+='<a class="btn ghost half" href="'+smsHref(S.phone)+'">'+I_TEXT+'Text us</a><a class="btn ghost half" href="'+telHref(S.phone)+'">'+I_PHONE+'Call</a>';
   if(fbUrl)ctas+='<a class="btn ghost social" href="'+esc(fbUrl)+'" target="_blank" rel="noopener">'+I_FB+'Facebook</a>';
   if(igUrl)ctas+='<a class="btn ghost social" href="'+esc(igUrl)+'" target="_blank" rel="noopener">'+I_IG+'Instagram</a>';
@@ -1617,7 +1627,7 @@ function render(){
   if(S.phone)card+='<div><dt>Phone</dt><dd><a href="'+telHref(S.phone)+'">'+esc(S.phone)+'</a></dd></div>';
   var txt=S.phone?'<a href="'+smsHref(S.phone)+'">text</a>':'text',cl=S.phone?'<a href="'+telHref(S.phone)+'">call</a>':'call';
   var paused=S.reqPaused&&S.reqPaused.trim();
-  card+='<div><dt>Booking</dt><dd>'+(q.book?'<a '+extA(q.book,q.bookEx)+'>Book online</a>, '+txt+' or '+cl:(paused?'Text or call':'<a href="#request">Request online</a>, '+txt+' or '+cl))+'</dd></div>';
+  card+='<div><dt>Booking</dt><dd>'+(q.book?'<a '+extA(q.book,q.bookEx)+'>Book online</a>, '+txt+' or '+cl:(S.phone?'<a href="'+smsHref(S.phone)+'">Text</a> or '+cl:'Text or call'))+'</dd></div>';
   if(S.address)card+='<div><dt>Where</dt><dd><a href="'+esc(mapHref(S.address))+'" target="_blank" rel="noopener">'+esc(S.address)+'</a></dd></div>';
   var hl=lines(S.hours);
   if(hl.length)card+='<div><dt>Hours</dt><dd>'+esc(hl[0])+(hl.length>1?' <a href="#visit">+ more</a>':'')+'</dd></div>';
@@ -1631,7 +1641,7 @@ function render(){
     : '<div class="empty" aria-hidden="true"><div>'+PAW+'</div><div>'+PAW+'</div><div>'+PAW+'</div></div><p class="empty-note">Fresh cuts are on the way.'+(socLinks.length?' See the latest on '+socLinks.slice(0,-1).join(', ')+(socLinks.length>1?' and ':'')+socLinks[socLinks.length-1]+'.':'')+'</p>';
 
   var visit='<div class="vgrid">';
-  if(S.phone)visit+='<div class="vbox"><small>Text or call</small><div class="big">'+esc(S.phone)+'<button type="button" class="copy" data-copy="'+esc(S.phone)+'">Copy</button></div><div class="sub">Or <a href="#request">send a request online</a> for grooming or pet sitting.</div><div class="vlinks"><a class="link" href="'+smsHref(S.phone)+'">Tap to text</a><a class="link" href="'+telHref(S.phone)+'">Tap to call</a></div></div>';
+  if(S.phone)visit+='<div class="vbox"><small>Text or call</small><div class="big">'+esc(S.phone)+'<button type="button" class="copy" data-copy="'+esc(S.phone)+'">Copy</button></div><div class="sub">Or '+(q.book?'<a '+extA(q.book,q.bookEx)+'>book grooming online</a> and ':'')+'<a href="#request" data-reqtype="sit">send a pet sitting request</a> here.</div><div class="vlinks"><a class="link" href="'+smsHref(S.phone)+'">Tap to text</a><a class="link" href="'+telHref(S.phone)+'">Tap to call</a></div></div>';
   if(S.address)visit+='<div class="vbox"><small>Find us</small><div class="big">'+esc(S.address)+'</div><a class="link" href="'+esc(mapHref(S.address))+'" target="_blank" rel="noopener">Get directions</a></div>';
   visit+='<div class="vbox"><small>Hours</small>'+(hoursList()||'<div class="big">By appointment</div>')+(S.hoursNote?'<div class="sub">'+esc(S.hoursNote)+'</div>':'')+'</div></div>';
   var soc='';
@@ -1658,7 +1668,7 @@ function render(){
   '<section class="block about" id="about"><div class="wrap"><div class="about-art"><div class="blob"></div><div class="blob b2"></div>'+(aboutImg?'<img src="'+esc(aboutImg)+'" alt="Inside '+esc(S.name)+'">':'<svg class="paw" viewBox="0 0 64 64" aria-hidden="true">'+PAWG+'</svg>')+'</div>'+
     '<div class="about-text"><div class="head"><h2>About <em>'+esc(S.name)+'</em></h2></div><p>'+esc(S.about)+'</p></div></div></section>'+
   teamHTML()+
-  '<section class="block visit" id="visit"><div class="wrap"><div class="head"><h2>Come <em>see us</em></h2><p>'+(q.book?'Book grooming online, text or call us, or send a request for pet sitting.':'Text, call or send a request online to book grooming or pet sitting.')+'</p></div>'+(lines(S.contactNote).length?'<div class="msgnote">'+I_TEXT+'<div><h3>How we answer messages</h3>'+paras(S.contactNote)+'</div></div>':'')+visit+(soc?'<div class="socials">'+soc+'</div>':'')+'</div></section>'+
+  '<section class="block visit" id="visit"><div class="wrap"><div class="head"><h2>Come <em>see us</em></h2><p>'+(q.book?'Book grooming online, text or call us, or send a request for pet sitting.':'Text or call to book a groom, or send a request online for pet sitting.')+'</p></div>'+(lines(S.contactNote).length?'<div class="msgnote">'+I_TEXT+'<div><h3>How we answer messages</h3>'+paras(S.contactNote)+'</div></div>':'')+visit+(soc?'<div class="socials">'+soc+'</div>':'')+'</div></section>'+
   '</main>'+
   '<footer><div class="wrap"><span>&copy; '+new Date().getFullYear()+' '+esc(S.name)+' · Sheffield Lake, Ohio</span><button type="button" id="ownerBtn">Owner login</button></div></footer>';
 }
@@ -1731,7 +1741,7 @@ function editView(){
     field('catSpaName','Spa package name')+field('catSpaPrice','Spa package price')+field('catSpaIncludes','Spa package includes',{area:1,rows:4,hint:'(one per line)'})+field('catSpaNote','Spa package note')+
     '<label>Add-ons</label>'+listSlot('catAddons')+'<label>Extra fees</label>'+listSlot('catFees')+
     field('catNotes','Notes at the bottom',{area:1,rows:3,hint:'(one per line)'}))+
-  sec('Request form',field('reqPaused','Pause requests',{area:1,rows:2,hint:'(type a message to show instead of the form, e.g. "We\'re fully booked until Dec 1." Leave empty to accept requests.)'})+
+  sec('Request form','<p class="help">Grooming is booked on Square (or by text and call), so the website form is only used for <b>pet sitting</b>. The grooming choices further down aren\'t shown on the site.</p>'+field('reqPaused','Pause requests',{area:1,rows:2,hint:'(type a message to show instead of the form, e.g. "We\'re fully booked until Dec 1." Leave empty to accept requests.)'})+
     field('reqIntro','Intro',{area:1,rows:2})+
     field('reqSitIntro','Pet sitting note',{area:1,rows:2,hint:'(shown in the form when someone picks Pet sitting)'})+
     field('reqServices','Services clients can pick',{area:1,rows:8,hint:'(one per line; add " | short description" after a name if you like)'})+

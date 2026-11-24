@@ -25,5 +25,16 @@
   // Secrets are never removed by a deploy; keep_vars also protects any dashboard variables.
   "keep_vars": true,
 
+  // Pet sitting request alerts by email, sent with Cloudflare Email Routing (free).
+  // The address below must be a verified destination address in Email Routing.
+  "send_email": [
+    { "name": "ALERT_EMAIL", "destination_address": "roospurrfectpaws@gmail.com" }
+  ],
+  "vars": {
+    "ALERT_TO": "roospurrfectpaws@gmail.com",
+    "ALERT_FROM": "requests@roospurrfectpaws.store",
+    "SITE_URL": "https://roospurrfectpaws.store"
+  },
+
   "observability": { "enabled": true }
 }
